@@ -1,7 +1,23 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Search, ShoppingBag, MapPin, X, ArrowRight, Sparkles, Tag } from "lucide-react";
+import {
+  Search,
+  MapPin,
+  X,
+  ArrowRight,
+  Sparkles,
+  Tag,
+  Store,
+  Compass,
+  ShoppingBag,
+  Gem,
+  Tv,
+  Shirt,
+  Flame,
+  BadgePercent,
+  TrendingUp,
+} from "lucide-react";
 import { products, shops } from "@/data/mockData";
 
 interface HeroProps {
@@ -19,6 +35,14 @@ const POPULAR_TAGS = [
   "Silk Sarees",
   "Ceylon Cinnamon",
   "Smartwatch",
+];
+
+const QUICK_CATEGORIES = [
+  { label: "Sarees & Clothes", icon: Shirt, query: "Clothes", color: "from-pink-500/20 to-rose-500/10 border-pink-500/30 text-pink-300" },
+  { label: "Tech & Gadgets", icon: Tv, query: "Electronics", color: "from-blue-500/20 to-cyan-500/10 border-blue-500/30 text-cyan-300" },
+  { label: "Pure Spices", icon: Flame, query: "Spices", color: "from-amber-500/20 to-orange-500/10 border-amber-500/30 text-amber-300" },
+  { label: "Sea St Gold", icon: Gem, query: "Jewellery", color: "from-yellow-500/20 to-amber-500/10 border-yellow-500/30 text-yellow-300" },
+  { label: "Bags & Travel", icon: ShoppingBag, query: "Bags", color: "from-purple-500/20 to-indigo-500/10 border-purple-500/30 text-purple-300" },
 ];
 
 export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
@@ -78,57 +102,122 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
   };
 
   return (
-    <section className="relative pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Background glow effects */}
+    <section className="relative pt-24 pb-14 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      {/* Background ambient lighting effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-36 -left-36 w-96 h-96 bg-orange-500/15 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -top-20 right-0 w-80 h-80 bg-red-600/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[250px] bg-orange-500/8 rounded-full blur-3xl" />
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[360px] bg-gradient-to-b from-orange-500/20 via-red-600/10 to-transparent rounded-full blur-[110px]" />
+        <div className="absolute top-1/4 -left-32 w-80 h-80 bg-orange-600/15 rounded-full blur-[100px] animate-pulse" />
+        <div className="absolute top-1/3 -right-32 w-80 h-80 bg-red-600/15 rounded-full blur-[100px]" />
+        {/* Subtle grid pattern overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px)`,
+            backgroundSize: "28px 28px",
+          }}
+        />
       </div>
 
-      <div className="relative max-w-4xl mx-auto text-center">
-        {/* Hub location Badge */}
-        <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 backdrop-blur-md rounded-full px-4 py-1.5 mb-6 animate-fade-in-up">
-          <MapPin className="w-3.5 h-3.5 text-orange-400" />
-          <span className="text-xs font-semibold text-orange-300">
-            Colombo 11 · Main St, Cross St & Keyzer St Bazaar
+      <div className="relative max-w-5xl mx-auto text-center">
+        {/* 1. NEXT-LEVEL LOCATION BADGE */}
+        <div className="inline-flex items-center gap-2.5 bg-gradient-to-r from-orange-500/15 via-red-500/10 to-orange-500/15 border border-orange-500/30 backdrop-blur-xl rounded-full px-5 py-2 mb-6 shadow-lg shadow-orange-500/10 hover:border-orange-500/50 transition-all duration-300 group animate-fade-in-up">
+          <div className="w-5 h-5 rounded-full bg-orange-500/20 flex items-center justify-center border border-orange-500/40 text-orange-400 group-hover:scale-110 transition-transform">
+            <Compass className="w-3.5 h-3.5 animate-spin" style={{ animationDuration: "12s" }} />
+          </div>
+          <span className="text-xs sm:text-sm font-semibold tracking-wide text-neutral-200">
+            Colombo 11 <span className="text-orange-400">·</span> Main St, Cross St & Keyzer St Bazaar
           </span>
-          <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+          </span>
         </div>
 
-        {/* Main heading */}
+        {/* 2. ULTRA-ATTRACTIVE MAIN HERO HEADING */}
         <h1
-          className="text-4xl sm:text-5xl md:text-6xl font-black font-[Sora] leading-tight mb-4 tracking-tight animate-fade-in-up"
+          className="text-4xl sm:text-6xl md:text-7xl font-black font-[Sora] leading-[1.08] tracking-tight mb-5 animate-fade-in-up"
           style={{ animationDelay: "80ms" }}
         >
-          <span className="text-white">Find the Best </span>
-          <span className="gradient-text">Deals</span>
+          <span className="text-white drop-shadow-md">Find the Best </span>
+          <span className="text-shine drop-shadow-lg">Deals</span>
           <br />
-          <span className="text-white">in </span>
-          <span className="gradient-text">Pettah Bazaar</span>
+          <span className="text-white drop-shadow-md">in </span>
+          <span className="relative inline-block">
+            <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-red-500 bg-clip-text text-transparent font-black">
+              Pettah Bazaar
+            </span>
+            {/* Ambient underline glow */}
+            <span className="absolute -bottom-1.5 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-orange-500 to-transparent opacity-80 blur-[1px]" />
+          </span>
         </h1>
 
-        <p
-          className="text-base sm:text-lg text-neutral-300 max-w-2xl mx-auto mb-8 leading-relaxed animate-fade-in-up"
+        {/* 3. NEXT-LEVEL VIBRANT INTRO PARAGRAPH WITH CATEGORY TAGS */}
+        <div
+          className="max-w-3xl mx-auto mb-8 animate-fade-in-up"
           style={{ animationDelay: "160ms" }}
         >
-          Pettah has it all — from{" "}
-          <span className="text-orange-400 font-semibold">textiles, silk sarees, mobile electronics, pure Ceylon spices, Sea Street jewellery, travel bags</span>,
-          to wholesale footwear. Compare prices and get directions to the exact stall.
-        </p>
+          <p className="text-base sm:text-lg md:text-xl text-neutral-300 leading-relaxed font-normal">
+            Pettah has it all — from{" "}
+            <span className="text-white font-semibold underline decoration-orange-500/60 decoration-2 underline-offset-4">
+              textiles & silk sarees
+            </span>
+            ,{" "}
+            <span className="text-white font-semibold underline decoration-cyan-500/60 decoration-2 underline-offset-4">
+              mobile electronics
+            </span>
+            ,{" "}
+            <span className="text-white font-semibold underline decoration-amber-500/60 decoration-2 underline-offset-4">
+              pure Ceylon spices
+            </span>
+            ,{" "}
+            <span className="text-white font-semibold underline decoration-yellow-500/60 decoration-2 underline-offset-4">
+              Sea Street jewellery
+            </span>
+            , and{" "}
+            <span className="text-white font-semibold underline decoration-purple-500/60 decoration-2 underline-offset-4">
+              travel bags
+            </span>
+            , to wholesale footwear.
+          </p>
 
-        {/* PROMINENT LARGE SEARCH BAR WITH AUTO-SUGGESTIONS */}
+          <p className="text-xs sm:text-sm text-neutral-400 mt-2 flex items-center justify-center gap-2">
+            <BadgePercent className="w-4 h-4 text-orange-400 inline" />
+            <span>Compare verified street merchant prices and navigate straight to the exact stall.</span>
+          </p>
+        </div>
+
+        {/* 4. QUICK DISCOVERY CHIPS (Pettah's Key Pillars) */}
+        <div
+          className="flex items-center justify-center gap-2 flex-wrap mb-8 animate-fade-in-up"
+          style={{ animationDelay: "200ms" }}
+        >
+          {QUICK_CATEGORIES.map((item) => {
+            const Icon = item.icon;
+            return (
+              <button
+                key={item.label}
+                onClick={() => handleSelectSuggestion(item.query)}
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border text-xs font-semibold bg-gradient-to-r ${item.color} backdrop-blur-md hover:scale-105 active:scale-95 transition-all shadow-md`}
+              >
+                <Icon className="w-3.5 h-3.5" />
+                <span>{item.label}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* 5. PROMINENT LARGE SEARCH BAR WITH AUTO-SUGGESTIONS */}
         <div
           ref={containerRef}
           className="relative max-w-2xl mx-auto mb-8 animate-fade-in-up z-30"
-          style={{ animationDelay: "220ms" }}
+          style={{ animationDelay: "240ms" }}
         >
           <form
             onSubmit={handleSubmit}
-            className="relative flex items-center bg-[#161616]/90 border border-white/15 focus-within:border-orange-500/80 rounded-2xl shadow-2xl backdrop-blur-xl p-2 transition-all group hover:border-white/25"
+            className="relative flex items-center bg-[#161616]/95 border-2 border-white/15 focus-within:border-orange-500 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8),0_0_25px_rgba(249,115,22,0.15)] backdrop-blur-2xl p-2 transition-all duration-300 group hover:border-white/30"
           >
-            <div className="pl-3 pr-2 text-orange-400">
-              <Search className="w-6 h-6" />
+            <div className="pl-3.5 pr-2 text-orange-400 flex items-center justify-center">
+              <Search className="w-6 h-6 group-focus-within:scale-110 transition-transform" />
             </div>
 
             <input
@@ -158,7 +247,7 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
             <button
               type="submit"
               id="hero-search-submit"
-              className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-semibold text-sm sm:text-base px-5 sm:px-6 py-3 rounded-xl transition-all shadow-lg shadow-orange-500/25 flex-shrink-0"
+              className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold text-sm sm:text-base px-6 sm:px-7 py-3 rounded-xl transition-all shadow-xl shadow-orange-500/30 flex-shrink-0 active:scale-95"
             >
               <span>Search</span>
               <ArrowRight className="w-4 h-4 hidden sm:inline" />
@@ -208,30 +297,31 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
           )}
         </div>
 
-        {/* Stats row */}
+        {/* 6. TRUST & BAZAAR METRICS ROW */}
         <div
-          className="flex items-center justify-center gap-6 sm:gap-12 mb-8 animate-fade-in-up"
+          className="flex items-center justify-center gap-6 sm:gap-14 mb-7 animate-fade-in-up"
           style={{ animationDelay: "280ms" }}
         >
           {[
-            { icon: ShoppingBag, value: "19+", label: "Verified Products" },
-            { icon: MapPin, value: "6", label: "Street Merchants" },
-            { icon: Sparkles, value: "LKR 3.2k+", label: "Best Pettah Deals" },
+            { icon: ShoppingBag, value: "28+", label: "Verified Products" },
+            { icon: Store, value: "6 Major", label: "Street Districts" },
+            { icon: TrendingUp, value: "LKR 1,800+", label: "Wholesale Bargains" },
+            { icon: Sparkles, value: "100% Live", label: "Stall Navigation" },
           ].map(({ icon: Icon, value, label }) => (
-            <div key={label} className="flex flex-col items-center gap-1">
-              <Icon className="w-4 h-4 text-orange-400 mb-0.5" />
+            <div key={label} className="flex flex-col items-center gap-1 group">
+              <Icon className="w-4 h-4 text-orange-400 mb-0.5 group-hover:scale-110 transition-transform" />
               <span className="text-lg sm:text-xl font-black text-white">{value}</span>
               <span className="text-xs text-neutral-400">{label}</span>
             </div>
           ))}
         </div>
 
-        {/* Popular searches / category quick tags */}
+        {/* 7. QUICK TAGS */}
         <div
           className="flex items-center justify-center gap-2 flex-wrap animate-fade-in-up"
-          style={{ animationDelay: "340ms" }}
+          style={{ animationDelay: "320ms" }}
         >
-          <span className="text-xs text-neutral-400 font-medium">Quick find:</span>
+          <span className="text-xs text-neutral-400 font-medium">Popular now:</span>
           {POPULAR_TAGS.map((term) => (
             <button
               key={term}

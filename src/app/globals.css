@@ -141,6 +141,39 @@ body {
   50% { transform: scale(1.5); opacity: 0; }
 }
 
+/* Text shine animation */
+@keyframes textShine {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.text-shine {
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #fb923c 25%,
+    #f97316 50%,
+    #ef4444 75%,
+    #ffffff 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textShine 4s linear infinite;
+}
+
+/* Floating animation */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float-slow {
+  animation: floatSlow 5s ease-in-out infinite;
+}
+
 /* Range slider */
 input[type='range'] {
   -webkit-appearance: none;
