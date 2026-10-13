@@ -943,15 +943,17 @@ export const searchProducts = (
   minPrice: number = 0,
   maxPrice: number = Infinity,
   sortBy: string = "relevance",
-  location: string = "All Locations"
+  location: string = "All Locations",
+  sourceProducts: Product[] = products,
+  sourceShops: Shop[] = shops
 ): Product[] => {
-  let results = products;
+  let results = [...sourceProducts];
 
   // Filter by search query
   if (query.trim()) {
     const q = query.toLowerCase();
     results = results.filter((p) => {
-      const shop = shops.find((s) => s.id === p.shopId);
+      const shop = sourceShops.find((s) => s.id === p.shopId);
       return (
         p.name.toLowerCase().includes(q) ||
         p.tags.some((t) => t.toLowerCase().includes(q)) ||
@@ -993,7 +995,7 @@ export const searchProducts = (
   // Filter by Shop Location
   if (location && location !== "All Locations") {
     results = results.filter((p) => {
-      const shop = shops.find((s) => s.id === p.shopId);
+      const shop = sourceShops.find((s) => s.id === p.shopId);
       return shop?.area.toLowerCase().includes(location.toLowerCase());
     });
   }
@@ -1014,8 +1016,8 @@ export const searchProducts = (
       break;
     case "distance":
       results.sort((a, b) => {
-        const shopA = shops.find((s) => s.id === a.shopId);
-        const shopB = shops.find((s) => s.id === b.shopId);
+        const shopA = sourceShops.find((s) => s.id === a.shopId);
+        const shopB = sourceShops.find((s) => s.id === b.shopId);
         const distA = parseFloat(shopA?.distance ?? "999");
         const distB = parseFloat(shopB?.distance ?? "999");
         return distA - distB;

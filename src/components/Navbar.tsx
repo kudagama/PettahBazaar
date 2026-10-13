@@ -21,14 +21,18 @@ import {
   ArrowRight,
   Flame,
   Radio,
+  User as UserIcon,
 } from "lucide-react";
 import { products, shops, mainCategories, shopLocations } from "@/data/mockData";
+import { useMarketplace } from "@/context/MarketplaceContext";
 
 interface NavbarProps {
   onSearch: (query: string) => void;
   onCategorySelect?: (cat: string) => void;
   onLocationSelect?: (loc: string) => void;
   cartCount?: number;
+  activePortal?: "customer" | "seller";
+  onSwitchPortal?: (portal: "customer" | "seller") => void;
 }
 
 const MEGA_CATEGORIES = [
@@ -86,7 +90,17 @@ export default function Navbar({
   onSearch,
   onCategorySelect,
   onLocationSelect,
+  activePortal = "customer",
+  onSwitchPortal,
 }: NavbarProps) {
+  const {
+    currentUser,
+    openAuthModal,
+    allShops,
+    allProducts,
+    sellerShop,
+  } = useMarketplace();
+
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<typeof products>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -167,7 +181,7 @@ export default function Navbar({
     setQuery(val);
     if (val.trim().length > 0) {
       const q = val.toLowerCase();
-      const filtered = products
+      const filtered = allProducts
         .filter(
           (p) =>
             p.name.toLowerCase().includes(q) ||
@@ -469,30 +483,84 @@ export default function Navbar({
             </div>
 
             {/* RIGHT ACTION BUTTONS */}
-            <div className="flex items-center gap-1.5 xs:gap-2.5 flex-shrink-0">
+            <div className="flex items-center gap-1.5 xs:gap-2 flex-shrink-0">
               {/* Live Stalls Badge (Desktop) */}
-              <div className="hidden md:flex items-center gap-1.5 text-xs font-semibold text-orange-300 bg-orange-500/10 border border-orange-500/25 rounded-xl px-3 py-1.5 backdrop-blur-md">
+              <div className="hidden xl:flex items-center gap-1.5 text-xs font-semibold text-orange-300 bg-orange-500/10 border border-orange-500/25 rounded-xl px-3 py-1.5 backdrop-blur-md">
                 <Store className="w-3.5 h-3.5 text-orange-400" />
-                <span>{shops.length} Live Merchants</span>
+                <span>{allShops.length} Live Merchants</span>
               </div>
+
+              {/* Seller Mode Toggle / Register Stall Trigger */}
+              {currentUser?.role === "seller" ? (
+                <button
+                  id="nav-seller-portal-btn"
+                  onClick={() => onSwitchPortal?.("seller")}
+                  className={`hidden sm:flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl transition-all ${
+                    activePortal === "seller"
+                      ? "bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-lg shadow-orange-500/25 ring-2 ring-orange-500/40"
+                      : "bg-orange-500/15 hover:bg-orange-500/25 text-orange-300 border border-orange-500/35"
+                  }`}
+                  title="Open Pettah Merchant Dashboard"
+                >
+                  <Store className="w-3.5 h-3.5" />
+                  <span>Seller Portal</span>
+                  {sellerShop && (
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  )}
+                </button>
+              ) : (
+                <button
+                  id="nav-sell-on-pettah-btn"
+                  onClick={() => openAuthModal("seller")}
+                  className="hidden sm:flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl bg-gradient-to-r from-red-600/20 to-orange-600/20 text-orange-300 hover:text-white border border-orange-500/30 hover:border-orange-500/60 transition-all hover:scale-105"
+                  title="Register your Pettah stall or wholesale store"
+                >
+                  <Store className="w-3.5 h-3.5 text-orange-400" />
+                  <span>Sell on Pettah</span>
+                </button>
+              )}
+
+              {/* Customer / User Account Button */}
+              <button
+                id="nav-account-btn"
+                onClick={() => openAuthModal(currentUser?.role || "customer")}
+                className="flex items-center gap-1.5 text-xs font-semibold px-2.5 xs:px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-colors active:scale-95"
+                title="Account & Role Switcher"
+              >
+                <UserIcon className="w-3.5 h-3.5 text-orange-400" />
+                <span className="hidden md:inline max-w-[85px] truncate">
+                  {currentUser ? currentUser.name.split(" ")[0] : "Login"}
+                </span>
+                <span
+                  className={`text-[9px] uppercase font-extrabold px-1.5 py-0.5 rounded ${
+                    currentUser?.role === "seller"
+                      ? "bg-red-500/20 text-red-300 border border-red-500/30"
+                      : "bg-orange-500/20 text-orange-400 border border-orange-500/30"
+                  }`}
+                >
+                  {currentUser?.role === "seller" ? "Seller" : "cx"}
+                </span>
+              </button>
 
               {/* Interactive Map Button (Desktop/Tablet) */}
               <button
                 onClick={() => {
+                  if (activePortal === "seller") onSwitchPortal?.("customer");
                   const el = document.getElementById("tab-shops");
                   if (el) el.click();
                   const target = document.getElementById("tab-shops");
                   if (target) target.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="hidden sm:flex items-center gap-1.5 text-xs font-bold bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white rounded-xl px-3.5 sm:px-4 py-2 shadow-lg shadow-orange-500/25 active:scale-95 transition-all"
+                className="hidden lg:flex items-center gap-1.5 text-xs font-bold bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white rounded-xl px-3.5 py-2 shadow-lg shadow-orange-500/25 active:scale-95 transition-all"
               >
                 <Navigation className="w-3.5 h-3.5" />
-                <span>Pettah Map</span>
+                <span>Map</span>
               </button>
 
               {/* Mobile Quick Map Button */}
               <button
                 onClick={() => {
+                  if (activePortal === "seller") onSwitchPortal?.("customer");
                   const el = document.getElementById("tab-shops");
                   if (el) el.click();
                   const target = document.getElementById("tab-shops");
@@ -528,6 +596,84 @@ export default function Navbar({
 
             {/* Drawer Body */}
             <div className="relative z-50 lg:hidden mt-2 px-3 sm:px-4 pt-3 pb-6 bg-[#121212] border-t border-white/10 space-y-4 animate-fade-in-up max-h-[calc(100vh-100px)] overflow-y-auto shadow-2xl">
+              {/* Mobile User Role & Portal Switching Box */}
+              <div className="p-3 rounded-2xl bg-white/[0.04] border border-white/10 space-y-2.5">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <div className="w-8 h-8 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center font-bold text-xs border border-orange-500/30 flex-shrink-0">
+                      {currentUser?.role === "seller" ? (
+                        <Store className="w-4 h-4" />
+                      ) : (
+                        <UserIcon className="w-4 h-4" />
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-xs font-bold text-white flex items-center gap-1.5 truncate">
+                        <span className="truncate">{currentUser?.name || "Guest Shopper"}</span>
+                        <span
+                          className={`text-[9px] uppercase px-1.5 py-0.2 rounded font-extrabold flex-shrink-0 ${
+                            currentUser?.role === "seller"
+                              ? "bg-red-500/20 text-red-300 border border-red-500/30"
+                              : "bg-orange-500/20 text-orange-400 border border-orange-500/30"
+                          }`}
+                        >
+                          {currentUser?.role === "seller" ? "Seller" : "Customer (cx)"}
+                        </span>
+                      </div>
+                      <div className="text-[10px] text-neutral-400 truncate">
+                        {currentUser?.email || "Click login to switch accounts"}
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      openAuthModal(currentUser?.role || "customer");
+                    }}
+                    className="text-xs font-semibold text-orange-400 hover:text-orange-300 px-2.5 py-1 rounded-lg bg-orange-500/10 border border-orange-500/20 flex-shrink-0"
+                  >
+                    Switch / Login
+                  </button>
+                </div>
+
+                {/* Quick Portal Switch Buttons */}
+                <div className="grid grid-cols-2 gap-2 pt-1 border-t border-white/5">
+                  <button
+                    onClick={() => {
+                      onSwitchPortal?.("customer");
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`p-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
+                      activePortal === "customer"
+                        ? "bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md shadow-orange-500/20"
+                        : "bg-white/5 text-neutral-300 hover:text-white"
+                    }`}
+                  >
+                    <ShoppingBag className="w-3.5 h-3.5" />
+                    <span>Customer View</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      if (currentUser?.role === "seller") {
+                        onSwitchPortal?.("seller");
+                      } else {
+                        openAuthModal("seller");
+                      }
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`p-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
+                      activePortal === "seller"
+                        ? "bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-md shadow-orange-500/20"
+                        : "bg-orange-500/10 text-orange-400 border border-orange-500/20"
+                    }`}
+                  >
+                    <Store className="w-3.5 h-3.5" />
+                    <span>{currentUser?.role === "seller" ? "Seller Portal" : "Become Seller"}</span>
+                  </button>
+                </div>
+              </div>
               {/* Mobile Search */}
               <div className="relative">
                 <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-orange-400" />

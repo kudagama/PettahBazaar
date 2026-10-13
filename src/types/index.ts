@@ -69,3 +69,14 @@ export interface CartItem {
   selectedSize: string;
   selectedColor: string;
 }
+
+export type UserRole = "customer" | "seller";
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  role: UserRole;
+  shopId?: string; // If role is seller, links to their registered shop
+}
