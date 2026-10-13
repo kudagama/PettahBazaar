@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import {
   Search,
   MapPin,
@@ -175,28 +176,71 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
             </h2>
 
             {/* Interactive Feature Pills Showcase Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-2.5 mb-5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 mb-5">
               {[
-                { name: "Textiles & Sarees", icon: "🥻", desc: "2nd Cross St", query: "Clothes", bg: "hover:border-pink-500/40 hover:bg-pink-500/10" },
-                { name: "Electronics", icon: "⚡", desc: "1st Cross St", query: "Electronics", bg: "hover:border-cyan-500/40 hover:bg-cyan-500/10" },
-                { name: "Ceylon Spices", icon: "🌿", desc: "Old Moor St", query: "Spices", bg: "hover:border-amber-500/40 hover:bg-amber-500/10" },
-                { name: "Sea St Gold", icon: "💎", desc: "Sea Street", query: "Jewellery", bg: "hover:border-yellow-500/40 hover:bg-yellow-500/10" },
-                { name: "Travel Bags", icon: "🎒", desc: "Keyzer St", query: "Bags", bg: "hover:border-purple-500/40 hover:bg-purple-500/10" },
-                { name: "Wholesale Shoes", icon: "👞", desc: "Main Street", query: "Shoes", bg: "hover:border-orange-500/40 hover:bg-orange-500/10" },
+                {
+                  name: "Textiles & Sarees",
+                  image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=300&auto=format&fit=crop&q=80",
+                  desc: "2nd Cross St",
+                  query: "Clothes",
+                  bg: "hover:border-pink-500/50 hover:bg-pink-500/10",
+                },
+                {
+                  name: "Electronics",
+                  image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&auto=format&fit=crop&q=80",
+                  desc: "1st Cross St",
+                  query: "Electronics",
+                  bg: "hover:border-cyan-500/50 hover:bg-cyan-500/10",
+                },
+                {
+                  name: "Ceylon Spices",
+                  image: "https://images.unsplash.com/photo-1509358271058-acd22cc93898?w=300&auto=format&fit=crop&q=80",
+                  desc: "Old Moor St",
+                  query: "Spices",
+                  bg: "hover:border-amber-500/50 hover:bg-amber-500/10",
+                },
+                {
+                  name: "Sea St Gold",
+                  image: "https://images.unsplash.com/photo-1611591475879-1100f40d85a1?w=300&auto=format&fit=crop&q=80",
+                  desc: "Sea Street",
+                  query: "Jewellery",
+                  bg: "hover:border-yellow-500/50 hover:bg-yellow-500/10",
+                },
+                {
+                  name: "Travel Bags",
+                  image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&auto=format&fit=crop&q=80",
+                  desc: "Keyzer St",
+                  query: "Bags",
+                  bg: "hover:border-purple-500/50 hover:bg-purple-500/10",
+                },
+                {
+                  name: "Wholesale Shoes",
+                  image: "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=300&auto=format&fit=crop&q=80",
+                  desc: "Main Street",
+                  query: "Shoes",
+                  bg: "hover:border-orange-500/50 hover:bg-orange-500/10",
+                },
               ].map((cat) => (
                 <button
                   key={cat.name}
                   type="button"
                   onClick={() => handleSelectSuggestion(cat.query)}
-                  className={`flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-white/[0.04] border border-white/8 transition-all duration-300 text-center cursor-pointer group/card active:scale-95 ${cat.bg}`}
+                  className={`flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/20 transition-all duration-300 text-center cursor-pointer group/card active:scale-95 shadow-sm hover:shadow-lg ${cat.bg}`}
                 >
-                  <span className="text-2xl mb-1 group-hover/card:scale-125 transition-transform duration-200">
-                    {cat.icon}
-                  </span>
-                  <span className="text-xs font-bold text-white group-hover/card:text-orange-300 transition-colors line-clamp-1">
+                  <div className="relative w-12 h-12 sm:w-14 sm:h-14 mb-2 rounded-xl overflow-hidden ring-2 ring-white/10 group-hover/card:ring-amber-400/50 shadow-md transition-all duration-300">
+                    <Image
+                      src={cat.image}
+                      alt={cat.name}
+                      fill
+                      sizes="(max-width: 640px) 48px, 56px"
+                      className="object-cover group-hover/card:scale-115 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60 group-hover/card:opacity-20 transition-opacity" />
+                  </div>
+                  <span className="text-xs font-bold text-white group-hover/card:text-amber-300 transition-colors line-clamp-1">
                     {cat.name}
                   </span>
-                  <span className="text-[10px] text-neutral-400 mt-0.5">
+                  <span className="text-[10px] text-neutral-400 mt-0.5 line-clamp-1">
                     {cat.desc}
                   </span>
                 </button>
