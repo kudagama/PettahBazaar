@@ -102,7 +102,7 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
   };
 
   return (
-    <section className="relative pt-24 pb-14 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="relative pt-36 sm:pt-40 lg:pt-44 pb-14 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Background ambient lighting effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[360px] bg-gradient-to-b from-orange-500/20 via-red-600/10 to-transparent rounded-full blur-[110px]" />
