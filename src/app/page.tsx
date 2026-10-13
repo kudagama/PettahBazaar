@@ -10,6 +10,7 @@ import MapModal from "@/components/MapModal";
 import ShopCard from "@/components/ShopCard";
 import Pagination from "@/components/Pagination";
 import PromoCarousel from "@/components/PromoCarousel";
+import Footer from "@/components/Footer";
 import { Product, Shop, SearchFilters } from "@/types";
 import { searchProducts, shops, products } from "@/data/mockData";
 import { LayoutGrid, List, Store, ChevronUp } from "lucide-react";
@@ -305,12 +306,11 @@ export default function HomePage() {
         </button>
       )}
 
-      {/* Footer */}
-      <footer className="border-t border-white/5 py-8 px-4 text-center">
-        <p className="text-xs text-neutral-600">
-          © 2026 PettahBazaar · Built for Pettah, Colombo 11 · Sri Lanka 🇱🇰
-        </p>
-      </footer>
+      {/* Enhanced Rich Footer */}
+      <Footer
+        onCategorySelect={(cat) => handleFilterChange({ category: cat })}
+        onLocationSelect={(loc) => handleFilterChange({ location: loc })}
+      />
     </div>
   );
 }
