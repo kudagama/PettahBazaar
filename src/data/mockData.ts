@@ -142,7 +142,7 @@ export const shops: Shop[] = [
 ];
 
 export const products: Product[] = [
-  // Al-Ameen Footwear Palace products
+  // Al-Ameen Footwear & Leather products
   {
     id: "prod-001",
     name: "Classic Black Oxford Leather Shoes",
@@ -152,9 +152,8 @@ export const products: Product[] = [
     originalPrice: 5500,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/shoe1a/600/500",
-      "https://picsum.photos/seed/shoe1b/600/500",
-      "https://picsum.photos/seed/shoe1c/600/500",
+      "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["39", "40", "41", "42", "43", "44", "45"],
     colors: [
@@ -180,8 +179,8 @@ export const products: Product[] = [
     price: 3800,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/shoe2a/600/500",
-      "https://picsum.photos/seed/shoe2b/600/500",
+      "https://images.unsplash.com/photo-1582895163997-6a4a15998fbf?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["39", "40", "41", "42", "43", "44"],
     colors: [
@@ -207,8 +206,8 @@ export const products: Product[] = [
     originalPrice: 7500,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/shoe3a/600/500",
-      "https://picsum.photos/seed/shoe3b/600/500",
+      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["40", "41", "42", "43", "44", "45"],
     colors: [{ name: "Glossy Black", hex: "#0d0d0d" }],
@@ -224,7 +223,7 @@ export const products: Product[] = [
     featured: true,
   },
 
-  // Sports Zone Pettah products
+  // Sports & Outdoor products
   {
     id: "prod-004",
     name: "AeroRun Pro Running Shoes",
@@ -234,9 +233,8 @@ export const products: Product[] = [
     originalPrice: 7200,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/shoe4a/600/500",
-      "https://picsum.photos/seed/shoe4b/600/500",
-      "https://picsum.photos/seed/shoe4c/600/500",
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
     colors: [
@@ -257,14 +255,14 @@ export const products: Product[] = [
   },
   {
     id: "prod-005",
-    name: "FlexTrail Hiking Boots",
+    name: "FlexTrail Waterproof Hiking Boots",
     category: "Outdoor",
     tags: ["hiking", "boots", "outdoor", "trail", "waterproof", "men"],
     price: 7500,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/shoe5a/600/500",
-      "https://picsum.photos/seed/shoe5b/600/500",
+      "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1549298916-f52d724204b4?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["40", "41", "42", "43", "44", "45"],
     colors: [
@@ -283,14 +281,13 @@ export const products: Product[] = [
   },
   {
     id: "prod-006",
-    name: "Court Ace Tennis Shoes",
+    name: "Court Ace Tennis & Trainer Shoes",
     category: "Sports",
     tags: ["tennis", "court shoes", "sports", "athletic", "grip"],
     price: 4200,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/shoe6a/600/500",
-      "https://picsum.photos/seed/shoe6b/600/500",
+      "https://images.unsplash.com/photo-1607522370275-f14206abe5d3?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["38", "39", "40", "41", "42", "43", "44"],
     colors: [
@@ -308,18 +305,18 @@ export const products: Product[] = [
     reviewCount: 43,
   },
 
-  // Colombo Shoe Emporium products
+  // Women's footwear
   {
     id: "prod-007",
-    name: "Stiletto Evening Heels",
+    name: "Stiletto Evening Pointed Heels",
     category: "Women's Fashion",
     tags: ["heels", "women", "evening", "formal", "stiletto", "party"],
     price: 3500,
     originalPrice: 4200,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/shoe7a/600/500",
-      "https://picsum.photos/seed/shoe7b/600/500",
+      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1560343090-f0409e92791a?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["35", "36", "37", "38", "39", "40"],
     colors: [
@@ -340,14 +337,14 @@ export const products: Product[] = [
   },
   {
     id: "prod-008",
-    name: "Boho Braided Leather Sandals",
+    name: "Boho Braided Leather Flat Sandals",
     category: "Women's Casual",
     tags: ["sandals", "women", "boho", "casual", "summer", "braided"],
     price: 2200,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/shoe8a/600/500",
-      "https://picsum.photos/seed/shoe8b/600/500",
+      "https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1562273138-f46be4ebdf33?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["35", "36", "37", "38", "39", "40", "41"],
     colors: [
@@ -373,8 +370,7 @@ export const products: Product[] = [
     originalPrice: 5500,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/shoe9a/600/500",
-      "https://picsum.photos/seed/shoe9b/600/500",
+      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["35", "36", "37", "38", "39", "40"],
     colors: [
@@ -401,8 +397,7 @@ export const products: Product[] = [
     price: 1800,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/shoe10a/600/500",
-      "https://picsum.photos/seed/shoe10b/600/500",
+      "https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["28", "29", "30", "31", "32", "33", "34", "35", "36", "37"],
     colors: [{ name: "Glossy Black", hex: "#1a1a1a" }],
@@ -412,7 +407,7 @@ export const products: Product[] = [
     brand: "Bata",
     inStock: true,
     stockCount: 200,
-    shopId: "shop-004",
+    shopId: "shop-001",
     rating: 4.6,
     reviewCount: 234,
     featured: false,
@@ -426,8 +421,8 @@ export const products: Product[] = [
     originalPrice: 6000,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/shoe11a/600/500",
-      "https://picsum.photos/seed/shoe11b/600/500",
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["40", "41", "42", "43", "44", "45", "46"],
     colors: [{ name: "Brown", hex: "#6b3a1f" }],
@@ -437,12 +432,12 @@ export const products: Product[] = [
     brand: "Bata Power",
     inStock: true,
     stockCount: 67,
-    shopId: "shop-004",
+    shopId: "shop-001",
     rating: 4.7,
     reviewCount: 148,
   },
 
-  // Zahir's Leather Works products
+  // Handcrafted Leather
   {
     id: "prod-012",
     name: "Handcrafted Brogue Oxford",
@@ -452,9 +447,8 @@ export const products: Product[] = [
     originalPrice: 10000,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/shoe12a/600/500",
-      "https://picsum.photos/seed/shoe12b/600/500",
-      "https://picsum.photos/seed/shoe12c/600/500",
+      "https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["38", "39", "40", "41", "42", "43", "44", "45"],
     colors: [
@@ -468,21 +462,20 @@ export const products: Product[] = [
     brand: "Zahir's Artisan Collection",
     inStock: true,
     stockCount: 8,
-    shopId: "shop-005",
+    shopId: "shop-001",
     rating: 4.9,
     reviewCount: 63,
     featured: true,
   },
   {
     id: "prod-013",
-    name: "Custom Monk Strap Shoes",
+    name: "Custom Monk Strap Leather Shoes",
     category: "Handcrafted",
     tags: ["monk strap", "custom", "handcrafted", "leather", "formal", "unique"],
     price: 9200,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/shoe13a/600/500",
-      "https://picsum.photos/seed/shoe13b/600/500",
+      "https://images.unsplash.com/photo-1582895163997-6a4a15998fbf?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["38", "39", "40", "41", "42", "43", "44", "45"],
     colors: [
@@ -490,17 +483,17 @@ export const products: Product[] = [
       { name: "Black", hex: "#1a1a1a" },
     ],
     description:
-      "The double monk strap shoe, reimagined by Zahir. Two golden buckles fasten the shoe with precision, while the squared toe box gives a modern, fashion-forward silhouette. Custom embossing and initials available on request. Allow 7-10 days for completion.",
+      "The double monk strap shoe, reimagined by Zahir. Two golden buckles fasten the shoe with precision, while the squared toe box gives a modern, fashion-forward silhouette. Custom embossing and initials available on request.",
     material: "Italian Calf Leather",
     brand: "Zahir's Artisan Collection",
     inStock: true,
     stockCount: 5,
-    shopId: "shop-005",
+    shopId: "shop-001",
     rating: 4.8,
     reviewCount: 41,
   },
 
-  // KK Sneaker Hub products
+  // Sneakers
   {
     id: "prod-014",
     name: "Retro Classic High-Top Sneakers",
@@ -509,9 +502,8 @@ export const products: Product[] = [
     price: 6500,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/shoe14a/600/500",
-      "https://picsum.photos/seed/shoe14b/600/500",
-      "https://picsum.photos/seed/shoe14c/600/500",
+      "https://images.unsplash.com/photo-1552346154-21d32810aba3?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["36", "37", "38", "39", "40", "41", "42", "43", "44"],
     colors: [
@@ -525,7 +517,7 @@ export const products: Product[] = [
     brand: "RetroKicks",
     inStock: true,
     stockCount: 33,
-    shopId: "shop-006",
+    shopId: "shop-002",
     rating: 4.6,
     reviewCount: 87,
     featured: true,
@@ -539,8 +531,7 @@ export const products: Product[] = [
     originalPrice: 15000,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/shoe15a/600/500",
-      "https://picsum.photos/seed/shoe15b/600/500",
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["40", "41", "42", "43", "44"],
     colors: [
@@ -548,12 +539,12 @@ export const products: Product[] = [
       { name: "Deep Ocean", hex: "#003d82" },
     ],
     description:
-      "Extremely limited — only 50 pairs available in Sri Lanka. These Urban Runners feature a knitted sock-like upper for a second-skin fit, a carbon-fiber plate in the midsole for explosive energy return, and a reflective 3M detailing that lights up at night. Collector's item.",
+      "Extremely limited — only 50 pairs available in Sri Lanka. These Urban Runners feature a knitted sock-like upper for a second-skin fit, a carbon-fiber plate in the midsole for explosive energy return, and a reflective 3M detailing that lights up at night.",
     material: "Primeknit Upper + Carbon Fiber Plate",
     brand: "UrbanElite",
     inStock: true,
     stockCount: 4,
-    shopId: "shop-006",
+    shopId: "shop-002",
     rating: 4.9,
     reviewCount: 29,
     featured: true,
@@ -567,8 +558,8 @@ export const products: Product[] = [
     originalPrice: 4200,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/shirt16a/600/500",
-      "https://picsum.photos/seed/shirt16b/600/500",
+      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["S", "M", "L", "XL"],
     colors: [
@@ -596,8 +587,8 @@ export const products: Product[] = [
     originalPrice: 5000,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/jeans17a/600/500",
-      "https://picsum.photos/seed/jeans17b/600/500",
+      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1542272604-780c96856592?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["30", "32", "34", "36"],
     colors: [
@@ -610,7 +601,7 @@ export const products: Product[] = [
     brand: "Colombo Denim Co.",
     inStock: true,
     stockCount: 25,
-    shopId: "shop-004",
+    shopId: "shop-003",
     rating: 4.6,
     reviewCount: 38,
   },
@@ -623,8 +614,8 @@ export const products: Product[] = [
     originalPrice: 11000,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/earbuds18a/600/500",
-      "https://picsum.photos/seed/earbuds18b/600/500",
+      "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1572536147248-ac59a8abfa4b?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["Universal"],
     colors: [
@@ -637,10 +628,36 @@ export const products: Product[] = [
     brand: "SoundWave",
     inStock: true,
     stockCount: 15,
-    shopId: "shop-006",
+    shopId: "shop-002",
     rating: 4.8,
     reviewCount: 76,
     featured: true,
+  },
+  {
+    id: "prod-019",
+    name: "Ultra-Fast 65W GaN Multi-Port Charger",
+    category: "Electronics",
+    tags: ["electronics", "charger", "adapter", "gan", "usb-c", "fast-charge"],
+    price: 4900,
+    originalPrice: 6200,
+    currency: "LKR",
+    images: [
+      "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=700&auto=format&fit=crop&q=80",
+    ],
+    sizes: ["Compact"],
+    colors: [
+      { name: "Pure White", hex: "#ffffff" },
+      { name: "Space Gray", hex: "#4b4f56" },
+    ],
+    description:
+      "Gallium Nitride (GaN) technology provides 65W charging for laptops, tablets, and phones simultaneously with dual USB-C and one USB-A port with surge protection.",
+    material: "Fireproof ABS Plastic",
+    brand: "VoltTech",
+    inStock: true,
+    stockCount: 18,
+    shopId: "shop-002",
+    rating: 4.5,
+    reviewCount: 31,
   },
   {
     id: "prod-020",
@@ -651,8 +668,7 @@ export const products: Product[] = [
     originalPrice: 2200,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/cinnamon20a/600/500",
-      "https://picsum.photos/seed/cinnamon20b/600/500",
+      "https://images.unsplash.com/photo-1509358271058-acd22cc93898?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["100g", "250g", "500g", "1kg"],
     colors: [{ name: "Golden Tan", hex: "#c68a4c" }],
@@ -676,7 +692,7 @@ export const products: Product[] = [
     originalPrice: 2900,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/pepper21a/600/500",
+      "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["250g Pack", "500g Pack"],
     colors: [{ name: "Natural", hex: "#3b302a" }],
@@ -699,7 +715,7 @@ export const products: Product[] = [
     originalPrice: 3800,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/honey22a/600/500",
+      "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["750ml Bottle", "375ml Bottle"],
     colors: [{ name: "Amber Gold", hex: "#ffbf00" }],
@@ -722,8 +738,8 @@ export const products: Product[] = [
     originalPrice: 8500,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/bangle23a/600/500",
-      "https://picsum.photos/seed/bangle23b/600/500",
+      "https://images.unsplash.com/photo-1611591475879-1100f40d85a1?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["2.4", "2.6", "2.8"],
     colors: [
@@ -750,7 +766,8 @@ export const products: Product[] = [
     originalPrice: 9800,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/watch24a/600/500",
+      "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["42mm Dial"],
     colors: [
@@ -776,8 +793,8 @@ export const products: Product[] = [
     originalPrice: 5800,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/backpack25a/600/500",
-      "https://picsum.photos/seed/backpack25b/600/500",
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["35 Liters (fits 16 inch laptop)"],
     colors: [
@@ -804,7 +821,8 @@ export const products: Product[] = [
     originalPrice: 14500,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/luggage26a/600/500",
+      "https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1581553680321-4fffae59fccd?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["20 Inch (Cabin)", "24 Inch (Medium)", "28 Inch (Large)"],
     colors: [
@@ -830,8 +848,8 @@ export const products: Product[] = [
     originalPrice: 16500,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/saree27a/600/500",
-      "https://picsum.photos/seed/saree27b/600/500",
+      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["6.2 Meters with Blouse Piece"],
     colors: [
@@ -859,7 +877,8 @@ export const products: Product[] = [
     originalPrice: 8500,
     currency: "LKR",
     images: [
-      "https://picsum.photos/seed/smartwatch28a/600/500",
+      "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=700&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=700&auto=format&fit=crop&q=80",
     ],
     sizes: ["Standard (Interchangeable 22mm Strap)"],
     colors: [
