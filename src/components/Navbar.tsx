@@ -202,7 +202,7 @@ export default function Navbar({
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
       {/* 1. TOP LIVE TICKER UTILITY BAR */}
-      <div className="bg-[#070707] border-b border-white/5 py-1.5 px-4 sm:px-6 lg:px-8 text-[11px] text-neutral-400">
+      <div className="bg-[#070707] border-b border-white/5 py-1 sm:py-1.5 px-3 sm:px-6 lg:px-8 text-[10px] sm:text-[11px] text-neutral-400">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           {/* Left: Live Pettah District Status */}
           <div className="flex items-center gap-3">
@@ -241,8 +241,9 @@ export default function Navbar({
               className="hover:text-white transition-colors flex items-center gap-1 text-neutral-300"
             >
               <Phone className="w-3 h-3 text-emerald-400" />
-              <span className="hidden md:inline">Merchant Desk:</span>
-              <span className="font-semibold">+94 11 234 5678</span>
+              <span className="hidden sm:inline">Merchant Desk:</span>
+              <span className="font-semibold hidden sm:inline">+94 11 234 5678</span>
+              <span className="font-semibold sm:hidden">Call</span>
             </a>
           </div>
         </div>
@@ -257,7 +258,7 @@ export default function Navbar({
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-3 sm:gap-6">
+          <div className="flex items-center justify-between gap-2 sm:gap-6">
             {/* BRAND LOGO */}
             <div
               onClick={() => {
@@ -266,10 +267,10 @@ export default function Navbar({
               }}
               className="flex items-center gap-3 cursor-pointer group flex-shrink-0"
             >
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-orange-500 via-red-500 to-rose-600 flex items-center justify-center shadow-lg shadow-orange-500/30 group-hover:scale-105 transition-transform duration-300 border border-white/20">
-                <ShoppingBag className="w-5 h-5 text-white" />
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-br from-orange-500 via-red-500 to-rose-600 flex items-center justify-center shadow-lg shadow-orange-500/30 group-hover:scale-105 transition-transform duration-300 border border-white/20">
+                <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-              <div>
+              <div className="hidden sm:block">
                 <div className="flex items-center leading-none">
                   <span className="text-xl sm:text-2xl font-black font-[Sora] bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">
                     Pettah
@@ -458,7 +459,7 @@ export default function Navbar({
             {/* RIGHT ACTION BUTTONS */}
             <div className="flex items-center gap-2.5 flex-shrink-0">
               {/* Live Stalls Badge */}
-              <div className="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-orange-300 bg-orange-500/10 border border-orange-500/25 rounded-xl px-3 py-1.5 backdrop-blur-md">
+              <div className="hidden md:flex items-center gap-1.5 text-xs font-semibold text-orange-300 bg-orange-500/10 border border-orange-500/25 rounded-xl px-3 py-1.5 backdrop-blur-md">
                 <Store className="w-3.5 h-3.5 text-orange-400" />
                 <span>{shops.length} Live Merchants</span>
               </div>
@@ -471,7 +472,7 @@ export default function Navbar({
                   const target = document.getElementById("tab-shops");
                   if (target) target.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="flex items-center gap-1.5 text-xs font-bold bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white rounded-xl px-4 py-2 shadow-lg shadow-orange-500/25 active:scale-95 transition-all"
+                className="hidden sm:flex items-center gap-1.5 text-xs font-bold bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white rounded-xl px-4 py-2 shadow-lg shadow-orange-500/25 active:scale-95 transition-all"
               >
                 <Navigation className="w-3.5 h-3.5" />
                 <span>Pettah Map</span>
@@ -491,7 +492,7 @@ export default function Navbar({
 
         {/* MOBILE SLIDE-DOWN DRAWER */}
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-3 px-4 pt-4 pb-6 bg-[#121212] border-t border-white/10 space-y-4 animate-fade-in-up">
+          <div className="lg:hidden mt-2 sm:mt-3 px-3 sm:px-4 pt-3 sm:pt-4 pb-5 sm:pb-6 bg-[#121212] border-t border-white/10 space-y-3 sm:space-y-4 animate-fade-in-up max-h-[70vh] overflow-y-auto">
             {/* Mobile Search */}
             <div className="relative">
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-orange-400" />

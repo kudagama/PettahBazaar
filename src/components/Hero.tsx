@@ -103,12 +103,12 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
   };
 
   return (
-    <section className="relative pt-36 sm:pt-40 lg:pt-44 pb-14 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="relative pt-28 sm:pt-36 lg:pt-44 pb-10 sm:pb-14 px-3 sm:px-6 lg:px-8 overflow-hidden">
       {/* Background ambient lighting effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[360px] bg-gradient-to-b from-orange-500/20 via-red-600/10 to-transparent rounded-full blur-[110px]" />
-        <div className="absolute top-1/4 -left-32 w-80 h-80 bg-orange-600/15 rounded-full blur-[100px] animate-pulse" />
-        <div className="absolute top-1/3 -right-32 w-80 h-80 bg-red-600/15 rounded-full blur-[100px]" />
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[500px] sm:w-[900px] h-[260px] sm:h-[360px] bg-gradient-to-b from-orange-500/20 via-red-600/10 to-transparent rounded-full blur-[80px] sm:blur-[110px]" />
+        <div className="absolute top-1/4 -left-20 sm:-left-32 w-52 sm:w-80 h-52 sm:h-80 bg-orange-600/15 rounded-full blur-[80px] sm:blur-[100px] animate-pulse" />
+        <div className="absolute top-1/3 -right-20 sm:-right-32 w-52 sm:w-80 h-52 sm:h-80 bg-red-600/15 rounded-full blur-[80px] sm:blur-[100px]" />
         {/* Subtle grid pattern overlay */}
         <div
           className="absolute inset-0 opacity-[0.03]"
@@ -121,12 +121,13 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
 
       <div className="relative max-w-5xl mx-auto text-center">
         {/* 1. NEXT-LEVEL LOCATION BADGE */}
-        <div className="inline-flex items-center gap-2.5 bg-gradient-to-r from-orange-500/15 via-red-500/10 to-orange-500/15 border border-orange-500/30 backdrop-blur-xl rounded-full px-5 py-2 mb-6 shadow-lg shadow-orange-500/10 hover:border-orange-500/50 transition-all duration-300 group animate-fade-in-up">
+        <div className="inline-flex items-center gap-1.5 sm:gap-2.5 bg-gradient-to-r from-orange-500/15 via-red-500/10 to-orange-500/15 border border-orange-500/30 backdrop-blur-xl rounded-full px-3 sm:px-5 py-1.5 sm:py-2 mb-4 sm:mb-6 shadow-lg shadow-orange-500/10 hover:border-orange-500/50 transition-all duration-300 group animate-fade-in-up">
           <div className="w-5 h-5 rounded-full bg-orange-500/20 flex items-center justify-center border border-orange-500/40 text-orange-400 group-hover:scale-110 transition-transform">
             <Compass className="w-3.5 h-3.5 animate-spin" style={{ animationDuration: "12s" }} />
           </div>
-          <span className="text-xs sm:text-sm font-semibold tracking-wide text-neutral-200">
-            Colombo 11 <span className="text-orange-400">·</span> Main St, Cross St & Keyzer St Bazaar
+          <span className="text-[10px] sm:text-sm font-semibold tracking-wide text-neutral-200">
+            <span className="hidden sm:inline">Colombo 11 <span className="text-orange-400">·</span> Main St, Cross St & Keyzer St Bazaar</span>
+            <span className="sm:hidden">Colombo 11 <span className="text-orange-400">·</span> Pettah Bazaar</span>
           </span>
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -136,7 +137,7 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
 
         {/* 2. ULTRA-ATTRACTIVE MAIN HERO HEADING */}
         <h1
-          className="text-4xl sm:text-6xl md:text-7xl font-black font-[Sora] leading-[1.08] tracking-tight mb-5 animate-fade-in-up"
+          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-[Sora] leading-[1.08] tracking-tight mb-4 sm:mb-5 animate-fade-in-up"
           style={{ animationDelay: "80ms" }}
         >
           <span className="text-white drop-shadow-md">Find the Best </span>
@@ -158,25 +159,25 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
           style={{ animationDelay: "160ms" }}
         >
           {/* Frosted Glass Container with subtle gradient border */}
-          <div className="relative p-5 sm:p-7 rounded-3xl bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10 shadow-2xl backdrop-blur-2xl overflow-hidden group">
+          <div className="relative p-4 sm:p-7 rounded-2xl sm:rounded-3xl bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10 shadow-2xl backdrop-blur-2xl overflow-hidden group">
             {/* Ambient backlight glow */}
             <div className="absolute -top-12 -left-12 w-48 h-48 bg-orange-500/10 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
 
             {/* Top lead tag */}
-            <div className="flex items-center justify-center gap-2 mb-3.5">
-              <span className="text-[11px] uppercase tracking-widest font-black text-orange-400 bg-orange-500/15 border border-orange-500/30 px-3 py-1 rounded-full">
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <span className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-orange-400 bg-orange-500/15 border border-orange-500/30 px-2.5 sm:px-3 py-1 rounded-full">
                 ✦ Sri Lanka's Ultimate Commercial Epicenter
               </span>
             </div>
 
             {/* Main Headline Lead */}
-            <h2 className="text-lg sm:text-2xl font-bold text-white mb-4 leading-snug">
+            <h2 className="text-base sm:text-2xl font-bold text-white mb-3 sm:mb-4 leading-snug">
               Pettah has it all — <span className="text-neutral-400 font-normal">from heritage streets to modern stalls</span>
             </h2>
 
             {/* Interactive Feature Pills Showcase Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 mb-5">
+            <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3 mb-4 sm:mb-5">
               {[
                 {
                   name: "Textiles & Sarees",
@@ -227,7 +228,7 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
                   onClick={() => handleSelectSuggestion(cat.query)}
                   className={`flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/20 transition-all duration-300 text-center cursor-pointer group/card active:scale-95 shadow-sm hover:shadow-lg ${cat.bg}`}
                 >
-                  <div className="relative w-12 h-12 sm:w-14 sm:h-14 mb-2 rounded-xl overflow-hidden ring-2 ring-white/10 group-hover/card:ring-amber-400/50 shadow-md transition-all duration-300">
+                  <div className="relative w-10 h-10 sm:w-14 sm:h-14 mb-1.5 sm:mb-2 rounded-lg sm:rounded-xl overflow-hidden ring-2 ring-white/10 group-hover/card:ring-amber-400/50 shadow-md transition-all duration-300">
                     <Image
                       src={cat.image}
                       alt={cat.name}
@@ -237,10 +238,10 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60 group-hover/card:opacity-20 transition-opacity" />
                   </div>
-                  <span className="text-xs font-bold text-white group-hover/card:text-amber-300 transition-colors line-clamp-1">
+                  <span className="text-[10px] sm:text-xs font-bold text-white group-hover/card:text-amber-300 transition-colors line-clamp-1">
                     {cat.name}
                   </span>
-                  <span className="text-[10px] text-neutral-400 mt-0.5 line-clamp-1">
+                  <span className="text-[9px] sm:text-[10px] text-neutral-400 mt-0.5 line-clamp-1 hidden sm:block">
                     {cat.desc}
                   </span>
                 </button>
@@ -248,7 +249,7 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
             </div>
 
             {/* Bottom Value Proposition Banner (Compare & Navigate) */}
-            <div className="pt-3.5 border-t border-white/8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm">
+            <div className="pt-3 sm:pt-3.5 border-t border-white/8 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 text-[11px] sm:text-sm">
               <div className="flex items-center gap-2 text-neutral-300">
                 <div className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30">
                   ✓
@@ -270,7 +271,7 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
 
         {/* 4. QUICK DISCOVERY CHIPS (Pettah's Key Pillars) */}
         <div
-          className="flex items-center justify-center gap-2 flex-wrap mb-8 animate-fade-in-up"
+          className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap mb-6 sm:mb-8 animate-fade-in-up"
           style={{ animationDelay: "200ms" }}
         >
           {QUICK_CATEGORIES.map((item) => {
@@ -279,7 +280,7 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
               <button
                 key={item.label}
                 onClick={() => handleSelectSuggestion(item.query)}
-                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border text-xs font-semibold bg-gradient-to-r ${item.color} backdrop-blur-md hover:scale-105 active:scale-95 transition-all shadow-md`}
+                className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full border text-[10px] sm:text-xs font-semibold bg-gradient-to-r ${item.color} backdrop-blur-md hover:scale-105 active:scale-95 transition-all shadow-md`}
               >
                 <Icon className="w-3.5 h-3.5" />
                 <span>{item.label}</span>
@@ -291,15 +292,15 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
         {/* 5. PROMINENT LARGE SEARCH BAR WITH AUTO-SUGGESTIONS */}
         <div
           ref={containerRef}
-          className="relative max-w-2xl mx-auto mb-8 animate-fade-in-up z-30"
+          className="relative max-w-2xl mx-auto mb-6 sm:mb-8 animate-fade-in-up z-30"
           style={{ animationDelay: "240ms" }}
         >
           <form
             onSubmit={handleSubmit}
-            className="relative flex items-center bg-[#161616]/95 border-2 border-white/15 focus-within:border-orange-500 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8),0_0_25px_rgba(249,115,22,0.15)] backdrop-blur-2xl p-2 transition-all duration-300 group hover:border-white/30"
+            className="relative flex items-center bg-[#161616]/95 border-2 border-white/15 focus-within:border-orange-500 rounded-xl sm:rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8),0_0_25px_rgba(249,115,22,0.15)] backdrop-blur-2xl p-1.5 sm:p-2 transition-all duration-300 group hover:border-white/30"
           >
-            <div className="pl-3.5 pr-2 text-orange-400 flex items-center justify-center">
-              <Search className="w-6 h-6 group-focus-within:scale-110 transition-transform" />
+            <div className="pl-2.5 sm:pl-3.5 pr-1.5 sm:pr-2 text-orange-400 flex items-center justify-center">
+              <Search className="w-5 h-5 sm:w-6 sm:h-6 group-focus-within:scale-110 transition-transform" />
             </div>
 
             <input
@@ -310,8 +311,8 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
               onFocus={() => {
                 if (query.trim().length > 0) setShowDropdown(true);
               }}
-              placeholder="Search clothes, spices, jewellery, electronics, bags, shoes..."
-              className="w-full bg-transparent text-white placeholder-neutral-400 text-base sm:text-lg py-2.5 px-1 focus:outline-none"
+              placeholder="Search clothes, spices, electronics, bags..."
+              className="w-full bg-transparent text-white placeholder-neutral-400 text-sm sm:text-lg py-2 sm:py-2.5 px-1 focus:outline-none"
               autoComplete="off"
             />
 
@@ -329,7 +330,7 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
             <button
               type="submit"
               id="hero-search-submit"
-              className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold text-sm sm:text-base px-6 sm:px-7 py-3 rounded-xl transition-all shadow-xl shadow-orange-500/30 flex-shrink-0 active:scale-95"
+              className="flex items-center gap-1.5 sm:gap-2 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold text-xs sm:text-base px-4 sm:px-7 py-2.5 sm:py-3 rounded-lg sm:rounded-xl transition-all shadow-xl shadow-orange-500/30 flex-shrink-0 active:scale-95"
             >
               <span>Search</span>
               <ArrowRight className="w-4 h-4 hidden sm:inline" />
@@ -381,7 +382,7 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
 
         {/* 6. TRUST & BAZAAR METRICS ROW */}
         <div
-          className="flex items-center justify-center gap-6 sm:gap-14 mb-7 animate-fade-in-up"
+          className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-14 mb-6 sm:mb-7 animate-fade-in-up"
           style={{ animationDelay: "280ms" }}
         >
           {[
@@ -391,16 +392,16 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
             { icon: Sparkles, value: "100% Live", label: "Stall Navigation" },
           ].map(({ icon: Icon, value, label }) => (
             <div key={label} className="flex flex-col items-center gap-1 group">
-              <Icon className="w-4 h-4 text-orange-400 mb-0.5 group-hover:scale-110 transition-transform" />
-              <span className="text-lg sm:text-xl font-black text-white">{value}</span>
-              <span className="text-xs text-neutral-400">{label}</span>
+              <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-400 mb-0.5 group-hover:scale-110 transition-transform" />
+              <span className="text-base sm:text-xl font-black text-white">{value}</span>
+              <span className="text-[10px] sm:text-xs text-neutral-400">{label}</span>
             </div>
           ))}
         </div>
 
         {/* 7. QUICK TAGS */}
         <div
-          className="flex items-center justify-center gap-2 flex-wrap animate-fade-in-up"
+          className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap animate-fade-in-up"
           style={{ animationDelay: "320ms" }}
         >
           <span className="text-xs text-neutral-400 font-medium">Popular now:</span>
@@ -409,7 +410,7 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
               key={term}
               id={`popular-${term.toLowerCase().replace(/\s+/g, "-")}`}
               onClick={() => handleSelectSuggestion(term)}
-              className="text-xs bg-white/5 hover:bg-orange-500/15 border border-white/10 hover:border-orange-500/30 text-neutral-300 hover:text-orange-300 px-3 py-1.5 rounded-full transition-all duration-200"
+              className="text-[10px] sm:text-xs bg-white/5 hover:bg-orange-500/15 border border-white/10 hover:border-orange-500/30 text-neutral-300 hover:text-orange-300 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full transition-all duration-200"
             >
               {term}
             </button>

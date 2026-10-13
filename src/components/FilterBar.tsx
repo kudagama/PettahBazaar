@@ -83,9 +83,9 @@ export default function FilterBar({
     <div className="space-y-4">
       {/* FILTER CONTROL BAR: Category, Price, Shop Location, Availability & Sort */}
       <div className="bg-[#141414] border border-white/10 rounded-2xl p-3 sm:p-4 shadow-xl backdrop-blur-xl">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center justify-between gap-2 sm:gap-3">
           {/* Left: Quick Dropdown Filters */}
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex items-center gap-2 overflow-x-auto scrollbar-none w-full sm:w-auto pb-1 sm:pb-0">
             {/* Category Dropdown */}
             <div className="relative">
               <button
@@ -96,7 +96,7 @@ export default function FilterBar({
                   setPriceDropdown(false);
                   setSortDropdown(false);
                 }}
-                className={`flex items-center gap-2 text-xs sm:text-sm font-medium px-3.5 py-2 rounded-xl border transition-all ${
+                className={`flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-medium px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl border transition-all whitespace-nowrap flex-shrink-0 ${
                   filters.category !== "All"
                     ? "bg-orange-500/20 border-orange-500/60 text-orange-300"
                     : "bg-white/5 border-white/10 text-neutral-300 hover:border-white/20 hover:text-white"
@@ -145,7 +145,7 @@ export default function FilterBar({
                   setPriceDropdown(false);
                   setSortDropdown(false);
                 }}
-                className={`flex items-center gap-2 text-xs sm:text-sm font-medium px-3.5 py-2 rounded-xl border transition-all ${
+                className={`flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-medium px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl border transition-all whitespace-nowrap flex-shrink-0 ${
                   filters.location && filters.location !== "All Locations"
                     ? "bg-orange-500/20 border-orange-500/60 text-orange-300"
                     : "bg-white/5 border-white/10 text-neutral-300 hover:border-white/20 hover:text-white"
@@ -202,7 +202,7 @@ export default function FilterBar({
                   setLocationDropdown(false);
                   setSortDropdown(false);
                 }}
-                className={`flex items-center gap-2 text-xs sm:text-sm font-medium px-3.5 py-2 rounded-xl border transition-all ${
+                className={`flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-medium px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl border transition-all whitespace-nowrap flex-shrink-0 ${
                   filters.minPrice > 0 || filters.maxPrice < Infinity
                     ? "bg-orange-500/20 border-orange-500/60 text-orange-300"
                     : "bg-white/5 border-white/10 text-neutral-300 hover:border-white/20 hover:text-white"
@@ -251,7 +251,7 @@ export default function FilterBar({
             <button
               id="filter-availability-toggle"
               onClick={() => onFilterChange({ inStockOnly: !filters.inStockOnly })}
-              className={`flex items-center gap-2 text-xs sm:text-sm font-medium px-3.5 py-2 rounded-xl border transition-all ${
+              className={`flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-medium px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl border transition-all whitespace-nowrap flex-shrink-0 ${
                 filters.inStockOnly
                   ? "bg-emerald-500/20 border-emerald-500/60 text-emerald-300 shadow-md shadow-emerald-500/10"
                   : "bg-white/5 border-white/10 text-neutral-400 hover:border-white/20 hover:text-white"
@@ -267,7 +267,7 @@ export default function FilterBar({
           </div>
 
           {/* Right: Sort and Reset / Advanced */}
-          <div className="flex items-center gap-2 ml-auto">
+          <div className="flex items-center gap-2 flex-shrink-0">
             {/* Sort Dropdown */}
             <div className="relative">
               <button
@@ -373,8 +373,8 @@ export default function FilterBar({
       </div>
 
       {/* Results Header + Category Pills */}
-      <div className="flex items-center justify-between gap-3 px-1">
-        <div className="text-sm text-neutral-400">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3 px-1">
+        <div className="text-xs sm:text-sm text-neutral-400">
           Showing <span className="text-white font-bold">{resultCount}</span> items in{" "}
           <span className="text-orange-400 font-medium">
             {filters.location || "Pettah Bazaar"}
