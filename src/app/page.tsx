@@ -107,7 +107,12 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
-      <Navbar onSearch={handleSearch} cartCount={0} />
+      <Navbar
+        onSearch={handleSearch}
+        onCategorySelect={(cat) => handleFilterChange({ category: cat })}
+        onLocationSelect={(loc) => handleFilterChange({ location: loc })}
+        cartCount={0}
+      />
 
       {/* Hero */}
       <Hero onSearch={handleSearch} initialQuery={filters.query} />
