@@ -201,7 +201,7 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
                 },
                 {
                   name: "Sea St Gold",
-                  image: "https://images.unsplash.com/photo-1611591475879-1100f40d85a1?w=300&auto=format&fit=crop&q=80",
+                  image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=300&auto=format&fit=crop&q=80",
                   desc: "Sea Street",
                   query: "Jewellery",
                   bg: "hover:border-yellow-500/50 hover:bg-yellow-500/10",
