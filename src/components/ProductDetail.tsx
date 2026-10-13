@@ -91,26 +91,26 @@ export default function ProductDetail({
 
   return (
     <div
-      className="fixed inset-0 z-50 modal-backdrop bg-black/85 flex items-center justify-center p-3 sm:p-5 animate-fade-in-up"
+      className="fixed inset-0 z-50 modal-backdrop bg-black/85 flex items-end sm:items-center justify-center p-0 sm:p-5 animate-fade-in-up"
       onClick={handleBackdrop}
       role="dialog"
       aria-modal="true"
       aria-label={`Product details for ${product.name}`}
     >
-      <div className="glass-card bg-[#141414] border border-white/15 w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-3xl shadow-2xl animate-slide-up flex flex-col">
+      <div className="glass-card bg-[#141414] border-t sm:border border-white/15 w-full max-w-4xl h-[94vh] sm:h-auto sm:max-h-[92vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl shadow-2xl animate-slide-up flex flex-col">
         {/* Modal Top Header Bar */}
-        <div className="sticky top-0 z-30 flex items-center justify-between px-5 sm:px-6 py-4 bg-[#141414]/95 backdrop-blur-xl border-b border-white/10">
-          <div className="flex items-center gap-2 text-xs sm:text-sm">
+        <div className="sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4 bg-[#141414]/95 backdrop-blur-xl border-b border-white/10">
+          <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm">
             <span className="text-orange-400 font-semibold">{product.category}</span>
             <span className="text-neutral-500">·</span>
-            <span className="text-neutral-300 font-medium truncate max-w-[200px] sm:max-w-md">
+            <span className="text-neutral-300 font-medium truncate max-w-[180px] xs:max-w-[260px] sm:max-w-md">
               {product.name}
             </span>
           </div>
           <button
             id="close-product-detail"
             onClick={onClose}
-            className="p-2 rounded-xl bg-white/5 hover:bg-white/15 text-neutral-400 hover:text-white transition-colors"
+            className="p-1.5 sm:p-2 rounded-xl bg-white/5 hover:bg-white/15 text-neutral-400 hover:text-white transition-colors"
             aria-label="Close product detail"
           >
             <X className="w-5 h-5" />
@@ -120,10 +120,10 @@ export default function ProductDetail({
         {/* Modal Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 flex-1">
           {/* LEFT: Image Gallery / Main Photo (5 Cols) */}
-          <div className="lg:col-span-5 bg-neutral-950 p-4 sm:p-6 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/10">
+          <div className="lg:col-span-5 bg-neutral-950 p-3.5 sm:p-6 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/10">
             <div>
               {/* Main Photo */}
-              <div className="relative h-72 sm:h-80 w-full rounded-2xl overflow-hidden bg-neutral-900 border border-white/10">
+              <div className="relative h-64 xs:h-72 sm:h-80 w-full rounded-2xl overflow-hidden bg-neutral-900 border border-white/10">
                 <Image
                   src={product.images[activeImage]}
                   alt={`${product.name} - view ${activeImage + 1}`}
@@ -336,17 +336,17 @@ export default function ProductDetail({
             </div>
 
             {/* PROMINENT ACTION BUTTONS: Call shop, WhatsApp chat, and 'Show Location on Map' */}
-            <div className="space-y-2.5 pt-2">
+            <div className="space-y-2 xs:space-y-2.5 pt-2">
               {/* Top Row: Call shop button (tel:) and WhatsApp chat button */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div className="grid grid-cols-1 xs:grid-cols-2 gap-2 xs:gap-2.5">
                 {/* Call shop button (tel:) */}
                 <a
                   id="call-shop-button"
                   href={`tel:${rawPhone}`}
-                  className="flex items-center justify-center gap-2 bg-neutral-800 hover:bg-neutral-700 active:scale-95 text-white font-semibold text-sm py-3 px-4 rounded-xl border border-white/15 transition-all shadow-md group"
+                  className="flex items-center justify-center gap-2 bg-neutral-800 hover:bg-neutral-700 active:scale-95 text-white font-semibold text-xs sm:text-sm py-2.5 sm:py-3 px-3 rounded-xl border border-white/15 transition-all shadow-md group"
                 >
-                  <Phone className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
-                  <span>Call Shop ({shop?.phone})</span>
+                  <Phone className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform flex-shrink-0" />
+                  <span className="truncate">Call Shop</span>
                 </a>
 
                 {/* WhatsApp chat button */}
@@ -355,10 +355,10 @@ export default function ProductDetail({
                   href={`https://wa.me/${whatsappNum}?text=${whatsappMessage}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-semibold text-sm py-3 px-4 rounded-xl transition-all shadow-md shadow-emerald-600/25 group"
+                  className="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-semibold text-xs sm:text-sm py-2.5 sm:py-3 px-3 rounded-xl transition-all shadow-md shadow-emerald-600/25 group"
                 >
-                  <MessageCircle className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
-                  <span>Chat on WhatsApp</span>
+                  <MessageCircle className="w-4 h-4 text-white group-hover:scale-110 transition-transform flex-shrink-0" />
+                  <span className="truncate">Chat WhatsApp</span>
                 </a>
               </div>
 
@@ -368,9 +368,9 @@ export default function ProductDetail({
                 onClick={() => {
                   if (shop) onShowMap(shop);
                 }}
-                className="w-full flex items-center justify-center gap-2.5 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 active:scale-98 text-white font-bold text-base py-3.5 px-6 rounded-xl transition-all shadow-xl shadow-orange-500/30"
+                className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 active:scale-98 text-white font-bold text-sm sm:text-base py-3 sm:py-3.5 px-4 rounded-xl transition-all shadow-xl shadow-orange-500/30"
               >
-                <Navigation className="w-5 h-5 text-white animate-bounce" />
+                <Navigation className="w-4 h-4 sm:w-5 sm:h-5 text-white animate-bounce" />
                 <span>Show Location on Map</span>
               </button>
             </div>

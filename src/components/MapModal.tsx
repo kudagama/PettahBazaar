@@ -240,35 +240,35 @@ export default function MapModal({
 
   return (
     <div
-      className="fixed inset-0 z-[100] modal-backdrop bg-black/85 flex items-center justify-center p-2 sm:p-5 animate-fade-in-up"
+      className="fixed inset-0 z-[100] modal-backdrop bg-black/85 flex items-end sm:items-center justify-center p-0 sm:p-5 animate-fade-in-up"
       onClick={handleBackdropClick}
       role="dialog"
       aria-modal="true"
       aria-label={`Interactive map showing directions to ${shop.name}`}
     >
       <div
-        className={`glass-card bg-[#121212] border border-white/15 w-full ${
-          isSplitView ? "max-w-6xl h-[88vh]" : "max-w-3xl h-[80vh]"
-        } rounded-3xl overflow-hidden shadow-2xl flex flex-col transition-all duration-300 animate-slide-up`}
+        className={`glass-card bg-[#121212] border-t sm:border border-white/15 w-full ${
+          isSplitView ? "max-w-6xl h-[92vh]" : "max-w-3xl h-[90vh] sm:h-[80vh]"
+        } rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-2xl flex flex-col transition-all duration-300 animate-slide-up`}
       >
         {/* Top Header Bar */}
-        <div className="flex items-center justify-between px-5 py-3.5 bg-[#171717] border-b border-white/10 z-10">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center border border-orange-500/40 text-orange-400">
-              <Navigation className="w-5 h-5" />
+        <div className="flex items-center justify-between px-3.5 sm:px-5 py-3 sm:py-3.5 bg-[#171717] border-b border-white/10 z-10">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-orange-500/20 flex items-center justify-center border border-orange-500/40 text-orange-400 flex-shrink-0">
+              <Navigation className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="font-bold text-white text-base leading-tight">
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <h3 className="font-bold text-white text-xs sm:text-base leading-tight truncate">
                   {shop.name}
                 </h3>
-                <span className="text-xs bg-orange-500/20 text-orange-400 px-2 py-0.5 rounded-full font-medium">
+                <span className="text-[10px] sm:text-xs bg-orange-500/20 text-orange-400 px-1.5 sm:px-2 py-0.5 rounded-full font-medium flex-shrink-0">
                   {shop.stallNumber || shop.area}
                 </span>
               </div>
-              <p className="text-xs text-neutral-400 flex items-center gap-1.5 mt-0.5">
-                <MapPin className="w-3.5 h-3.5 text-orange-400" />
-                <span>{shop.address}</span>
+              <p className="text-[10px] sm:text-xs text-neutral-400 flex items-center gap-1 sm:gap-1.5 mt-0.5 truncate">
+                <MapPin className="w-3 h-3 text-orange-400 flex-shrink-0" />
+                <span className="truncate">{shop.address}</span>
               </p>
             </div>
           </div>
@@ -393,20 +393,20 @@ export default function MapModal({
         </div>
 
         {/* Modal Bottom Actions Bar */}
-        <div className="px-5 py-3.5 bg-[#171717] border-t border-white/10 flex flex-wrap items-center justify-between gap-3 z-10">
-          <div className="flex items-center gap-2 text-xs text-neutral-300">
-            <span className="font-semibold text-white">Navigation Mode:</span>
-            <span>Walking route in Pettah District ({shop.distance})</span>
+        <div className="px-3.5 sm:px-5 py-3 sm:py-3.5 bg-[#171717] border-t border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3 z-10">
+          <div className="flex items-center gap-1.5 xs:gap-2 text-[11px] sm:text-xs text-neutral-300">
+            <span className="font-semibold text-white">Route:</span>
+            <span>Pettah Walking Navigation ({shop.distance})</span>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
             <button
               id="get-directions-google"
               onClick={openGoogleMapsDirections}
-              className="flex items-center gap-2 text-xs sm:text-sm font-bold bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white px-5 py-2.5 rounded-xl transition-all shadow-lg shadow-orange-500/25"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 text-xs sm:text-sm font-bold bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white px-4 sm:px-5 py-2.5 sm:py-2.5 rounded-xl transition-all shadow-lg shadow-orange-500/25 active:scale-95"
             >
               <Navigation className="w-4 h-4" />
-              <span>Get Directions in Google Maps</span>
+              <span>Open in Google Maps</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </button>
           </div>

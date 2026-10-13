@@ -13,7 +13,7 @@ import PromoCarousel from "@/components/PromoCarousel";
 import Footer from "@/components/Footer";
 import { Product, Shop, SearchFilters } from "@/types";
 import { searchProducts, shops, products } from "@/data/mockData";
-import { LayoutGrid, List, Store, ChevronUp } from "lucide-react";
+import { LayoutGrid, List, Store, ChevronUp, Home, Navigation, Search } from "lucide-react";
 import { useEffect } from "react";
 
 const ITEMS_PER_PAGE = 8;
@@ -124,33 +124,33 @@ export default function HomePage() {
       />
 
       {/* Main content */}
-      <main className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-20">
+      <main className="px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-28 sm:pb-20">
         {/* Tab navigation */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-5 sm:mb-6 gap-2">
           <div className="flex items-center gap-1 bg-white/5 rounded-xl p-1 border border-white/8">
             <button
               id="tab-products"
               onClick={() => setActiveTab("products")}
-              className={`flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-lg transition-all ${
+              className={`flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 rounded-lg transition-all ${
                 activeTab === "products"
                   ? "bg-orange-500 text-white shadow-lg shadow-orange-500/25"
                   : "text-neutral-400 hover:text-white"
               }`}
             >
-              <LayoutGrid className="w-4 h-4" />
-              Products
+              <LayoutGrid className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span>Products</span>
             </button>
             <button
               id="tab-shops"
               onClick={() => setActiveTab("shops")}
-              className={`flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-lg transition-all ${
+              className={`flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 rounded-lg transition-all ${
                 activeTab === "shops"
                   ? "bg-orange-500 text-white shadow-lg shadow-orange-500/25"
                   : "text-neutral-400 hover:text-white"
               }`}
             >
-              <Store className="w-4 h-4" />
-              Shops
+              <Store className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span>Shops ({shops.length})</span>
             </button>
           </div>
 
@@ -160,7 +160,7 @@ export default function HomePage() {
               <button
                 id="view-grid"
                 onClick={() => setView("grid")}
-                className={`p-2 rounded-lg transition-colors ${
+                className={`p-1.5 sm:p-2 rounded-lg transition-colors ${
                   view === "grid"
                     ? "bg-white/10 text-white"
                     : "text-neutral-500 hover:text-white"
@@ -172,7 +172,7 @@ export default function HomePage() {
               <button
                 id="view-list"
                 onClick={() => setView("list")}
-                className={`p-2 rounded-lg transition-colors ${
+                className={`p-1.5 sm:p-2 rounded-lg transition-colors ${
                   view === "list"
                     ? "bg-white/10 text-white"
                     : "text-neutral-500 hover:text-white"
@@ -304,7 +304,7 @@ export default function HomePage() {
         <button
           id="scroll-to-top"
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 w-10 h-10 bg-orange-500 hover:bg-orange-600 text-white rounded-full flex items-center justify-center shadow-lg shadow-orange-500/30 transition-all hover:scale-110 animate-fade-in-up z-40"
+          className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 w-10 h-10 bg-orange-500 hover:bg-orange-600 text-white rounded-full flex items-center justify-center shadow-lg shadow-orange-500/30 transition-all hover:scale-110 animate-fade-in-up z-30"
           aria-label="Scroll to top"
         >
           <ChevronUp className="w-5 h-5" />
@@ -316,6 +316,73 @@ export default function HomePage() {
         onCategorySelect={(cat) => handleFilterChange({ category: cat })}
         onLocationSelect={(loc) => handleFilterChange({ location: loc })}
       />
+
+      {/* Mobile Sticky Bottom Navigation Dock */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0e0e0e]/95 backdrop-blur-2xl border-t border-white/10 px-3 py-1.5 shadow-[0_-10px_30px_rgba(0,0,0,0.85)]">
+        <div className="flex items-center justify-around max-w-md mx-auto">
+          <button
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="flex flex-col items-center gap-0.5 text-[10px] font-semibold text-neutral-400 hover:text-white transition-colors py-1 px-2 active:scale-95"
+          >
+            <Home className="w-4 h-4 text-orange-400" />
+            <span>Home</span>
+          </button>
+
+          <button
+            onClick={() => {
+              setActiveTab("products");
+              const el = document.getElementById("tab-products");
+              if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+            }}
+            className={`flex flex-col items-center gap-0.5 text-[10px] font-semibold py-1 px-2 transition-colors active:scale-95 ${
+              activeTab === "products" ? "text-orange-400 font-bold" : "text-neutral-400 hover:text-white"
+            }`}
+          >
+            <LayoutGrid className="w-4 h-4" />
+            <span>Products</span>
+          </button>
+
+          <button
+            onClick={() => {
+              setActiveTab("shops");
+              const el = document.getElementById("tab-shops");
+              if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+            }}
+            className={`flex flex-col items-center gap-0.5 text-[10px] font-semibold py-1 px-2 transition-colors active:scale-95 ${
+              activeTab === "shops" ? "text-orange-400 font-bold" : "text-neutral-400 hover:text-white"
+            }`}
+          >
+            <Store className="w-4 h-4" />
+            <span>Shops</span>
+          </button>
+
+          <button
+            onClick={() => {
+              if (shops.length > 0) handleShowMap(shops[0]);
+            }}
+            className="flex flex-col items-center gap-0.5 text-[10px] font-semibold text-neutral-400 hover:text-white transition-colors py-1 px-2 active:scale-95"
+          >
+            <Navigation className="w-4 h-4 text-emerald-400" />
+            <span>Map</span>
+          </button>
+
+          <button
+            onClick={() => {
+              const el = document.getElementById("hero-large-search");
+              if (el) {
+                el.scrollIntoView({ behavior: "smooth", block: "center" });
+                el.focus();
+              }
+            }}
+            className="flex flex-col items-center gap-0.5 text-[10px] font-semibold text-neutral-400 hover:text-white transition-colors py-1 px-2 active:scale-95"
+          >
+            <Search className="w-4 h-4 text-orange-400" />
+            <span>Search</span>
+          </button>
+        </div>
+      </nav>
     </div>
   );
 }

@@ -134,21 +134,21 @@ export default function Footer({
 
           <form
             onSubmit={handleSubscribe}
-            className="flex items-center gap-2 w-full lg:w-auto max-w-md"
+            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full lg:w-auto max-w-md"
           >
             <div className="relative flex-1">
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email or WhatsApp number..."
+                placeholder="Enter email or WhatsApp number..."
                 required
                 className="w-full bg-white/5 border border-white/15 text-white placeholder-neutral-500 rounded-2xl px-4 py-3 text-xs sm:text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
               />
             </div>
             <button
               type="submit"
-              className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold text-xs sm:text-sm px-5 py-3 rounded-2xl transition-all shadow-lg shadow-orange-500/25 flex-shrink-0 active:scale-95"
+              className="flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold text-xs sm:text-sm px-5 py-3 rounded-2xl transition-all shadow-lg shadow-orange-500/25 flex-shrink-0 active:scale-95"
             >
               <span>Subscribe</span>
               <Send className="w-4 h-4" />

@@ -73,8 +73,13 @@ export default function Pagination({
           <span className="hidden sm:inline">Prev</span>
         </button>
 
-        {/* Numbered Pills */}
-        <div className="flex items-center gap-1">
+        {/* Mobile Page indicator */}
+        <span className="sm:hidden text-xs font-bold text-neutral-300 px-3 py-1.5 bg-white/5 rounded-xl border border-white/10 whitespace-nowrap">
+          {currentPage} / {totalPages}
+        </span>
+
+        {/* Numbered Pills (Desktop & Tablet) */}
+        <div className="hidden sm:flex items-center gap-1">
           {getPageNumbers().map((page, index) => {
             if (page === "...") {
               return (

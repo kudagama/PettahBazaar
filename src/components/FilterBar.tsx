@@ -82,8 +82,16 @@ export default function FilterBar({
   return (
     <div className="space-y-4">
       {/* FILTER CONTROL BAR: Category, Price, Shop Location, Availability & Sort */}
-      <div className="bg-[#141414] border border-white/10 rounded-2xl p-3 sm:p-4 shadow-xl backdrop-blur-xl">
-        <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center justify-between gap-2 sm:gap-3">
+      <div className="bg-[#141414] border border-white/10 rounded-2xl p-3 sm:p-4 shadow-xl backdrop-blur-xl relative">
+        {/* Backdrop for closing open dropdowns */}
+        {(categoryDropdown || locationDropdown || priceDropdown || sortDropdown) && (
+          <div
+            className="fixed inset-0 z-30 bg-black/50 sm:bg-transparent backdrop-blur-xs sm:backdrop-blur-none"
+            onClick={closeAllDropdowns}
+          />
+        )}
+
+        <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center justify-between gap-2.5 sm:gap-3">
           {/* Left: Quick Dropdown Filters */}
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-none w-full sm:w-auto pb-1 sm:pb-0">
             {/* Category Dropdown */}
@@ -91,10 +99,9 @@ export default function FilterBar({
               <button
                 id="filter-category-dropdown"
                 onClick={() => {
-                  setCategoryDropdown(!categoryDropdown);
-                  setLocationDropdown(false);
-                  setPriceDropdown(false);
-                  setSortDropdown(false);
+                  const nextState = !categoryDropdown;
+                  closeAllDropdowns();
+                  setCategoryDropdown(nextState);
                 }}
                 className={`flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-medium px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl border transition-all whitespace-nowrap flex-shrink-0 ${
                   filters.category !== "All"
@@ -112,7 +119,13 @@ export default function FilterBar({
               </button>
 
               {categoryDropdown && (
-                <div className="absolute left-0 top-full mt-2 w-52 bg-[#1c1c1c] border border-white/15 rounded-xl shadow-2xl z-40 overflow-hidden animate-fade-in-up py-1">
+                <div className="fixed sm:absolute inset-x-6 sm:inset-x-auto sm:left-0 top-1/2 -translate-y-1/2 sm:translate-y-0 sm:top-full sm:mt-2 w-auto sm:w-56 bg-[#1c1c1c] border border-white/15 rounded-2xl sm:rounded-xl shadow-2xl z-40 overflow-hidden animate-fade-in-up py-1 max-h-[60vh] sm:max-h-72 overflow-y-auto">
+                  <div className="px-3.5 py-2 text-[11px] font-bold text-neutral-400 uppercase tracking-wider border-b border-white/5 flex items-center justify-between sm:hidden">
+                    <span>Select Category</span>
+                    <button onClick={closeAllDropdowns} className="text-neutral-400 hover:text-white">
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
                   {PRIMARY_CATEGORIES.map((cat) => (
                     <button
                       key={cat}
@@ -140,10 +153,9 @@ export default function FilterBar({
               <button
                 id="filter-location-dropdown"
                 onClick={() => {
-                  setLocationDropdown(!locationDropdown);
-                  setCategoryDropdown(false);
-                  setPriceDropdown(false);
-                  setSortDropdown(false);
+                  const nextState = !locationDropdown;
+                  closeAllDropdowns();
+                  setLocationDropdown(nextState);
                 }}
                 className={`flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-medium px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl border transition-all whitespace-nowrap flex-shrink-0 ${
                   filters.location && filters.location !== "All Locations"
@@ -164,9 +176,12 @@ export default function FilterBar({
               </button>
 
               {locationDropdown && (
-                <div className="absolute left-0 top-full mt-2 w-56 bg-[#1c1c1c] border border-white/15 rounded-xl shadow-2xl z-40 overflow-hidden animate-fade-in-up py-1">
-                  <div className="px-3 py-1.5 text-[11px] font-semibold text-neutral-400 uppercase tracking-wider border-b border-white/5">
-                    Pettah Streets
+                <div className="fixed sm:absolute inset-x-6 sm:inset-x-auto sm:left-0 top-1/2 -translate-y-1/2 sm:translate-y-0 sm:top-full sm:mt-2 w-auto sm:w-56 bg-[#1c1c1c] border border-white/15 rounded-2xl sm:rounded-xl shadow-2xl z-40 overflow-hidden animate-fade-in-up py-1 max-h-[60vh] sm:max-h-72 overflow-y-auto">
+                  <div className="px-3.5 py-2 text-[11px] font-bold text-neutral-400 uppercase tracking-wider border-b border-white/5 flex items-center justify-between">
+                    <span>Pettah Streets</span>
+                    <button onClick={closeAllDropdowns} className="text-neutral-400 hover:text-white sm:hidden">
+                      <X className="w-4 h-4" />
+                    </button>
                   </div>
                   {shopLocations.map((loc) => (
                     <button
@@ -197,10 +212,9 @@ export default function FilterBar({
               <button
                 id="filter-price-dropdown"
                 onClick={() => {
-                  setPriceDropdown(!priceDropdown);
-                  setCategoryDropdown(false);
-                  setLocationDropdown(false);
-                  setSortDropdown(false);
+                  const nextState = !priceDropdown;
+                  closeAllDropdowns();
+                  setPriceDropdown(nextState);
                 }}
                 className={`flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-medium px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl border transition-all whitespace-nowrap flex-shrink-0 ${
                   filters.minPrice > 0 || filters.maxPrice < Infinity
@@ -218,9 +232,12 @@ export default function FilterBar({
               </button>
 
               {priceDropdown && (
-                <div className="absolute left-0 top-full mt-2 w-56 bg-[#1c1c1c] border border-white/15 rounded-xl shadow-2xl z-40 overflow-hidden animate-fade-in-up py-1">
-                  <div className="px-3 py-1.5 text-[11px] font-semibold text-neutral-400 uppercase tracking-wider border-b border-white/5">
-                    Price Range (LKR)
+                <div className="fixed sm:absolute inset-x-6 sm:inset-x-auto sm:left-0 top-1/2 -translate-y-1/2 sm:translate-y-0 sm:top-full sm:mt-2 w-auto sm:w-56 bg-[#1c1c1c] border border-white/15 rounded-2xl sm:rounded-xl shadow-2xl z-40 overflow-hidden animate-fade-in-up py-1 max-h-[60vh] sm:max-h-72 overflow-y-auto">
+                  <div className="px-3.5 py-2 text-[11px] font-bold text-neutral-400 uppercase tracking-wider border-b border-white/5 flex items-center justify-between">
+                    <span>Price Range (LKR)</span>
+                    <button onClick={closeAllDropdowns} className="text-neutral-400 hover:text-white sm:hidden">
+                      <X className="w-4 h-4" />
+                    </button>
                   </div>
                   {PRICE_PRESETS.map((preset) => {
                     const isSelected =
@@ -267,27 +284,35 @@ export default function FilterBar({
           </div>
 
           {/* Right: Sort and Reset / Advanced */}
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto flex-shrink-0">
             {/* Sort Dropdown */}
-            <div className="relative">
+            <div className="relative flex-1 sm:flex-initial">
               <button
                 id="sort-button"
                 onClick={() => {
-                  setSortDropdown(!sortDropdown);
+                  const nextState = !sortDropdown;
                   closeAllDropdowns();
-                  setSortDropdown(true);
+                  setSortDropdown(nextState);
                 }}
-                className="flex items-center gap-2 text-xs sm:text-sm font-medium bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-300 hover:text-white rounded-xl px-3.5 py-2 transition-colors"
+                className="w-full sm:w-auto flex items-center justify-between sm:justify-start gap-2 text-xs sm:text-sm font-medium bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-300 hover:text-white rounded-xl px-3 sm:px-3.5 py-2 transition-colors"
               >
-                <ArrowUpDown className="w-3.5 h-3.5 text-orange-400" />
-                <span>{activeSortLabel}</span>
+                <div className="flex items-center gap-1.5">
+                  <ArrowUpDown className="w-3.5 h-3.5 text-orange-400" />
+                  <span>{activeSortLabel}</span>
+                </div>
                 <ChevronDown
                   className={`w-3.5 h-3.5 transition-transform ${sortDropdown ? "rotate-180" : ""}`}
                 />
               </button>
 
               {sortDropdown && (
-                <div className="absolute right-0 top-full mt-2 w-48 bg-[#1c1c1c] border border-white/15 rounded-xl shadow-2xl z-40 overflow-hidden animate-fade-in-up py-1">
+                <div className="fixed sm:absolute inset-x-6 sm:inset-x-auto sm:right-0 top-1/2 -translate-y-1/2 sm:translate-y-0 sm:top-full sm:mt-2 w-auto sm:w-48 bg-[#1c1c1c] border border-white/15 rounded-2xl sm:rounded-xl shadow-2xl z-40 overflow-hidden animate-fade-in-up py-1">
+                  <div className="px-3.5 py-2 text-[11px] font-bold text-neutral-400 uppercase tracking-wider border-b border-white/5 flex items-center justify-between sm:hidden">
+                    <span>Sort By</span>
+                    <button onClick={closeAllDropdowns} className="text-neutral-400 hover:text-white">
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
                   {SORT_OPTIONS.map((opt) => (
                     <button
                       key={opt.value}
@@ -314,7 +339,7 @@ export default function FilterBar({
             <button
               id="slider-filter-toggle"
               onClick={() => setShowAdvanced(!showAdvanced)}
-              className={`p-2 rounded-xl border transition-colors ${
+              className={`p-2 rounded-xl border transition-colors flex-shrink-0 ${
                 showAdvanced
                   ? "bg-orange-500/20 border-orange-500/50 text-orange-400"
                   : "bg-white/5 border-white/10 text-neutral-400 hover:text-white"

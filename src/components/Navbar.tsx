@@ -277,21 +277,21 @@ export default function Navbar({
                 clearSearch();
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className="flex items-center gap-3 cursor-pointer group flex-shrink-0"
+              className="flex items-center gap-2 xs:gap-3 cursor-pointer group flex-shrink-0"
             >
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-br from-orange-500 via-red-500 to-rose-600 flex items-center justify-center shadow-lg shadow-orange-500/30 group-hover:scale-105 transition-transform duration-300 border border-white/20">
+              <div className="w-8 h-8 xs:w-9 xs:h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-br from-orange-500 via-red-500 to-rose-600 flex items-center justify-center shadow-lg shadow-orange-500/30 group-hover:scale-105 transition-transform duration-300 border border-white/20">
                 <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-              <div className="hidden sm:block">
+              <div>
                 <div className="flex items-center leading-none">
-                  <span className="text-xl sm:text-2xl font-black font-[Sora] bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">
+                  <span className="text-lg xs:text-xl sm:text-2xl font-black font-[Sora] bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">
                     Pettah
                   </span>
-                  <span className="text-xl sm:text-2xl font-black font-[Sora] text-white">
+                  <span className="text-lg xs:text-xl sm:text-2xl font-black font-[Sora] text-white">
                     Bazaar
                   </span>
                 </div>
-                <span className="text-[10px] uppercase font-extrabold tracking-wider text-orange-400/90 block mt-0.5">
+                <span className="text-[9px] xs:text-[10px] uppercase font-extrabold tracking-wider text-orange-400/90 hidden xs:block mt-0.5">
                   Direct Stall Finder
                 </span>
               </div>
@@ -469,14 +469,14 @@ export default function Navbar({
             </div>
 
             {/* RIGHT ACTION BUTTONS */}
-            <div className="flex items-center gap-2.5 flex-shrink-0">
-              {/* Live Stalls Badge */}
+            <div className="flex items-center gap-1.5 xs:gap-2.5 flex-shrink-0">
+              {/* Live Stalls Badge (Desktop) */}
               <div className="hidden md:flex items-center gap-1.5 text-xs font-semibold text-orange-300 bg-orange-500/10 border border-orange-500/25 rounded-xl px-3 py-1.5 backdrop-blur-md">
                 <Store className="w-3.5 h-3.5 text-orange-400" />
                 <span>{shops.length} Live Merchants</span>
               </div>
 
-              {/* Interactive Map Button */}
+              {/* Interactive Map Button (Desktop/Tablet) */}
               <button
                 onClick={() => {
                   const el = document.getElementById("tab-shops");
@@ -484,76 +484,171 @@ export default function Navbar({
                   const target = document.getElementById("tab-shops");
                   if (target) target.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="hidden sm:flex items-center gap-1.5 text-xs font-bold bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white rounded-xl px-4 py-2 shadow-lg shadow-orange-500/25 active:scale-95 transition-all"
+                className="hidden sm:flex items-center gap-1.5 text-xs font-bold bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white rounded-xl px-3.5 sm:px-4 py-2 shadow-lg shadow-orange-500/25 active:scale-95 transition-all"
               >
                 <Navigation className="w-3.5 h-3.5" />
                 <span>Pettah Map</span>
               </button>
 
+              {/* Mobile Quick Map Button */}
+              <button
+                onClick={() => {
+                  const el = document.getElementById("tab-shops");
+                  if (el) el.click();
+                  const target = document.getElementById("tab-shops");
+                  if (target) target.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="sm:hidden p-2 rounded-xl bg-orange-500/15 border border-orange-500/30 text-orange-400 active:scale-95"
+                title="Pettah Map & Shops"
+                aria-label="Pettah Map"
+              >
+                <Navigation className="w-4 h-4" />
+              </button>
+
               {/* Mobile Hamburger Menu Toggle */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 rounded-xl bg-white/5 border border-white/10 text-neutral-300 hover:text-white"
-                aria-label="Open Mobile Menu"
+                className="lg:hidden p-2 rounded-xl bg-white/5 border border-white/10 text-neutral-300 hover:text-white active:scale-95 transition-all"
+                aria-label={mobileMenuOpen ? "Close Menu" : "Open Menu"}
               >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {mobileMenuOpen ? <X className="w-5 h-5 text-orange-400" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
           </div>
         </div>
 
-        {/* MOBILE SLIDE-DOWN DRAWER */}
+        {/* MOBILE SLIDE-DOWN DRAWER WITH BACKDROP */}
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-2 sm:mt-3 px-3 sm:px-4 pt-3 sm:pt-4 pb-5 sm:pb-6 bg-[#121212] border-t border-white/10 space-y-3 sm:space-y-4 animate-fade-in-up max-h-[70vh] overflow-y-auto">
-            {/* Mobile Search */}
-            <div className="relative">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-orange-400" />
-              <input
-                type="text"
-                value={query}
-                onChange={(e) => handleInputChange(e.target.value)}
-                placeholder="Search products or stalls..."
-                className="w-full bg-white/5 border border-white/15 text-white placeholder-neutral-400 rounded-xl pl-10 pr-4 py-2 text-sm focus:outline-none focus:border-orange-500"
-              />
-            </div>
+          <>
+            {/* Backdrop */}
+            <div
+              className="fixed inset-0 top-[90px] bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+              onClick={() => setMobileMenuOpen(false)}
+            />
 
-            {/* Categories Grid on Mobile */}
-            <div>
-              <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block mb-2">
-                Pettah Categories
-              </span>
+            {/* Drawer Body */}
+            <div className="relative z-50 lg:hidden mt-2 px-3 sm:px-4 pt-3 pb-6 bg-[#121212] border-t border-white/10 space-y-4 animate-fade-in-up max-h-[calc(100vh-100px)] overflow-y-auto shadow-2xl">
+              {/* Mobile Search */}
+              <div className="relative">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-orange-400" />
+                <input
+                  type="text"
+                  value={query}
+                  onChange={(e) => handleInputChange(e.target.value)}
+                  placeholder="Search products or stalls..."
+                  className="w-full bg-white/5 border border-white/15 text-white placeholder-neutral-400 rounded-xl pl-10 pr-9 py-2.5 text-sm focus:outline-none focus:border-orange-500"
+                />
+                {query && (
+                  <button
+                    onClick={clearSearch}
+                    className="p-1 absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+
+              {/* Suggestions in mobile drawer */}
+              {showSuggestions && suggestions.length > 0 && (
+                <div className="bg-white/5 border border-white/10 rounded-xl divide-y divide-white/5 overflow-hidden">
+                  {suggestions.map((p) => (
+                    <button
+                      key={p.id}
+                      onClick={() => {
+                        handleSuggestionClick(p.name);
+                        setMobileMenuOpen(false);
+                      }}
+                      className="w-full flex items-center justify-between px-3.5 py-2.5 text-xs text-left text-neutral-200 hover:bg-white/10"
+                    >
+                      <span className="font-semibold text-white truncate mr-2">{p.name}</span>
+                      <span className="text-orange-400 font-bold flex-shrink-0">
+                        LKR {p.price.toLocaleString()}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Quick Actions (Shops & Map) */}
               <div className="grid grid-cols-2 gap-2">
-                {MEGA_CATEGORIES.map((cat) => (
-                  <button
-                    key={cat.name}
-                    onClick={() => handleCategoryClick(cat.query)}
-                    className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-left text-xs font-semibold text-neutral-200 hover:text-orange-400 flex items-center gap-2"
-                  >
-                    <span>{cat.icon}</span>
-                    <span className="truncate">{cat.name}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
+                <button
+                  onClick={() => {
+                    const el = document.getElementById("tab-shops");
+                    if (el) el.click();
+                    setMobileMenuOpen(false);
+                    const target = document.getElementById("tab-shops");
+                    if (target) target.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="p-2.5 rounded-xl bg-orange-500/15 border border-orange-500/30 text-left text-xs font-bold text-orange-400 flex items-center gap-2 active:scale-95"
+                >
+                  <Navigation className="w-4 h-4" />
+                  <span>Interactive Map</span>
+                </button>
 
-            {/* Streets List on Mobile */}
-            <div>
-              <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block mb-2">
-                Streets
-              </span>
-              <div className="flex flex-wrap gap-1.5">
-                {shopLocations.map((loc) => (
-                  <button
-                    key={loc}
-                    onClick={() => handleLocationClick(loc)}
-                    className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs text-neutral-300 hover:text-orange-400"
-                  >
-                    {loc}
-                  </button>
-                ))}
+                <button
+                  onClick={() => {
+                    const el = document.getElementById("tab-products");
+                    if (el) el.click();
+                    setMobileMenuOpen(false);
+                    const target = document.getElementById("tab-products");
+                    if (target) target.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-left text-xs font-bold text-white flex items-center gap-2 active:scale-95"
+                >
+                  <Store className="w-4 h-4 text-neutral-400" />
+                  <span>Browse Products</span>
+                </button>
+              </div>
+
+              {/* Categories Grid on Mobile */}
+              <div>
+                <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block mb-2">
+                  Pettah Categories
+                </span>
+                <div className="grid grid-cols-2 gap-2">
+                  {MEGA_CATEGORIES.map((cat) => (
+                    <button
+                      key={cat.name}
+                      onClick={() => handleCategoryClick(cat.query)}
+                      className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-left text-xs font-semibold text-neutral-200 hover:text-orange-400 flex items-center gap-2 active:scale-95"
+                    >
+                      <span>{cat.icon}</span>
+                      <span className="truncate">{cat.name}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Streets List on Mobile */}
+              <div>
+                <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider block mb-2">
+                  Pettah Streets
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {shopLocations.map((loc) => (
+                    <button
+                      key={loc}
+                      onClick={() => handleLocationClick(loc)}
+                      className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-xs text-neutral-300 hover:text-orange-400 active:scale-95"
+                    >
+                      {loc}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Helpline call link */}
+              <div className="pt-2 border-t border-white/10 text-center">
+                <a
+                  href="tel:+94112345678"
+                  className="inline-flex items-center gap-2 text-xs font-semibold text-neutral-300 hover:text-emerald-400 transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Pettah Merchant Desk: +94 11 234 5678</span>
+                </a>
               </div>
             </div>
-          </div>
+          </>
         )}
       </nav>
     </header>
