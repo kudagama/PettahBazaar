@@ -108,6 +108,18 @@ export default function Navbar({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   // Update live bazaar status based on Sri Lanka time
   useEffect(() => {
     const checkBazaarHours = () => {
@@ -203,11 +215,11 @@ export default function Navbar({
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
       {/* 1. TOP LIVE TICKER UTILITY BAR */}
       <div className="bg-[#070707] border-b border-white/5 py-1 sm:py-1.5 px-3 sm:px-6 lg:px-8 text-[10px] sm:text-[11px] text-neutral-400">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
           {/* Left: Live Pettah District Status */}
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 font-medium">
-              <span className="relative flex h-2 w-2">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <div className="flex items-center gap-1.5 font-medium truncate">
+              <span className="relative flex h-2 w-2 flex-shrink-0">
                 <span
                   className={`animate-ping absolute inline-flex h-full w-full rounded-full ${
                     bazaarStatus.isOpen ? "bg-emerald-400" : "bg-amber-400"
@@ -219,21 +231,21 @@ export default function Navbar({
                   }`}
                 />
               </span>
-              <span className="text-white font-semibold">{bazaarStatus.text}</span>
+              <span className="text-white font-semibold truncate">{bazaarStatus.text}</span>
               <span className="hidden sm:inline text-neutral-500">· {bazaarStatus.subtext}</span>
             </div>
 
-            <div className="hidden md:flex items-center gap-1 text-orange-400 font-semibold bg-orange-500/10 px-2 py-0.5 rounded-full border border-orange-500/20">
+            <div className="hidden md:flex items-center gap-1 text-orange-400 font-semibold bg-orange-500/10 px-2 py-0.5 rounded-full border border-orange-500/20 flex-shrink-0">
               <Radio className="w-3 h-3 animate-pulse" />
               <span>Live Street Updates</span>
             </div>
           </div>
 
           {/* Right: Quick District Facts & Support */}
-          <div className="flex items-center gap-4 text-neutral-400">
+          <div className="flex items-center gap-3 text-neutral-400 flex-shrink-0">
             <span className="hidden sm:flex items-center gap-1">
               <MapPin className="w-3 h-3 text-orange-400" />
-              <span>Pettah Commercial Zone, Colombo 11</span>
+              <span>Colombo 11</span>
             </span>
             <span className="text-neutral-600 hidden sm:inline">|</span>
             <a
@@ -242,8 +254,8 @@ export default function Navbar({
             >
               <Phone className="w-3 h-3 text-emerald-400" />
               <span className="hidden sm:inline">Merchant Desk:</span>
-              <span className="font-semibold hidden sm:inline">+94 11 234 5678</span>
-              <span className="font-semibold sm:hidden">Call</span>
+              <span className="font-semibold hidden xs:inline">+94 11 234 5678</span>
+              <span className="font-semibold xs:hidden">Help</span>
             </a>
           </div>
         </div>
