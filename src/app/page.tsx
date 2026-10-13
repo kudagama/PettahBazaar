@@ -9,6 +9,7 @@ import ProductDetail from "@/components/ProductDetail";
 import MapModal from "@/components/MapModal";
 import ShopCard from "@/components/ShopCard";
 import Pagination from "@/components/Pagination";
+import PromoCarousel from "@/components/PromoCarousel";
 import { Product, Shop, SearchFilters } from "@/types";
 import { searchProducts, shops, products } from "@/data/mockData";
 import { LayoutGrid, List, Store, ChevronUp } from "lucide-react";
@@ -110,41 +111,11 @@ export default function HomePage() {
       {/* Hero */}
       <Hero onSearch={handleSearch} initialQuery={filters.query} />
 
-      {/* Featured strip */}
-      <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-8">
-        <div className="flex items-center gap-2 mb-4">
-          <div className="w-1 h-5 bg-gradient-to-b from-orange-500 to-red-600 rounded-full" />
-          <h2 className="text-sm font-bold text-white uppercase tracking-wider">
-            Featured This Week
-          </h2>
-        </div>
-        <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none">
-          {featuredProducts.map((product) => {
-            const shop = shops.find((s) => s.id === product.shopId);
-            return (
-              <button
-                key={product.id}
-                id={`featured-${product.id}`}
-                onClick={() => handleProductClick(product)}
-                className="flex-shrink-0 flex items-center gap-3 glass-card px-4 py-2.5 hover:border-orange-500/40 transition-all group"
-                style={{ minWidth: "220px" }}
-              >
-                <div className="flex flex-col items-start text-left">
-                  <span className="text-xs font-semibold text-white group-hover:text-orange-300 transition-colors line-clamp-1">
-                    {product.name}
-                  </span>
-                  <span className="text-xs text-orange-400 font-bold">
-                    LKR {product.price.toLocaleString()}
-                  </span>
-                  <span className="text-xs text-neutral-500 line-clamp-1">
-                    {shop?.name}
-                  </span>
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      </section>
+      {/* Interactive Highlights & Deals Carousel */}
+      <PromoCarousel
+        products={featuredProducts}
+        onProductClick={handleProductClick}
+      />
 
       {/* Main content */}
       <main className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-20">
