@@ -8,10 +8,13 @@ import ProductCard from "@/components/ProductCard";
 import ProductDetail from "@/components/ProductDetail";
 import MapModal from "@/components/MapModal";
 import ShopCard from "@/components/ShopCard";
+import Pagination from "@/components/Pagination";
 import { Product, Shop, SearchFilters } from "@/types";
 import { searchProducts, shops, products } from "@/data/mockData";
 import { LayoutGrid, List, Store, ChevronUp } from "lucide-react";
 import { useEffect } from "react";
+
+const ITEMS_PER_PAGE = 8;
 
 export default function HomePage() {
   const [filters, setFilters] = useState<SearchFilters>({
@@ -23,6 +26,7 @@ export default function HomePage() {
     sortBy: "relevance",
     inStockOnly: false,
   });
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [mapShop, setMapShop] = useState<Shop | null>(null);
   const [view, setView] = useState<"grid" | "list">("grid");
@@ -34,6 +38,11 @@ export default function HomePage() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Reset to page 1 whenever search filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters]);
 
   // Derived: filtered products
   const filteredProducts = useMemo(() => {
@@ -50,6 +59,14 @@ export default function HomePage() {
     }
     return results;
   }, [filters]);
+
+  // Pagination slicing
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedProducts = useMemo(() => {
+    return filteredProducts.slice(startIndex, endIndex);
+  }, [filteredProducts, startIndex, endIndex]);
 
   const handleSearch = useCallback((query: string) => {
     setFilters((prev) => ({ ...prev, query }));
@@ -233,22 +250,39 @@ export default function HomePage() {
                 </button>
               </div>
             ) : (
-              <div
-                className={
-                  view === "grid"
-                    ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
-                    : "flex flex-col gap-3"
-                }
-              >
-                {filteredProducts.map((product, i) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    onClick={() => handleProductClick(product)}
-                    index={i}
-                  />
-                ))}
-              </div>
+              <>
+                <div
+                  className={
+                    view === "grid"
+                      ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+                      : "flex flex-col gap-3"
+                  }
+                >
+                  {paginatedProducts.map((product, i) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      onClick={() => handleProductClick(product)}
+                      index={i}
+                    />
+                  ))}
+                </div>
+
+                {/* Pagination Controls */}
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={(page) => {
+                    setCurrentPage(page);
+                    // Smoothly scroll to the top of products section
+                    const el = document.getElementById("tab-products");
+                    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
+                  totalItems={filteredProducts.length}
+                  startIndex={startIndex}
+                  endIndex={endIndex}
+                />
+              </>
             )}
           </>
         ) : (
