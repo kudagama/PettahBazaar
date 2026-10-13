@@ -151,39 +151,77 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
           </span>
         </h1>
 
-        {/* 3. NEXT-LEVEL VIBRANT INTRO PARAGRAPH WITH CATEGORY TAGS */}
+        {/* 3. CREATIVE & AESTHETIC NEXT-LEVEL BAZAAR HIGHLIGHTS BANNER */}
         <div
-          className="max-w-3xl mx-auto mb-8 animate-fade-in-up"
+          className="max-w-4xl mx-auto mb-8 animate-fade-in-up"
           style={{ animationDelay: "160ms" }}
         >
-          <p className="text-base sm:text-lg md:text-xl text-neutral-300 leading-relaxed font-normal">
-            Pettah has it all — from{" "}
-            <span className="text-white font-semibold underline decoration-orange-500/60 decoration-2 underline-offset-4">
-              textiles & silk sarees
-            </span>
-            ,{" "}
-            <span className="text-white font-semibold underline decoration-cyan-500/60 decoration-2 underline-offset-4">
-              mobile electronics
-            </span>
-            ,{" "}
-            <span className="text-white font-semibold underline decoration-amber-500/60 decoration-2 underline-offset-4">
-              pure Ceylon spices
-            </span>
-            ,{" "}
-            <span className="text-white font-semibold underline decoration-yellow-500/60 decoration-2 underline-offset-4">
-              Sea Street jewellery
-            </span>
-            , and{" "}
-            <span className="text-white font-semibold underline decoration-purple-500/60 decoration-2 underline-offset-4">
-              travel bags
-            </span>
-            , to wholesale footwear.
-          </p>
+          {/* Frosted Glass Container with subtle gradient border */}
+          <div className="relative p-5 sm:p-7 rounded-3xl bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10 shadow-2xl backdrop-blur-2xl overflow-hidden group">
+            {/* Ambient backlight glow */}
+            <div className="absolute -top-12 -left-12 w-48 h-48 bg-orange-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
 
-          <p className="text-xs sm:text-sm text-neutral-400 mt-2 flex items-center justify-center gap-2">
-            <BadgePercent className="w-4 h-4 text-orange-400 inline" />
-            <span>Compare verified street merchant prices and navigate straight to the exact stall.</span>
-          </p>
+            {/* Top lead tag */}
+            <div className="flex items-center justify-center gap-2 mb-3.5">
+              <span className="text-[11px] uppercase tracking-widest font-black text-orange-400 bg-orange-500/15 border border-orange-500/30 px-3 py-1 rounded-full">
+                ✦ Sri Lanka's Ultimate Commercial Epicenter
+              </span>
+            </div>
+
+            {/* Main Headline Lead */}
+            <h2 className="text-lg sm:text-2xl font-bold text-white mb-4 leading-snug">
+              Pettah has it all — <span className="text-neutral-400 font-normal">from heritage streets to modern stalls</span>
+            </h2>
+
+            {/* Interactive Feature Pills Showcase Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-2.5 mb-5">
+              {[
+                { name: "Textiles & Sarees", icon: "🥻", desc: "2nd Cross St", query: "Clothes", bg: "hover:border-pink-500/40 hover:bg-pink-500/10" },
+                { name: "Electronics", icon: "⚡", desc: "1st Cross St", query: "Electronics", bg: "hover:border-cyan-500/40 hover:bg-cyan-500/10" },
+                { name: "Ceylon Spices", icon: "🌿", desc: "Old Moor St", query: "Spices", bg: "hover:border-amber-500/40 hover:bg-amber-500/10" },
+                { name: "Sea St Gold", icon: "💎", desc: "Sea Street", query: "Jewellery", bg: "hover:border-yellow-500/40 hover:bg-yellow-500/10" },
+                { name: "Travel Bags", icon: "🎒", desc: "Keyzer St", query: "Bags", bg: "hover:border-purple-500/40 hover:bg-purple-500/10" },
+                { name: "Wholesale Shoes", icon: "👞", desc: "Main Street", query: "Shoes", bg: "hover:border-orange-500/40 hover:bg-orange-500/10" },
+              ].map((cat) => (
+                <button
+                  key={cat.name}
+                  type="button"
+                  onClick={() => handleSelectSuggestion(cat.query)}
+                  className={`flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-2xl bg-white/[0.04] border border-white/8 transition-all duration-300 text-center cursor-pointer group/card active:scale-95 ${cat.bg}`}
+                >
+                  <span className="text-2xl mb-1 group-hover/card:scale-125 transition-transform duration-200">
+                    {cat.icon}
+                  </span>
+                  <span className="text-xs font-bold text-white group-hover/card:text-orange-300 transition-colors line-clamp-1">
+                    {cat.name}
+                  </span>
+                  <span className="text-[10px] text-neutral-400 mt-0.5">
+                    {cat.desc}
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            {/* Bottom Value Proposition Banner (Compare & Navigate) */}
+            <div className="pt-3.5 border-t border-white/8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm">
+              <div className="flex items-center gap-2 text-neutral-300">
+                <div className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30">
+                  ✓
+                </div>
+                <span>Compare verified street merchant prices</span>
+              </div>
+
+              <div className="hidden sm:block text-neutral-600">•</div>
+
+              <div className="flex items-center gap-2 text-neutral-300">
+                <div className="w-5 h-5 rounded-full bg-orange-500/20 text-orange-400 flex items-center justify-center border border-orange-500/30">
+                  📍
+                </div>
+                <span>Navigate straight to the exact stall & walking route</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* 4. QUICK DISCOVERY CHIPS (Pettah's Key Pillars) */}
