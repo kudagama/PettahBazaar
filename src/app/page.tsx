@@ -34,9 +34,20 @@ import {
   ShoppingBag,
   Sparkles,
   ArrowRight,
+  RotateCcw,
 } from "lucide-react";
 
 const ITEMS_PER_PAGE = 18;
+
+const INITIAL_FILTERS: SearchFilters = {
+  query: "",
+  category: "All",
+  location: "All Locations",
+  minPrice: 0,
+  maxPrice: Infinity,
+  sortBy: "relevance",
+  inStockOnly: false,
+};
 
 export default function HomePage() {
   const {
@@ -52,15 +63,7 @@ export default function HomePage() {
   const { cartCount, openCart } = useCart();
 
   const [activePortal, setActivePortal] = useState<"customer" | "seller">("customer");
-  const [filters, setFilters] = useState<SearchFilters>({
-    query: "",
-    category: "All",
-    location: "All Locations",
-    minPrice: 0,
-    maxPrice: Infinity,
-    sortBy: "relevance",
-    inStockOnly: false,
-  });
+  const [filters, setFilters] = useState<SearchFilters>(INITIAL_FILTERS);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [mapShop, setMapShop] = useState<Shop | null>(null);
@@ -126,6 +129,10 @@ export default function HomePage() {
     setFilters((prev) => ({ ...prev, ...partial }));
   }, []);
 
+  const handleResetAll = useCallback(() => {
+    setFilters(INITIAL_FILTERS);
+  }, []);
+
   const handleProductClick = useCallback((product: Product) => {
     setSelectedProduct(product);
     document.body.style.overflow = "hidden";
@@ -156,6 +163,8 @@ export default function HomePage() {
     <div className="min-h-screen bg-[#0a0a0a]">
       <Navbar
         onSearch={handleSearch}
+        currentQuery={filters.query}
+        onResetAll={handleResetAll}
         onCategorySelect={(cat) => {
           setActivePortal("customer");
           handleFilterChange({ category: cat });
@@ -209,6 +218,7 @@ export default function HomePage() {
           <Hero
             onSearch={handleSearch}
             initialQuery={filters.query}
+            onResetAll={handleResetAll}
             carousel={
               <PromoCarousel
                 products={featuredProducts}
@@ -286,6 +296,7 @@ export default function HomePage() {
                   <FilterBar
                     filters={filters}
                     onFilterChange={handleFilterChange}
+                    onResetAll={handleResetAll}
                     resultCount={filteredProducts.length}
                   />
                 </div>
@@ -299,25 +310,16 @@ export default function HomePage() {
                     <h3 className="text-lg font-bold text-white mb-2">
                       No products found
                     </h3>
-                    <p className="text-neutral-500 text-sm max-w-xs">
+                    <p className="text-neutral-400 text-sm max-w-xs">
                       Try adjusting your search or filters. Check our {allShops.length} local shops for
                       the latest inventory.
                     </p>
                     <button
-                      onClick={() =>
-                        setFilters({
-                          query: "",
-                          category: "All",
-                          location: "All Locations",
-                          minPrice: 0,
-                          maxPrice: Infinity,
-                          sortBy: "relevance",
-                          inStockOnly: false,
-                        })
-                      }
-                      className="mt-4 text-sm text-orange-400 hover:text-orange-300 border border-orange-500/30 hover:border-orange-500/50 px-4 py-2 rounded-lg transition-all"
+                      onClick={handleResetAll}
+                      className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 px-5 py-2.5 rounded-xl transition-all shadow-lg shadow-orange-500/25 active:scale-95 cursor-pointer"
                     >
-                      Clear all filters
+                      <RotateCcw className="w-4 h-4" />
+                      <span>Reset All Search & Filters</span>
                     </button>
                   </div>
                 ) : (

@@ -31,6 +31,8 @@ import { useCart } from "@/context/CartContext";
 
 interface NavbarProps {
   onSearch: (query: string) => void;
+  currentQuery?: string;
+  onResetAll?: () => void;
   onCategorySelect?: (cat: string) => void;
   onLocationSelect?: (loc: string) => void;
   cartCount?: number;
@@ -91,6 +93,8 @@ const MEGA_CATEGORIES = [
 
 export default function Navbar({
   onSearch,
+  currentQuery = "",
+  onResetAll,
   onCategorySelect,
   onLocationSelect,
   activePortal = "customer",
@@ -127,6 +131,11 @@ export default function Navbar({
   });
 
   const searchContainerRef = useRef<HTMLDivElement>(null);
+
+  // Sync with global search query when updated elsewhere
+  useEffect(() => {
+    setQuery(currentQuery || "");
+  }, [currentQuery]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -219,6 +228,7 @@ export default function Navbar({
     setQuery("");
     setShowSuggestions(false);
     onSearch("");
+    onResetAll?.();
   };
 
   const handleCategoryClick = (cat: string) => {

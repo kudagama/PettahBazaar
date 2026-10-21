@@ -16,6 +16,7 @@ import {
   Flame,
   BadgePercent,
   TrendingUp,
+  RotateCcw,
 } from "lucide-react";
 import { products, shops } from "@/data/mockData";
 
@@ -23,6 +24,7 @@ interface HeroProps {
   onSearch: (query: string) => void;
   initialQuery?: string;
   carousel?: React.ReactNode;
+  onResetAll?: () => void;
 }
 
 const POPULAR_TAGS = [
@@ -49,6 +51,7 @@ export default function Hero({
   onSearch,
   initialQuery = "",
   carousel,
+  onResetAll,
 }: HeroProps) {
   const [query, setQuery] = useState(initialQuery);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -103,6 +106,7 @@ export default function Hero({
     setQuery("");
     setShowDropdown(false);
     onSearch("");
+    onResetAll?.();
   };
 
   return (
@@ -218,6 +222,33 @@ export default function Hero({
               <ArrowRight className="w-4 h-4 hidden sm:inline" />
             </button>
           </form>
+
+          {/* Active Search Query Reset Indicator */}
+          {query.trim().length > 0 && (
+            <div className="flex items-center justify-center gap-2 mt-3 animate-fade-in-up">
+              <span className="text-xs text-neutral-400 font-medium">Filtering for:</span>
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-orange-400 bg-orange-500/15 border border-orange-500/30 px-3 py-1 rounded-full">
+                <Search className="w-3 h-3 text-orange-400" />
+                <span>&ldquo;{query}&rdquo;</span>
+                <button
+                  type="button"
+                  onClick={handleClear}
+                  className="hover:text-white transition-colors cursor-pointer"
+                  title="Clear search"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </span>
+              <button
+                type="button"
+                onClick={handleClear}
+                className="inline-flex items-center gap-1 text-xs text-neutral-300 hover:text-orange-400 underline cursor-pointer transition-colors font-semibold"
+              >
+                <RotateCcw className="w-3 h-3 text-orange-400" />
+                <span>Reset Search</span>
+              </button>
+            </div>
+          )}
 
           {/* Auto-suggestions Dropdown */}
           {showDropdown && suggestions.length > 0 && (

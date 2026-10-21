@@ -11,6 +11,9 @@ import {
   CheckCircle2,
   X,
   CircleDollarSign,
+  RotateCcw,
+  Search,
+  Filter,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -18,6 +21,7 @@ interface FilterBarProps {
   filters: SearchFilters;
   onFilterChange: (filters: Partial<SearchFilters>) => void;
   resultCount: number;
+  onResetAll?: () => void;
 }
 
 const PRIMARY_CATEGORIES = [
@@ -53,6 +57,7 @@ export default function FilterBar({
   filters,
   onFilterChange,
   resultCount,
+  onResetAll,
 }: FilterBarProps) {
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [categoryDropdown, setCategoryDropdown] = useState(false);
@@ -77,6 +82,31 @@ export default function FilterBar({
     if (filters.minPrice > 0 && filters.maxPrice === Infinity)
       return `Above LKR ${filters.minPrice.toLocaleString()}`;
     return `LKR ${filters.minPrice.toLocaleString()} - ${filters.maxPrice.toLocaleString()}`;
+  };
+
+  const hasActiveFilters = Boolean(
+    (filters.query && filters.query.trim().length > 0) ||
+    filters.category !== "All" ||
+    (filters.location && filters.location !== "All Locations") ||
+    filters.minPrice > 0 ||
+    filters.maxPrice < Infinity ||
+    filters.inStockOnly
+  );
+
+  const handleResetAll = () => {
+    if (onResetAll) {
+      onResetAll();
+    } else {
+      onFilterChange({
+        query: "",
+        category: "All",
+        location: "All Locations",
+        minPrice: 0,
+        maxPrice: Infinity,
+        inStockOnly: false,
+        sortBy: "relevance",
+      });
+    }
   };
 
   return (
@@ -396,6 +426,109 @@ export default function FilterBar({
           </div>
         )}
       </div>
+
+      {/* PROMINENT ACTIVE SEARCH & FILTERS CHIPS BAR WITH 1-CLICK RESET */}
+      {hasActiveFilters && (
+        <div className="flex flex-wrap items-center justify-between gap-2.5 p-3 sm:p-3.5 rounded-2xl bg-gradient-to-r from-orange-500/15 via-[#1a1b24] to-neutral-900 border border-orange-500/35 shadow-lg shadow-orange-500/5 animate-fade-in-up">
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-orange-400 mr-1">
+              <Filter className="w-3.5 h-3.5 text-orange-400" />
+              <span>Active Search & Filters:</span>
+            </div>
+
+            {/* Search Query Chip */}
+            {filters.query && (
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold bg-white/10 text-white px-3 py-1 rounded-xl border border-white/20 shadow-xs">
+                <Search className="w-3.5 h-3.5 text-orange-400" />
+                <span>&ldquo;{filters.query}&rdquo;</span>
+                <button
+                  type="button"
+                  onClick={() => onFilterChange({ query: "" })}
+                  className="p-0.5 hover:bg-white/20 rounded-md text-neutral-400 hover:text-white transition-colors cursor-pointer"
+                  title="Clear search query"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </span>
+            )}
+
+            {/* Category Chip */}
+            {filters.category !== "All" && (
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold bg-white/10 text-white px-3 py-1 rounded-xl border border-white/20 shadow-xs">
+                <Tag className="w-3.5 h-3.5 text-orange-400" />
+                <span>Category: {filters.category}</span>
+                <button
+                  type="button"
+                  onClick={() => onFilterChange({ category: "All" })}
+                  className="p-0.5 hover:bg-white/20 rounded-md text-neutral-400 hover:text-white transition-colors cursor-pointer"
+                  title="Clear category"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </span>
+            )}
+
+            {/* Location Chip */}
+            {filters.location && filters.location !== "All Locations" && (
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold bg-white/10 text-white px-3 py-1 rounded-xl border border-white/20 shadow-xs">
+                <MapPin className="w-3.5 h-3.5 text-orange-400" />
+                <span>Street: {filters.location}</span>
+                <button
+                  type="button"
+                  onClick={() => onFilterChange({ location: "All Locations" })}
+                  className="p-0.5 hover:bg-white/20 rounded-md text-neutral-400 hover:text-white transition-colors cursor-pointer"
+                  title="Clear street location"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </span>
+            )}
+
+            {/* Price Range Chip */}
+            {(filters.minPrice > 0 || filters.maxPrice < Infinity) && (
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold bg-white/10 text-white px-3 py-1 rounded-xl border border-white/20 shadow-xs">
+                <CircleDollarSign className="w-3.5 h-3.5 text-orange-400" />
+                <span>Price: {getPriceLabel()}</span>
+                <button
+                  type="button"
+                  onClick={() => onFilterChange({ minPrice: 0, maxPrice: Infinity })}
+                  className="p-0.5 hover:bg-white/20 rounded-md text-neutral-400 hover:text-white transition-colors cursor-pointer"
+                  title="Reset price range"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </span>
+            )}
+
+            {/* In Stock Only Chip */}
+            {filters.inStockOnly && (
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold bg-emerald-500/15 text-emerald-300 px-3 py-1 rounded-xl border border-emerald-500/30 shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <span>In Stock Only</span>
+                <button
+                  type="button"
+                  onClick={() => onFilterChange({ inStockOnly: false })}
+                  className="p-0.5 hover:bg-white/20 rounded-md text-emerald-300 hover:text-white transition-colors cursor-pointer"
+                  title="Show all availability"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </span>
+            )}
+          </div>
+
+          {/* Prominent Reset All Button */}
+          <button
+            id="reset-all-filters-btn"
+            type="button"
+            onClick={handleResetAll}
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-black text-white bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 px-3.5 sm:px-4 py-2 rounded-xl shadow-lg shadow-orange-500/20 transition-all active:scale-95 flex-shrink-0 cursor-pointer"
+          >
+            <RotateCcw className="w-3.5 h-3.5" />
+            <span>Reset All Search & Filters</span>
+          </button>
+        </div>
+      )}
 
       {/* Results Header + Category Pills */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 sm:gap-3 px-1">
