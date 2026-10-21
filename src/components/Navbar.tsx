@@ -240,8 +240,8 @@ export default function Navbar({
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 shadow-[0_12px_40px_rgba(0,0,0,0.85)]">
       {/* 1. TOP LIVE TICKER UTILITY BAR */}
-      <div className="bg-[#12141a] border-b border-orange-500/25 py-1.5 px-3 sm:px-6 lg:px-8 text-xs sm:text-sm text-neutral-300">
-        <div className="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 flex items-center justify-between gap-2 sm:gap-4">
+      <div className="bg-[#12141a] border-b border-orange-500/25 py-1.5 px-3 sm:px-6 lg:px-8 text-xs sm:text-sm text-neutral-300 w-full">
+        <div className="w-full flex items-center justify-between gap-2 sm:gap-4">
           {/* Left: Live Pettah District Status */}
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <div className="flex items-center gap-1.5 font-medium truncate">
@@ -289,14 +289,14 @@ export default function Navbar({
 
       {/* 2. MAIN NAVIGATION BAR */}
       <nav
-        className={`transition-all duration-300 ${
+        className={`transition-all duration-300 w-full ${
           scrolled
             ? "bg-[#181a24]/98 backdrop-blur-2xl border-b border-white/10 shadow-[0_16px_45px_rgba(0,0,0,0.95)] py-2.5"
             : "bg-[#161822] backdrop-blur-xl border-b border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.7)] py-3 sm:py-3.5"
         }`}
       >
-        <div className="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-          <div className="flex items-center justify-between gap-2 sm:gap-6">
+        <div className="w-full px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between gap-2 sm:gap-4 lg:gap-6">
             {/* BRAND LOGO */}
             <div
               onClick={() => {
@@ -439,7 +439,7 @@ export default function Navbar({
             {/* LIVE HEADER SEARCH BAR WITH INTELLIGENT AUTO-COMPLETE */}
             <div
               ref={searchContainerRef}
-              className="flex-1 relative max-w-xl xl:max-w-2xl hidden md:block"
+              className="flex-1 relative max-w-xl lg:max-w-2xl xl:max-w-3xl 2xl:max-w-4xl hidden md:block"
             >
               <div className="relative flex items-center">
                 <Search className="absolute left-3.5 w-4 h-4 text-orange-400 pointer-events-none z-10" />
