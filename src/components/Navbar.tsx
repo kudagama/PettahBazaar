@@ -496,41 +496,47 @@ export default function Navbar({
 
             {/* RIGHT ACTION BUTTONS */}
             <div className="flex items-center gap-1.5 xs:gap-2 flex-shrink-0">
-              {/* Live Stalls Badge (Desktop) */}
-              <div className="hidden xl:flex items-center gap-1.5 text-xs font-semibold text-orange-300 bg-orange-500/10 border border-orange-500/25 rounded-xl px-3 py-1.5 backdrop-blur-md">
-                <Store className="w-3.5 h-3.5 text-orange-400" />
-                <span>{allShops.length} Live Merchants</span>
-              </div>
+              {/* Customer View Button */}
+              <button
+                id="nav-customer-mode-btn"
+                onClick={() => {
+                  onSwitchPortal?.("customer");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className={`hidden sm:flex items-center gap-1.5 text-sm font-bold px-3 py-2 rounded-xl transition-all ${
+                  activePortal === "customer"
+                    ? "bg-white/15 text-white border border-white/25 shadow-sm"
+                    : "text-neutral-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10"
+                }`}
+                title="Browse Pettah Bazaar as Customer"
+              >
+                <ShoppingBag className="w-4 h-4 text-orange-400" />
+                <span>Customer</span>
+              </button>
 
-              {/* Seller Mode Toggle / Register Stall Trigger */}
-              {currentUser?.role === "seller" ? (
-                <button
-                  id="nav-seller-portal-btn"
-                  onClick={() => onSwitchPortal?.("seller")}
-                  className={`hidden sm:flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl transition-all ${
-                    activePortal === "seller"
-                      ? "bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-lg shadow-orange-500/25 ring-2 ring-orange-500/40"
-                      : "bg-orange-500/15 hover:bg-orange-500/25 text-orange-300 border border-orange-500/35"
-                  }`}
-                  title="Open Pettah Merchant Dashboard"
-                >
-                  <Store className="w-3.5 h-3.5" />
-                  <span>Seller Portal</span>
-                  {sellerShop && (
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  )}
-                </button>
-              ) : (
-                <button
-                  id="nav-sell-on-pettah-btn"
-                  onClick={() => openAuthModal("seller")}
-                  className="hidden sm:flex items-center gap-1.5 text-sm font-bold px-3.5 py-2 rounded-xl bg-gradient-to-r from-red-600/20 to-orange-600/20 text-orange-300 hover:text-white border border-orange-500/30 hover:border-orange-500/60 transition-all hover:scale-105"
-                  title="Register your Pettah stall or wholesale store"
-                >
-                  <Store className="w-4 h-4 text-orange-400" />
-                  <span>Sell on Pettah</span>
-                </button>
-              )}
+              {/* Sell on Pettah Button */}
+              <button
+                id="nav-sell-on-pettah-btn"
+                onClick={() => {
+                  if (currentUser?.role === "seller") {
+                    onSwitchPortal?.("seller");
+                  } else {
+                    openAuthModal("seller");
+                  }
+                }}
+                className={`hidden sm:flex items-center gap-1.5 text-sm font-bold px-3.5 py-2 rounded-xl transition-all ${
+                  activePortal === "seller"
+                    ? "bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-lg shadow-orange-500/25 ring-2 ring-orange-500/40"
+                    : "bg-gradient-to-r from-red-600/20 to-orange-600/20 text-orange-300 hover:text-white border border-orange-500/30 hover:border-orange-500/60 hover:scale-105"
+                }`}
+                title="Register your Pettah stall or open Merchant Portal"
+              >
+                <Store className="w-4 h-4 text-orange-400" />
+                <span>Sell on Pettah</span>
+                {sellerShop && activePortal === "seller" && (
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse ml-0.5" />
+                )}
+              </button>
 
               {/* Wishlist Button */}
               <button
@@ -716,7 +722,7 @@ export default function Navbar({
                     }`}
                   >
                     <ShoppingBag className="w-3.5 h-3.5" />
-                    <span>Customer View</span>
+                    <span>Customer</span>
                   </button>
 
                   <button
@@ -735,7 +741,7 @@ export default function Navbar({
                     }`}
                   >
                     <Store className="w-3.5 h-3.5" />
-                    <span>{currentUser?.role === "seller" ? "Seller Portal" : "Become Seller"}</span>
+                    <span>Sell on Pettah</span>
                   </button>
                 </div>
               </div>
