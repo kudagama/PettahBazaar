@@ -5,8 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "mobile": "npm run start --prefix mobile"
+    "lint": "next lint"
   },
   "keywords": [],
   "author": "",
