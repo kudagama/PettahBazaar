@@ -24,9 +24,13 @@ import {
   ExternalLink,
   X,
   BadgeCheck,
+  Truck,
+  DollarSign,
+  Check,
 } from "lucide-react";
-import { Shop, Product } from "@/types";
+import { Shop, Product, OrderStatus } from "@/types";
 import { useMarketplace } from "@/context/MarketplaceContext";
+import { useCart } from "@/context/CartContext";
 import { shopLocations } from "@/data/mockData";
 
 const PRESET_PRODUCT_IMAGES = [
@@ -67,6 +71,21 @@ export default function SellerDashboard({
     toggleStock,
     logout,
   } = useMarketplace();
+
+  const { orders, updateOrderStatus } = useCart();
+  const [sellerTab, setSellerTab] = useState<"products" | "orders">("products");
+
+  // Filter orders for this seller stall (or all demo orders)
+  const sellerOrders = orders.filter(
+    (order) =>
+      !sellerShop ||
+      order.items.some((item) => item.shopId === sellerShop.id) ||
+      sellerShop.id === "shop-001"
+  );
+  const totalStallRevenue = sellerOrders.reduce((sum, ord) => sum + ord.total, 0);
+  const pendingOrdersCount = sellerOrders.filter(
+    (o) => o.status === "placed" || o.status === "processing"
+  ).length;
 
   // Register Shop Form State
   const [shopName, setShopName] = useState("");
@@ -160,7 +179,7 @@ export default function SellerDashboard({
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-neutral-200 pb-24 pt-24 sm:pt-28">
       {/* Top Banner Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+      <div className="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 mb-6">
         <div className="p-4 sm:p-6 rounded-3xl bg-gradient-to-r from-orange-500/15 via-[#181818] to-red-500/10 border border-orange-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-2xl">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-white shadow-lg shadow-orange-500/30">
@@ -168,14 +187,14 @@ export default function SellerDashboard({
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-xl sm:text-2xl font-black font-[Sora] text-white">
+                <h1 className="text-xl sm:text-2xl font-black font-futura text-white">
                   Pettah Merchant Portal
                 </h1>
-                <span className="text-[10px] font-bold uppercase tracking-wider bg-orange-500/20 text-orange-400 border border-orange-500/30 px-2 py-0.5 rounded-full">
+                <span className="text-xs font-bold uppercase tracking-wider bg-orange-500/20 text-orange-400 border border-orange-500/30 px-2.5 py-0.5 rounded-full">
                   Seller Mode
                 </span>
               </div>
-              <p className="text-xs text-neutral-400 mt-0.5">
+              <p className="text-sm text-neutral-300 mt-0.5">
                 Logged in as <strong className="text-white">{currentUser?.name}</strong> ({currentUser?.email})
               </p>
             </div>
@@ -184,7 +203,7 @@ export default function SellerDashboard({
           <div className="flex items-center gap-2.5 flex-wrap w-full md:w-auto">
             <button
               onClick={onSwitchToCustomerView}
-              className="flex-1 md:flex-initial flex items-center justify-center gap-1.5 text-xs font-bold bg-white/10 hover:bg-white/20 text-white px-4 py-2.5 rounded-xl border border-white/10 transition-all active:scale-95"
+              className="flex-1 md:flex-initial flex items-center justify-center gap-1.5 text-sm font-bold bg-white/10 hover:bg-white/20 text-white px-4 py-2.5 rounded-xl border border-white/10 transition-all active:scale-95"
             >
               <ShoppingBag className="w-4 h-4 text-orange-400" />
               <span>Preview Customer View</span>
@@ -192,7 +211,7 @@ export default function SellerDashboard({
 
             <button
               onClick={logout}
-              className="flex items-center justify-center gap-1 text-xs text-neutral-400 hover:text-white px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+              className="flex items-center justify-center gap-1 text-sm text-neutral-300 hover:text-white px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors font-medium"
             >
               <span>Logout</span>
             </button>
@@ -200,7 +219,7 @@ export default function SellerDashboard({
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <div className="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 space-y-6">
         {/* CASE A: SELLER DOES NOT HAVE A SHOP YET */}
         {!sellerShop ? (
           <div className="glass-card bg-[#141414] border border-orange-500/30 rounded-3xl p-6 sm:p-10 shadow-2xl">
@@ -208,7 +227,7 @@ export default function SellerDashboard({
               <div className="w-16 h-16 rounded-3xl bg-orange-500/20 text-orange-400 flex items-center justify-center mx-auto border border-orange-500/40 shadow-xl shadow-orange-500/10">
                 <Store className="w-8 h-8" />
               </div>
-              <h2 className="text-2xl sm:text-3xl font-black font-[Sora] text-white">
+              <h2 className="text-2xl sm:text-3xl font-black font-futura text-white">
                 Register Your Pettah Stall or Shop
               </h2>
               <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
@@ -567,16 +586,16 @@ export default function SellerDashboard({
                   color: "text-emerald-400 bg-emerald-500/10",
                 },
                 {
-                  label: "Out of Stock",
-                  value: outOfStockCount,
-                  icon: AlertCircle,
-                  color: "text-amber-400 bg-amber-500/10",
+                  label: "Orders Received",
+                  value: sellerOrders.length,
+                  icon: Truck,
+                  color: "text-blue-400 bg-blue-500/10",
                 },
                 {
-                  label: "Pettah District",
-                  value: sellerShop.area,
-                  icon: MapPin,
-                  color: "text-blue-400 bg-blue-500/10",
+                  label: "Stall Sales Revenue",
+                  value: `LKR ${totalStallRevenue.toLocaleString()}`,
+                  icon: DollarSign,
+                  color: "text-amber-400 bg-amber-500/10",
                 },
               ].map((kpi) => {
                 const Icon = kpi.icon;
@@ -589,7 +608,7 @@ export default function SellerDashboard({
                       <Icon className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-base sm:text-xl font-black text-white">{kpi.value}</div>
+                      <div className="text-base sm:text-lg font-black text-white">{kpi.value}</div>
                       <div className="text-[11px] text-neutral-400">{kpi.label}</div>
                     </div>
                   </div>
@@ -597,28 +616,233 @@ export default function SellerDashboard({
               })}
             </div>
 
-            {/* 3. Products Management Section */}
-            <div className="glass-card bg-[#141414] border border-white/10 rounded-3xl p-5 sm:p-7 shadow-2xl">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
+            {/* Seller Tabs: Products vs Orders Received */}
+            <div className="flex items-center gap-2 border-b border-white/10 pb-1">
+              <button
+                onClick={() => setSellerTab("products")}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all ${
+                  sellerTab === "products"
+                    ? "bg-orange-500 text-white shadow-lg shadow-orange-500/25"
+                    : "text-neutral-400 hover:text-white bg-white/5"
+                }`}
+              >
+                <Package className="w-4 h-4" />
+                <span>Stall Products ({sellerProducts.length})</span>
+              </button>
+
+              <button
+                onClick={() => setSellerTab("orders")}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all relative ${
+                  sellerTab === "orders"
+                    ? "bg-orange-500 text-white shadow-lg shadow-orange-500/25"
+                    : "text-neutral-400 hover:text-white bg-white/5"
+                }`}
+              >
+                <Truck className="w-4 h-4" />
+                <span>Customer Orders ({sellerOrders.length})</span>
+                {pendingOrdersCount > 0 && (
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                )}
+              </button>
+            </div>
+
+            {sellerTab === "orders" ? (
+              /* ORDERS RECEIVED TAB */
+              <div className="glass-card bg-[#141414] border border-white/10 rounded-3xl p-5 sm:p-7 shadow-2xl space-y-5 animate-fade-in">
                 <div>
                   <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                    <Package className="w-5 h-5 text-orange-400" />
-                    <span>Your Stall Products ({sellerProducts.length})</span>
+                    <Truck className="w-5 h-5 text-orange-400" />
+                    <span>Customer Orders for Your Stall ({sellerOrders.length})</span>
                   </h3>
                   <p className="text-xs text-neutral-400">
-                    Products listed here are live and visible to customers on PettahBazaar.
+                    Live orders placed by customers across Sri Lanka. Update delivery status to notify buyers.
                   </p>
                 </div>
 
-                <button
-                  id="add-product-cta-btn"
-                  onClick={() => setIsAddProductOpen(true)}
-                  className="flex items-center gap-1.5 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-lg shadow-orange-500/25 active:scale-95 transition-all"
-                >
-                  <Plus className="w-4 h-4" />
-                  <span>Add Product</span>
-                </button>
+                {sellerOrders.length === 0 ? (
+                  <div className="text-center py-12 border-2 border-dashed border-white/10 rounded-2xl p-6">
+                    <Truck className="w-12 h-12 text-neutral-600 mx-auto mb-3" />
+                    <h4 className="text-base font-bold text-white mb-1">No orders received yet</h4>
+                    <p className="text-xs text-neutral-400 max-w-sm mx-auto">
+                      When customers purchase items from your stall, orders will appear here with live courier dispatch controls.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {sellerOrders.map((order) => (
+                      <div
+                        key={order.id}
+                        className="p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10 space-y-4 hover:border-white/20 transition-all"
+                      >
+                        {/* Top bar */}
+                        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-3">
+                          <div className="flex items-center gap-3">
+                            <span className="font-mono font-black text-white text-sm sm:text-base">
+                              #{order.id}
+                            </span>
+                            <span className="text-xs text-neutral-400">
+                              {new Date(order.createdAt).toLocaleDateString("en-LK", {
+                                month: "short",
+                                day: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
+                            </span>
+                            <span className="text-xs text-orange-300 font-medium hidden sm:inline">
+                              {order.shippingMethod}
+                            </span>
+                          </div>
+
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-bold px-2.5 py-1 rounded-full capitalize bg-white/10 text-white border border-white/15">
+                              Status: <strong className="text-orange-400 uppercase">{order.status}</strong>
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Customer & Destination info */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs bg-neutral-900/60 p-3 rounded-xl border border-white/5">
+                          <div>
+                            <span className="text-neutral-500 block text-[10px]">Buyer Name & Phone</span>
+                            <span className="font-bold text-white">{order.customer.name}</span>
+                            <div className="flex items-center gap-2 mt-1">
+                              <a
+                                href={`tel:${order.customer.phone}`}
+                                className="text-emerald-400 hover:underline flex items-center gap-1"
+                              >
+                                <Phone className="w-3 h-3" /> Call {order.customer.phone}
+                              </a>
+                            </div>
+                          </div>
+
+                          <div>
+                            <span className="text-neutral-500 block text-[10px]">Delivery Destination</span>
+                            <span className="text-neutral-300">
+                              {order.customer.address}, {order.customer.city} ({order.customer.district})
+                            </span>
+                            {order.customer.notes && (
+                              <div className="text-amber-300/80 text-[11px] mt-0.5">
+                                Note: {order.customer.notes}
+                              </div>
+                            )}
+                          </div>
+
+                          <div>
+                            <span className="text-neutral-500 block text-[10px]">Payment & Value</span>
+                            <span className="font-black text-white text-sm">
+                              LKR {order.total.toLocaleString()}
+                            </span>
+                            <div className="text-[11px] text-orange-400 uppercase mt-0.5 font-semibold">
+                              {order.paymentMethod === "cod" ? "Cash on Delivery" : order.paymentMethod} ({order.paymentStatus})
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Items */}
+                        <div className="space-y-2">
+                          <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider block">
+                            Items in this Order ({order.items.length})
+                          </span>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {order.items.map((it, idx) => (
+                              <div
+                                key={idx}
+                                className="p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-center gap-3 text-xs"
+                              >
+                                <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-neutral-900 flex-shrink-0">
+                                  <Image
+                                    src={it.productImage}
+                                    alt={it.productName}
+                                    fill
+                                    className="object-cover"
+                                    sizes="48px"
+                                  />
+                                </div>
+                                <div className="min-w-0 flex-1">
+                                  <div className="font-semibold text-white truncate">
+                                    {it.productName}
+                                  </div>
+                                  <div className="text-[11px] text-neutral-400 mt-0.5">
+                                    Qty: {it.quantity} · Size: {it.selectedSize}
+                                  </div>
+                                  <div className="text-white font-bold mt-0.5">
+                                    LKR {(it.price * it.quantity).toLocaleString()}
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Dispatch & Status update action buttons */}
+                        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-white/5 text-xs">
+                          <span className="text-neutral-400 font-medium">
+                            Update Order Progress:
+                          </span>
+
+                          <div className="flex flex-wrap items-center gap-2">
+                            <button
+                              onClick={() => updateOrderStatus(order.id, "processing")}
+                              className={`px-3 py-1.5 rounded-xl font-semibold transition-all ${
+                                order.status === "processing"
+                                  ? "bg-amber-500 text-white font-bold"
+                                  : "bg-white/5 text-neutral-300 hover:text-white hover:bg-white/10"
+                              }`}
+                            >
+                              1. Packing in Stall
+                            </button>
+
+                            <button
+                              onClick={() => updateOrderStatus(order.id, "shipped")}
+                              className={`px-3 py-1.5 rounded-xl font-semibold transition-all ${
+                                order.status === "shipped"
+                                  ? "bg-purple-500 text-white font-bold"
+                                  : "bg-white/5 text-neutral-300 hover:text-white hover:bg-white/10"
+                              }`}
+                            >
+                              2. Hand to Courier
+                            </button>
+
+                            <button
+                              onClick={() => updateOrderStatus(order.id, "delivered")}
+                              className={`px-3 py-1.5 rounded-xl font-semibold transition-all ${
+                                order.status === "delivered"
+                                  ? "bg-emerald-500 text-white font-bold"
+                                  : "bg-white/5 text-neutral-300 hover:text-white hover:bg-white/10"
+                              }`}
+                            >
+                              3. Delivered / Complete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
+            ) : (
+              /* PRODUCTS MANAGEMENT SECTION */
+              <div className="glass-card bg-[#141414] border border-white/10 rounded-3xl p-5 sm:p-7 shadow-2xl">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
+                  <div>
+                    <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                      <Package className="w-5 h-5 text-orange-400" />
+                      <span>Your Stall Products ({sellerProducts.length})</span>
+                    </h3>
+                    <p className="text-xs text-neutral-400">
+                      Products listed here are live and visible to customers on PettahBazaar.
+                    </p>
+                  </div>
+
+                  <button
+                    id="add-product-cta-btn"
+                    onClick={() => setIsAddProductOpen(true)}
+                    className="flex items-center gap-1.5 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-lg shadow-orange-500/25 active:scale-95 transition-all"
+                  >
+                    <Plus className="w-4 h-4" />
+                    <span>Add Product</span>
+                  </button>
+                </div>
 
               {/* Products List Table / Cards */}
               {sellerProducts.length === 0 ? (
@@ -725,6 +949,7 @@ export default function SellerDashboard({
                 </div>
               )}
             </div>
+            )}
           </>
         )}
       </div>

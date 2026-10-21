@@ -116,7 +116,7 @@ export default function Footer({
         <div className="absolute -top-32 right-1/4 w-[500px] h-[300px] bg-red-600/5 rounded-full blur-[140px]" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <div className="relative max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 space-y-12">
         {/* 1. TOP NEWSLETTER / BAZAAR DEALS ALERT BAR */}
         <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-neutral-900 via-[#161616] to-neutral-900 border border-white/10 shadow-2xl backdrop-blur-xl flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="space-y-1.5 text-center lg:text-left">
@@ -215,13 +215,13 @@ export default function Footer({
                 <ShoppingBag className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-xl font-black font-[Sora] bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">
+                <span className="text-2xl font-black font-futura bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">
                   Pettah
                 </span>
-                <span className="text-xl font-black font-[Sora] text-white">
+                <span className="text-2xl font-black font-futura text-white">
                   Bazaar
                 </span>
-                <span className="text-[10px] uppercase font-bold tracking-wider text-orange-400 block">
+                <span className="text-xs uppercase font-extrabold tracking-wider text-orange-400 block mt-0.5">
                   Sri Lanka's #1 Local Market Engine
                 </span>
               </div>

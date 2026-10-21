@@ -22,9 +22,12 @@ import {
   Flame,
   Radio,
   User as UserIcon,
+  Heart,
+  Package,
 } from "lucide-react";
 import { products, shops, mainCategories, shopLocations } from "@/data/mockData";
 import { useMarketplace } from "@/context/MarketplaceContext";
+import { useCart } from "@/context/CartContext";
 
 interface NavbarProps {
   onSearch: (query: string) => void;
@@ -100,6 +103,15 @@ export default function Navbar({
     allProducts,
     sellerShop,
   } = useMarketplace();
+
+  const {
+    cartCount,
+    openCart,
+    wishlist,
+    openWishlist,
+    openOrdersModal,
+    orders,
+  } = useCart();
 
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<typeof products>([]);
@@ -228,8 +240,8 @@ export default function Navbar({
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
       {/* 1. TOP LIVE TICKER UTILITY BAR */}
-      <div className="bg-[#070707] border-b border-white/5 py-1 sm:py-1.5 px-3 sm:px-6 lg:px-8 text-[10px] sm:text-[11px] text-neutral-400">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
+      <div className="bg-[#070707] border-b border-white/5 py-1.5 px-3 sm:px-6 lg:px-8 text-xs sm:text-sm text-neutral-300">
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 flex items-center justify-between gap-2 sm:gap-4">
           {/* Left: Live Pettah District Status */}
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <div className="flex items-center gap-1.5 font-medium truncate">
@@ -283,7 +295,7 @@ export default function Navbar({
             : "bg-black/60 backdrop-blur-xl border-b border-white/5 py-3.5"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           <div className="flex items-center justify-between gap-2 sm:gap-6">
             {/* BRAND LOGO */}
             <div
@@ -298,21 +310,21 @@ export default function Navbar({
               </div>
               <div>
                 <div className="flex items-center leading-none">
-                  <span className="text-lg xs:text-xl sm:text-2xl font-black font-[Sora] bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">
+                  <span className="text-xl xs:text-2xl sm:text-3xl font-black font-futura bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">
                     Pettah
                   </span>
-                  <span className="text-lg xs:text-xl sm:text-2xl font-black font-[Sora] text-white">
+                  <span className="text-xl xs:text-2xl sm:text-3xl font-black font-futura text-white">
                     Bazaar
                   </span>
                 </div>
-                <span className="text-[9px] xs:text-[10px] uppercase font-extrabold tracking-wider text-orange-400/90 hidden xs:block mt-0.5">
+                <span className="text-[11px] xs:text-xs uppercase font-extrabold tracking-wider text-orange-400 hidden xs:block mt-0.5">
                   Direct Stall Finder
                 </span>
               </div>
             </div>
 
             {/* NAV DROPDOWNS: MEGA MENU TRIGGER & STREETS (Desktop) */}
-            <div className="hidden lg:flex items-center gap-1 text-sm font-semibold text-neutral-300">
+            <div className="hidden lg:flex items-center gap-1.5 text-base font-bold text-neutral-200">
               {/* Mega Categories Trigger */}
               <div
                 className="relative"
@@ -427,7 +439,7 @@ export default function Navbar({
             {/* LIVE HEADER SEARCH BAR WITH INTELLIGENT AUTO-COMPLETE */}
             <div
               ref={searchContainerRef}
-              className="flex-1 relative max-w-md hidden md:block"
+              className="flex-1 relative max-w-xl xl:max-w-2xl hidden md:block"
             >
               <div className="relative flex items-center">
                 <Search className="absolute left-3.5 w-4 h-4 text-orange-400 pointer-events-none z-10" />
@@ -512,19 +524,72 @@ export default function Navbar({
                 <button
                   id="nav-sell-on-pettah-btn"
                   onClick={() => openAuthModal("seller")}
-                  className="hidden sm:flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl bg-gradient-to-r from-red-600/20 to-orange-600/20 text-orange-300 hover:text-white border border-orange-500/30 hover:border-orange-500/60 transition-all hover:scale-105"
+                  className="hidden sm:flex items-center gap-1.5 text-sm font-bold px-3.5 py-2 rounded-xl bg-gradient-to-r from-red-600/20 to-orange-600/20 text-orange-300 hover:text-white border border-orange-500/30 hover:border-orange-500/60 transition-all hover:scale-105"
                   title="Register your Pettah stall or wholesale store"
                 >
-                  <Store className="w-3.5 h-3.5 text-orange-400" />
+                  <Store className="w-4 h-4 text-orange-400" />
                   <span>Sell on Pettah</span>
                 </button>
               )}
+
+              {/* Wishlist Button */}
+              <button
+                id="nav-wishlist-btn"
+                onClick={openWishlist}
+                className="relative p-2 rounded-xl bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white border border-white/10 transition-colors active:scale-95"
+                title="My Saved Wishlist"
+                aria-label="Wishlist"
+              >
+                <Heart className={`w-4 h-4 ${wishlist.length > 0 ? "text-rose-400 fill-rose-400" : "text-neutral-400"}`} />
+                {wishlist.length > 0 && (
+                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-white text-[10px] font-black flex items-center justify-center shadow-md">
+                    {wishlist.length}
+                  </span>
+                )}
+              </button>
+
+              {/* Shopping Bag / Cart Button */}
+              <button
+                id="nav-cart-btn"
+                onClick={openCart}
+                className="relative flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-xl bg-orange-500/15 hover:bg-orange-500/25 border border-orange-500/35 text-white transition-all active:scale-95 shadow-md shadow-orange-500/10 group"
+                title="Shopping Bag"
+                aria-label="Shopping Cart"
+              >
+                <ShoppingBag className="w-4 h-4 text-orange-400 group-hover:scale-110 transition-transform" />
+                <span className="hidden sm:inline text-sm font-bold">Bag</span>
+                {cartCount > 0 ? (
+                  <span className="w-5 h-5 rounded-full bg-orange-500 text-white text-xs font-black flex items-center justify-center shadow-lg shadow-orange-500/40 animate-pulse">
+                    {cartCount}
+                  </span>
+                ) : (
+                  <span className="hidden sm:inline text-sm text-neutral-400 font-normal">
+                    (0)
+                  </span>
+                )}
+              </button>
+
+              {/* Orders Link (Desktop) */}
+              <button
+                id="nav-orders-btn"
+                onClick={openOrdersModal}
+                className="hidden md:flex items-center gap-1.5 text-sm font-bold px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-neutral-200 hover:text-white border border-white/10 transition-colors active:scale-95"
+                title="My Orders & Tracking"
+              >
+                <Package className="w-4 h-4 text-neutral-400" />
+                <span>Orders</span>
+                {orders.length > 0 && (
+                  <span className="text-xs bg-white/10 px-1.5 py-0.2 rounded font-bold text-neutral-200">
+                    {orders.length}
+                  </span>
+                )}
+              </button>
 
               {/* Customer / User Account Button */}
               <button
                 id="nav-account-btn"
                 onClick={() => openAuthModal(currentUser?.role || "customer")}
-                className="flex items-center gap-1.5 text-xs font-semibold px-2.5 xs:px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-colors active:scale-95"
+                className="flex items-center gap-1.5 text-sm font-bold px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-colors active:scale-95"
                 title="Account & Role Switcher"
               >
                 <UserIcon className="w-3.5 h-3.5 text-orange-400" />
@@ -715,6 +780,63 @@ export default function Navbar({
                 </div>
               )}
 
+              {/* Mobile E-commerce Quick Access Grid */}
+              <div className="grid grid-cols-3 gap-2">
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    openCart();
+                  }}
+                  className="p-2.5 rounded-xl bg-orange-500/15 border border-orange-500/30 text-left text-xs font-bold text-orange-400 flex flex-col gap-1 active:scale-95"
+                >
+                  <div className="flex items-center justify-between">
+                    <ShoppingBag className="w-4 h-4" />
+                    {cartCount > 0 && (
+                      <span className="w-4 h-4 rounded-full bg-orange-500 text-white text-[10px] flex items-center justify-center font-black">
+                        {cartCount}
+                      </span>
+                    )}
+                  </div>
+                  <span>Cart ({cartCount})</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    openWishlist();
+                  }}
+                  className="p-2.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-left text-xs font-bold text-rose-400 flex flex-col gap-1 active:scale-95"
+                >
+                  <div className="flex items-center justify-between">
+                    <Heart className="w-4 h-4" />
+                    {wishlist.length > 0 && (
+                      <span className="w-4 h-4 rounded-full bg-rose-500 text-white text-[10px] flex items-center justify-center font-black">
+                        {wishlist.length}
+                      </span>
+                    )}
+                  </div>
+                  <span>Wishlist</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    openOrdersModal();
+                  }}
+                  className="p-2.5 rounded-xl bg-blue-500/15 border border-blue-500/30 text-left text-xs font-bold text-blue-400 flex flex-col gap-1 active:scale-95"
+                >
+                  <div className="flex items-center justify-between">
+                    <Package className="w-4 h-4" />
+                    {orders.length > 0 && (
+                      <span className="w-4 h-4 rounded-full bg-blue-500 text-white text-[10px] flex items-center justify-center font-black">
+                        {orders.length}
+                      </span>
+                    )}
+                  </div>
+                  <span>Orders</span>
+                </button>
+              </div>
+
               {/* Quick Actions (Shops & Map) */}
               <div className="grid grid-cols-2 gap-2">
                 <button
@@ -725,9 +847,9 @@ export default function Navbar({
                     const target = document.getElementById("tab-shops");
                     if (target) target.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="p-2.5 rounded-xl bg-orange-500/15 border border-orange-500/30 text-left text-xs font-bold text-orange-400 flex items-center gap-2 active:scale-95"
+                  className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-left text-xs font-bold text-white flex items-center gap-2 active:scale-95"
                 >
-                  <Navigation className="w-4 h-4" />
+                  <Navigation className="w-4 h-4 text-emerald-400" />
                   <span>Interactive Map</span>
                 </button>
 
@@ -741,7 +863,7 @@ export default function Navbar({
                   }}
                   className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-left text-xs font-bold text-white flex items-center gap-2 active:scale-95"
                 >
-                  <Store className="w-4 h-4 text-neutral-400" />
+                  <Store className="w-4 h-4 text-orange-400" />
                   <span>Browse Products</span>
                 </button>
               </div>

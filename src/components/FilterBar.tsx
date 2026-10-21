@@ -103,15 +103,15 @@ export default function FilterBar({
                   closeAllDropdowns();
                   setCategoryDropdown(nextState);
                 }}
-                className={`flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-medium px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl border transition-all whitespace-nowrap flex-shrink-0 ${
+                className={`flex items-center gap-1.5 sm:gap-2 text-xs sm:text-base font-semibold px-2.5 sm:px-4 py-2 rounded-xl border transition-all whitespace-nowrap flex-shrink-0 ${
                   filters.category !== "All"
                     ? "bg-orange-500/20 border-orange-500/60 text-orange-300"
-                    : "bg-white/5 border-white/10 text-neutral-300 hover:border-white/20 hover:text-white"
+                    : "bg-white/5 border-white/10 text-neutral-200 hover:border-white/20 hover:text-white"
                 }`}
               >
-                <Tag className="w-3.5 h-3.5 text-orange-400" />
+                <Tag className="w-4 h-4 text-orange-400" />
                 <span>
-                  Category: <strong className="font-semibold text-white">{filters.category}</strong>
+                  Category: <strong className="font-bold text-white">{filters.category}</strong>
                 </span>
                 <ChevronDown
                   className={`w-3.5 h-3.5 transition-transform ${categoryDropdown ? "rotate-180" : ""}`}
@@ -157,16 +157,16 @@ export default function FilterBar({
                   closeAllDropdowns();
                   setLocationDropdown(nextState);
                 }}
-                className={`flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-medium px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl border transition-all whitespace-nowrap flex-shrink-0 ${
+                className={`flex items-center gap-1.5 sm:gap-2 text-xs sm:text-base font-semibold px-2.5 sm:px-4 py-2 rounded-xl border transition-all whitespace-nowrap flex-shrink-0 ${
                   filters.location && filters.location !== "All Locations"
                     ? "bg-orange-500/20 border-orange-500/60 text-orange-300"
-                    : "bg-white/5 border-white/10 text-neutral-300 hover:border-white/20 hover:text-white"
+                    : "bg-white/5 border-white/10 text-neutral-200 hover:border-white/20 hover:text-white"
                 }`}
               >
-                <MapPin className="w-3.5 h-3.5 text-orange-400" />
+                <MapPin className="w-4 h-4 text-orange-400" />
                 <span>
                   Location:{" "}
-                  <strong className="font-semibold text-white">
+                  <strong className="font-bold text-white">
                     {filters.location || "All Locations"}
                   </strong>
                 </span>
@@ -216,15 +216,15 @@ export default function FilterBar({
                   closeAllDropdowns();
                   setPriceDropdown(nextState);
                 }}
-                className={`flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-medium px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl border transition-all whitespace-nowrap flex-shrink-0 ${
+                className={`flex items-center gap-1.5 sm:gap-2 text-xs sm:text-base font-semibold px-2.5 sm:px-4 py-2 rounded-xl border transition-all whitespace-nowrap flex-shrink-0 ${
                   filters.minPrice > 0 || filters.maxPrice < Infinity
                     ? "bg-orange-500/20 border-orange-500/60 text-orange-300"
-                    : "bg-white/5 border-white/10 text-neutral-300 hover:border-white/20 hover:text-white"
+                    : "bg-white/5 border-white/10 text-neutral-200 hover:border-white/20 hover:text-white"
                 }`}
               >
-                <CircleDollarSign className="w-3.5 h-3.5 text-orange-400" />
+                <CircleDollarSign className="w-4 h-4 text-orange-400" />
                 <span>
-                  Price: <strong className="font-semibold text-white">{getPriceLabel()}</strong>
+                  Price: <strong className="font-bold text-white">{getPriceLabel()}</strong>
                 </span>
                 <ChevronDown
                   className={`w-3.5 h-3.5 transition-transform ${priceDropdown ? "rotate-180" : ""}`}
@@ -268,14 +268,14 @@ export default function FilterBar({
             <button
               id="filter-availability-toggle"
               onClick={() => onFilterChange({ inStockOnly: !filters.inStockOnly })}
-              className={`flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-medium px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl border transition-all whitespace-nowrap flex-shrink-0 ${
+              className={`flex items-center gap-1.5 sm:gap-2 text-xs sm:text-base font-semibold px-2.5 sm:px-4 py-2 rounded-xl border transition-all whitespace-nowrap flex-shrink-0 ${
                 filters.inStockOnly
                   ? "bg-emerald-500/20 border-emerald-500/60 text-emerald-300 shadow-md shadow-emerald-500/10"
-                  : "bg-white/5 border-white/10 text-neutral-400 hover:border-white/20 hover:text-white"
+                  : "bg-white/5 border-white/10 text-neutral-300 hover:border-white/20 hover:text-white"
               }`}
             >
               <div
-                className={`w-2 h-2 rounded-full ${
+                className={`w-2.5 h-2.5 rounded-full ${
                   filters.inStockOnly ? "bg-emerald-400 animate-pulse" : "bg-neutral-500"
                 }`}
               />
@@ -398,16 +398,16 @@ export default function FilterBar({
       </div>
 
       {/* Results Header + Category Pills */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3 px-1">
-        <div className="text-xs sm:text-sm text-neutral-400">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 sm:gap-3 px-1">
+        <div className="text-sm sm:text-base text-neutral-300 font-medium">
           Showing <span className="text-white font-bold">{resultCount}</span> items in{" "}
-          <span className="text-orange-400 font-medium">
+          <span className="text-orange-400 font-bold">
             {filters.location || "Pettah Bazaar"}
           </span>
         </div>
 
         {/* Quick category pill scrolling */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none max-w-xl">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none max-w-xl">
           {["Clothes", "Electronics", "Spices", "Jewellery", "Bags", "Shoes"].map((cat) => (
             <button
               key={cat}
@@ -416,10 +416,10 @@ export default function FilterBar({
                   category: filters.category === cat ? "All" : cat,
                 })
               }
-              className={`flex-shrink-0 text-xs px-3 py-1 rounded-full border transition-all ${
+              className={`flex-shrink-0 text-sm font-semibold px-3.5 py-1.5 rounded-full border transition-all ${
                 filters.category === cat
-                  ? "bg-orange-500 border-orange-500 text-white font-medium shadow-md shadow-orange-500/20"
-                  : "bg-white/5 border-white/10 text-neutral-400 hover:text-white hover:border-white/20"
+                  ? "bg-orange-500 border-orange-500 text-white shadow-md shadow-orange-500/20"
+                  : "bg-white/5 border-white/10 text-neutral-300 hover:text-white hover:border-white/20"
               }`}
             >
               {cat}

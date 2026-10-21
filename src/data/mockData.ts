@@ -1,4 +1,4 @@
-import { Shop, Product } from "@/types";
+import { Shop, Product, ShippingMethod, Coupon, ProductReview, Order } from "@/types";
 
 // Pettah, Colombo GPS center: ~6.9355° N, 79.8530° E
 export const PETTAH_CENTER = { lat: 6.9355, lng: 79.853 };
@@ -1034,3 +1034,206 @@ export const searchProducts = (
 
   return results;
 };
+
+export const shippingMethods: ShippingMethod[] = [
+  {
+    id: "ship-colombo-express",
+    name: "Colombo Express Courier (Within 24 Hours)",
+    estimatedDays: "Today / Within 24h",
+    cost: 350,
+    description: "Fast dispatch direct from Pettah merchants across Colombo 1-15 & suburbs.",
+  },
+  {
+    id: "ship-islandwide-std",
+    name: "Islandwide Standard Courier (PromptX / Koombiyo)",
+    estimatedDays: "2 – 3 Business Days",
+    cost: 550,
+    description: "Doorstep delivery to any district in Sri Lanka with SMS tracking.",
+  },
+  {
+    id: "ship-stall-pickup",
+    name: "Pettah Stall Click & Collect (FREE)",
+    estimatedDays: "Ready in 2 Hours",
+    cost: 0,
+    description: "Pick up directly at the merchant's physical stall in Pettah, Colombo 11.",
+  },
+];
+
+export const initialCoupons: Coupon[] = [
+  {
+    code: "PETTAH10",
+    discountPercent: 10,
+    minSpend: 3000,
+    description: "10% off on orders over LKR 3,000",
+  },
+  {
+    code: "BAZAARFREE",
+    discountAmount: 550,
+    minSpend: 6000,
+    description: "Free shipping credit (LKR 550) on orders over LKR 6,000",
+  },
+  {
+    code: "COLOMBO500",
+    discountAmount: 500,
+    minSpend: 5000,
+    description: "LKR 500 flat discount on orders over LKR 5,000",
+  },
+  {
+    code: "FIRST15",
+    discountPercent: 15,
+    minSpend: 2500,
+    description: "15% off your order on PettahBazaar",
+  },
+];
+
+export const initialReviews: ProductReview[] = [
+  {
+    id: "rev-001",
+    productId: "prod-001",
+    userName: "Suresh Fernando",
+    userLocation: "Colombo 03",
+    rating: 5,
+    date: "2 days ago",
+    comment: "Exceptional quality leather shoes! Picked them up from Stall #47-B on Main Street. The craftsmanship is even better than high-end retail mall brands.",
+    verifiedPurchase: true,
+  },
+  {
+    id: "rev-002",
+    productId: "prod-001",
+    userName: "Nimal Wickramasinghe",
+    userLocation: "Kandy",
+    rating: 5,
+    date: "1 week ago",
+    comment: "Prompt courier delivery to Kandy within 48 hours. Fits true to size, very comfortable insole for daily office wear.",
+    verifiedPurchase: true,
+  },
+  {
+    id: "rev-003",
+    productId: "prod-002",
+    userName: "Fathima Rizwan",
+    userLocation: "Dehiwala",
+    rating: 5,
+    date: "3 days ago",
+    comment: "Genuine suede and very neat stitching. Unbeatable Pettah wholesale price compared to Majestic City or Odel.",
+    verifiedPurchase: true,
+  },
+  {
+    id: "rev-004",
+    productId: "prod-003",
+    userName: "Anushka Perera",
+    userLocation: "Nugegoda",
+    rating: 4,
+    date: "5 days ago",
+    comment: "Very stylish brogues. Look fantastic with formal trousers. Will definitely buy from Al-Ameen again.",
+    verifiedPurchase: true,
+  },
+  {
+    id: "rev-005",
+    productId: "prod-016",
+    userName: "Kasun Jayasuriya",
+    userLocation: "Galle",
+    rating: 5,
+    date: "Yesterday",
+    comment: "100% genuine breathable linen. Keeps cool in hot weather. Delivery to Galle was super smooth.",
+    verifiedPurchase: true,
+  },
+  {
+    id: "rev-006",
+    productId: "prod-009",
+    userName: "Mohomed Imran",
+    userLocation: "Wattala",
+    rating: 5,
+    date: "3 days ago",
+    comment: "Genuine Alba grade cinnamon quills. The aroma fills the entire kitchen. Export-grade Pettah quality!",
+    verifiedPurchase: true,
+  },
+  {
+    id: "rev-007",
+    productId: "prod-012",
+    userName: "Dilshan Silva",
+    userLocation: "Colombo 07",
+    rating: 5,
+    date: "4 days ago",
+    comment: "Crisp AMOLED display and very smooth touch response. Great deal for the price compared to imported brands.",
+    verifiedPurchase: true,
+  },
+];
+
+export const initialOrders: Order[] = [
+  {
+    id: "PB-79342",
+    createdAt: new Date(Date.now() - 86400000 * 2).toISOString(),
+    customer: {
+      name: "Kamal Perera",
+      phone: "+94 77 123 4567",
+      email: "kamal.p@gmail.com",
+      address: "No. 14, Galle Road",
+      city: "Colombo 03",
+      district: "Colombo",
+      postalCode: "00300",
+      notes: "Ring bell twice, leave with security if not home",
+    },
+    items: [
+      {
+        productId: "prod-001",
+        productName: "Handcrafted Heritage Leather Oxford",
+        productImage: "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=500&auto=format&fit=crop&q=80",
+        price: 8500,
+        quantity: 1,
+        selectedSize: "42",
+        selectedColor: "Cognac Brown",
+        shopId: "shop-001",
+        shopName: "Al-Ameen Footwear & Leather",
+      },
+    ],
+    subtotal: 8500,
+    discount: 850,
+    deliveryFee: 350,
+    total: 8000,
+    status: "processing",
+    paymentMethod: "card",
+    paymentStatus: "paid",
+    shippingMethod: "Colombo Express Courier (Within 24 Hours)",
+    shippingMethodId: "ship-colombo-express",
+    estimatedDelivery: "Tomorrow by 5:00 PM",
+    trackingNumber: "CLB-EXP-89211",
+  },
+  {
+    id: "PB-76190",
+    createdAt: new Date(Date.now() - 86400000 * 5).toISOString(),
+    customer: {
+      name: "Dinithi Senanayake",
+      phone: "+94 71 888 2341",
+      email: "dinithi.s@yahoo.com",
+      address: "45 Temple Road",
+      city: "Maharagama",
+      district: "Colombo",
+      postalCode: "10280",
+    },
+    items: [
+      {
+        productId: "prod-016",
+        productName: "Pure Linen Casual Button-Down Shirt",
+        productImage: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&auto=format&fit=crop&q=80",
+        price: 3200,
+        quantity: 2,
+        selectedSize: "L",
+        selectedColor: "Sky Blue",
+        shopId: "shop-003",
+        shopName: "Colombo Textiles & Sarees",
+      },
+    ],
+    subtotal: 6400,
+    discount: 500,
+    deliveryFee: 350,
+    total: 6250,
+    status: "delivered",
+    paymentMethod: "cod",
+    paymentStatus: "paid",
+    shippingMethod: "Colombo Express Courier (Within 24 Hours)",
+    shippingMethodId: "ship-colombo-express",
+    estimatedDelivery: "Delivered",
+    trackingNumber: "CLB-EXP-65104",
+  },
+];
+

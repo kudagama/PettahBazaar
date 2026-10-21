@@ -34,10 +34,10 @@ export default function ShopCard({ shop, onViewShop }: ShopCardProps) {
 
         <div className="absolute bottom-2 left-3 right-3 flex items-end justify-between">
           <div>
-            <h3 className="text-sm font-bold text-white leading-tight line-clamp-1">
+            <h3 className="text-base font-bold text-white leading-tight line-clamp-1">
               {shop.name}
             </h3>
-            <p className="text-xs text-neutral-300">{shop.area}</p>
+            <p className="text-sm text-neutral-200 font-medium">{shop.area}</p>
           </div>
           {shop.verified && (
             <BadgeCheck className="w-4 h-4 text-blue-400 flex-shrink-0" />
@@ -45,29 +45,29 @@ export default function ShopCard({ shop, onViewShop }: ShopCardProps) {
         </div>
       </div>
 
-      <div className="p-3 space-y-2">
+      <div className="p-3.5 space-y-2.5">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1">
-            <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-            <span className="text-xs font-bold text-white">{shop.rating}</span>
-            <span className="text-xs text-neutral-500">({shop.reviewCount})</span>
+          <div className="flex items-center gap-1.5">
+            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+            <span className="text-sm font-bold text-white">{shop.rating}</span>
+            <span className="text-xs text-neutral-400">({shop.reviewCount})</span>
           </div>
-          <div className="flex items-center gap-1 text-xs text-neutral-400">
-            <MapPin className="w-3 h-3 text-orange-400" />
+          <div className="flex items-center gap-1 text-sm text-neutral-300 font-medium">
+            <MapPin className="w-3.5 h-3.5 text-orange-400" />
             {shop.distance}
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 text-xs text-neutral-400">
-          <Phone className="w-3 h-3 text-green-400" />
+        <div className="flex items-center gap-1.5 text-sm text-neutral-300 font-medium">
+          <Phone className="w-3.5 h-3.5 text-green-400" />
           {shop.phone}
         </div>
 
-        <div className="flex items-center justify-between text-xs">
-          <span className="text-neutral-500">{products.length} products</span>
-          <button className="flex items-center gap-0.5 text-orange-400 hover:text-orange-300 font-medium transition-colors group/btn">
+        <div className="flex items-center justify-between text-sm pt-1 border-t border-white/5">
+          <span className="text-neutral-400 font-medium">{products.length} products</span>
+          <button className="flex items-center gap-1 text-orange-400 hover:text-orange-300 font-bold transition-colors group/btn">
             Browse
-            <ChevronRight className="w-3 h-3 group-hover/btn:translate-x-0.5 transition-transform" />
+            <ChevronRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform" />
           </button>
         </div>
       </div>

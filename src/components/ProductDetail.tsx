@@ -19,9 +19,17 @@ import {
   Layers,
   Sparkles,
   ExternalLink,
+  Heart,
+  Plus,
+  Minus,
+  Truck,
+  ShieldCheck,
+  Zap,
 } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { useCart } from "@/context/CartContext";
+import ReviewSection from "@/components/ReviewSection";
 
 interface ProductDetailProps {
   product: Product;
@@ -58,6 +66,14 @@ export default function ProductDetail({
   onShowMap,
 }: ProductDetailProps) {
   const shop = getShopById(product.shopId) as Shop;
+  const {
+    addToCart,
+    isInWishlist,
+    toggleWishlist,
+    openCart,
+    openCheckout,
+  } = useCart();
+
   const [activeImage, setActiveImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState<string | null>(
     product.sizes[0] || null
@@ -65,6 +81,9 @@ export default function ProductDetail({
   const [selectedColor, setSelectedColor] = useState<string | null>(
     product.colors[0]?.name ?? null
   );
+  const [quantity, setQuantity] = useState(1);
+
+  const isFavorite = isInWishlist(product.id);
 
   const discount = product.originalPrice
     ? Math.round(
@@ -97,7 +116,7 @@ export default function ProductDetail({
       aria-modal="true"
       aria-label={`Product details for ${product.name}`}
     >
-      <div className="glass-card bg-[#141414] border-t sm:border border-white/15 w-full max-w-4xl h-[94vh] sm:h-auto sm:max-h-[92vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl shadow-2xl animate-slide-up flex flex-col">
+      <div className="glass-card bg-[#141414] border-t sm:border border-white/15 w-full max-w-5xl h-[94vh] sm:h-auto sm:max-h-[92vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl shadow-2xl animate-slide-up flex flex-col">
         {/* Modal Top Header Bar */}
         <div className="sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4 bg-[#141414]/95 backdrop-blur-xl border-b border-white/10">
           <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm">
@@ -107,14 +126,31 @@ export default function ProductDetail({
               {product.name}
             </span>
           </div>
-          <button
-            id="close-product-detail"
-            onClick={onClose}
-            className="p-1.5 sm:p-2 rounded-xl bg-white/5 hover:bg-white/15 text-neutral-400 hover:text-white transition-colors"
-            aria-label="Close product detail"
-          >
-            <X className="w-5 h-5" />
-          </button>
+
+          <div className="flex items-center gap-2">
+            <button
+              id="wishlist-toggle-detail"
+              onClick={() => toggleWishlist(product.id)}
+              className={`p-2 rounded-xl transition-all ${
+                isFavorite
+                  ? "bg-rose-500/20 text-rose-400 border border-rose-500/40"
+                  : "bg-white/5 hover:bg-white/10 text-neutral-400 hover:text-white"
+              }`}
+              aria-label={isFavorite ? "Remove from wishlist" : "Add to wishlist"}
+              title={isFavorite ? "In your wishlist" : "Add to wishlist"}
+            >
+              <Heart className={`w-5 h-5 ${isFavorite ? "fill-rose-500 text-rose-500" : ""}`} />
+            </button>
+
+            <button
+              id="close-product-detail"
+              onClick={onClose}
+              className="p-1.5 sm:p-2 rounded-xl bg-white/5 hover:bg-white/15 text-neutral-400 hover:text-white transition-colors"
+              aria-label="Close product detail"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         {/* Modal Content Grid */}
@@ -214,7 +250,7 @@ export default function ProductDetail({
             </div>
           </div>
 
-          {/* RIGHT: Product Specs + Shop Info Badge + Prominent Actions (7 Cols) */}
+          {/* RIGHT: Product Specs + Purchase Box + Reviews (7 Cols) */}
           <div className="lg:col-span-7 p-5 sm:p-6 space-y-5 overflow-y-auto">
             {/* Title & Brand */}
             <div>
@@ -302,6 +338,86 @@ export default function ProductDetail({
               )}
             </div>
 
+            {/* Quantity Stepper */}
+            <div className="flex items-center gap-3 pt-1">
+              <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider">
+                Quantity:
+              </span>
+              <div className="flex items-center bg-white/5 border border-white/10 rounded-xl p-0.5">
+                <button
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="w-8 h-8 rounded-lg flex items-center justify-center text-neutral-300 hover:text-white hover:bg-white/10 transition-colors"
+                  aria-label="Decrease quantity"
+                >
+                  <Minus className="w-3.5 h-3.5" />
+                </button>
+                <span className="w-10 text-center text-sm font-bold text-white">
+                  {quantity}
+                </span>
+                <button
+                  onClick={() => setQuantity(Math.min(product.stockCount || 99, quantity + 1))}
+                  disabled={quantity >= (product.stockCount || 99)}
+                  className="w-8 h-8 rounded-lg flex items-center justify-center text-neutral-300 hover:text-white hover:bg-white/10 transition-colors disabled:opacity-40"
+                  aria-label="Increase quantity"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                </button>
+              </div>
+              <span className="text-xs text-neutral-300">
+                Item Total: <strong className="text-orange-400 font-bold">LKR {(product.price * quantity).toLocaleString()}</strong>
+              </span>
+            </div>
+
+            {/* PRIMARY E-COMMERCE BUTTONS: Add to Bag & Buy Now */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+              <button
+                id="add-to-cart-detail-btn"
+                onClick={() => {
+                  addToCart(product, {
+                    quantity,
+                    selectedSize: selectedSize || undefined,
+                    selectedColor: selectedColor || undefined,
+                  });
+                  openCart();
+                }}
+                disabled={!product.inStock}
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-orange-500 hover:bg-orange-600 active:scale-98 text-white font-bold text-sm shadow-lg shadow-orange-500/25 transition-all disabled:opacity-40 cursor-pointer"
+              >
+                <ShoppingBag className="w-4 h-4" />
+                <span>{product.inStock ? "Add to Shopping Bag" : "Out of Stock"}</span>
+              </button>
+
+              <button
+                id="buy-now-detail-btn"
+                onClick={() => {
+                  addToCart(product, {
+                    quantity,
+                    selectedSize: selectedSize || undefined,
+                    selectedColor: selectedColor || undefined,
+                  });
+                  onClose();
+                  openCheckout();
+                }}
+                disabled={!product.inStock}
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 active:scale-98 text-white font-bold text-sm shadow-lg shadow-rose-600/25 transition-all disabled:opacity-40 cursor-pointer"
+              >
+                <Zap className="w-4 h-4 fill-white text-white" />
+                <span>Buy Now (Instant Order)</span>
+              </button>
+            </div>
+
+            {/* Trust and Delivery Badges */}
+            <div className="flex flex-wrap items-center justify-between gap-2 p-3 bg-white/5 border border-white/5 rounded-xl text-[11px] text-neutral-300">
+              <span className="flex items-center gap-1.5">
+                <Truck className="w-3.5 h-3.5 text-orange-400" />
+                Colombo 24h & Islandwide Courier
+              </span>
+              <span className="flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                Verified Pettah Merchant Guarantee
+              </span>
+            </div>
+
             {/* SHOP INFO BADGE (Shop name, Phone number, Stall/Shop Number) */}
             <div className="p-4 bg-orange-500/10 border border-orange-500/30 rounded-2xl space-y-3">
               <div className="flex items-start justify-between gap-2">
@@ -335,9 +451,8 @@ export default function ProductDetail({
               </div>
             </div>
 
-            {/* PROMINENT ACTION BUTTONS: Call shop, WhatsApp chat, and 'Show Location on Map' */}
-            <div className="space-y-2 xs:space-y-2.5 pt-2">
-              {/* Top Row: Call shop button (tel:) and WhatsApp chat button */}
+            {/* OMNICHANNEL BUTTONS: Call shop, WhatsApp chat, and 'Show Location on Map' */}
+            <div className="space-y-2 xs:space-y-2.5 pt-1">
               <div className="grid grid-cols-1 xs:grid-cols-2 gap-2 xs:gap-2.5">
                 {/* Call shop button (tel:) */}
                 <a
@@ -346,7 +461,7 @@ export default function ProductDetail({
                   className="flex items-center justify-center gap-2 bg-neutral-800 hover:bg-neutral-700 active:scale-95 text-white font-semibold text-xs sm:text-sm py-2.5 sm:py-3 px-3 rounded-xl border border-white/15 transition-all shadow-md group"
                 >
                   <Phone className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform flex-shrink-0" />
-                  <span className="truncate">Call Shop</span>
+                  <span className="truncate">Call Shop Stall</span>
                 </a>
 
                 {/* WhatsApp chat button */}
@@ -368,15 +483,19 @@ export default function ProductDetail({
                 onClick={() => {
                   if (shop) onShowMap(shop);
                 }}
-                className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 active:scale-98 text-white font-bold text-sm sm:text-base py-3 sm:py-3.5 px-4 rounded-xl transition-all shadow-xl shadow-orange-500/30"
+                className="w-full flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 active:scale-98 text-neutral-200 font-semibold text-xs sm:text-sm py-2.5 sm:py-3 px-4 rounded-xl transition-all"
               >
-                <Navigation className="w-4 h-4 sm:w-5 sm:h-5 text-white animate-bounce" />
-                <span>Show Location on Map</span>
+                <Navigation className="w-4 h-4 text-orange-400" />
+                <span>Show Physical Stall Location on Pettah Map</span>
               </button>
             </div>
+
+            {/* Embedded Verified Customer Reviews Section */}
+            <ReviewSection productId={product.id} productName={product.name} />
           </div>
         </div>
       </div>
     </div>
   );
 }
+

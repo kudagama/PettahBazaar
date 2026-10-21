@@ -13,9 +13,16 @@ import PromoCarousel from "@/components/PromoCarousel";
 import Footer from "@/components/Footer";
 import AuthModal from "@/components/AuthModal";
 import SellerDashboard from "@/components/SellerDashboard";
+import CartDrawer from "@/components/CartDrawer";
+import WishlistDrawer from "@/components/WishlistDrawer";
+import CheckoutModal from "@/components/CheckoutModal";
+import OrderConfirmationModal from "@/components/OrderConfirmationModal";
+import OrdersModal from "@/components/OrdersModal";
+import Toast from "@/components/Toast";
 import { Product, Shop, SearchFilters } from "@/types";
 import { searchProducts } from "@/data/mockData";
 import { useMarketplace } from "@/context/MarketplaceContext";
+import { useCart } from "@/context/CartContext";
 import {
   LayoutGrid,
   List,
@@ -29,7 +36,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 18;
 
 export default function HomePage() {
   const {
@@ -41,6 +48,8 @@ export default function HomePage() {
     closeAuthModal,
     openAuthModal,
   } = useMarketplace();
+
+  const { cartCount, openCart } = useCart();
 
   const [activePortal, setActivePortal] = useState<"customer" | "seller">("customer");
   const [filters, setFilters] = useState<SearchFilters>({
@@ -157,7 +166,7 @@ export default function HomePage() {
         }}
         activePortal={activePortal}
         onSwitchPortal={(p) => setActivePortal(p)}
-        cartCount={0}
+        cartCount={cartCount}
       />
 
       {/* When in Seller Mode: Show Full Seller Portal & Shop Inventory Management */}
@@ -175,7 +184,7 @@ export default function HomePage() {
           {/* Seller Customer Preview Banner */}
           {currentUser?.role === "seller" && (
             <aside aria-label="Customer preview mode banner" className="bg-gradient-to-r from-orange-600 via-red-600 to-rose-600 text-white py-2 px-3 sm:px-6 sticky top-[68px] sm:top-[76px] z-30 shadow-lg shadow-black/40">
-              <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 text-xs">
+              <div className="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 flex items-center justify-between gap-2 text-xs">
                 <div className="flex items-center gap-2 truncate">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
                   <span className="font-bold truncate">
@@ -206,32 +215,32 @@ export default function HomePage() {
           />
 
           {/* Main content */}
-          <main className="px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-28 sm:pb-20">
+          <main className="px-3 sm:px-6 lg:px-8 xl:px-12 max-w-[1720px] mx-auto w-full pb-28 sm:pb-20">
             {/* Tab navigation */}
             <div className="flex items-center justify-between mb-5 sm:mb-6 gap-2">
-              <div className="flex items-center gap-1 bg-white/5 rounded-xl p-1 border border-white/8">
+              <div className="flex items-center gap-1.5 bg-white/5 rounded-xl p-1.5 border border-white/8">
                 <button
                   id="tab-products"
                   onClick={() => setActiveTab("products")}
-                  className={`flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 rounded-lg transition-all ${
+                  className={`flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base font-bold px-3.5 sm:px-5 py-2 rounded-lg transition-all ${
                     activeTab === "products"
                       ? "bg-orange-500 text-white shadow-lg shadow-orange-500/25"
                       : "text-neutral-400 hover:text-white"
                   }`}
                 >
-                  <LayoutGrid className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <LayoutGrid className="w-4 h-4" />
                   <span>Products ({filteredProducts.length})</span>
                 </button>
                 <button
                   id="tab-shops"
                   onClick={() => setActiveTab("shops")}
-                  className={`flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 rounded-lg transition-all ${
+                  className={`flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base font-bold px-3.5 sm:px-5 py-2 rounded-lg transition-all ${
                     activeTab === "shops"
                       ? "bg-orange-500 text-white shadow-lg shadow-orange-500/25"
                       : "text-neutral-400 hover:text-white"
                   }`}
                 >
-                  <Store className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <Store className="w-4 h-4" />
                   <span>Shops ({allShops.length})</span>
                 </button>
               </div>
@@ -313,7 +322,7 @@ export default function HomePage() {
                     <div
                       className={
                         view === "grid"
-                          ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+                          ? "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3.5 sm:gap-4.5"
                           : "flex flex-col gap-3"
                       }
                     >
@@ -350,7 +359,7 @@ export default function HomePage() {
                   <span className="text-white font-semibold">{allShops.length}</span>{" "}
                   merchants in Pettah, Colombo 11
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                   {allShops.map((shop) => (
                     <ShopCard
                       key={shop.id}
@@ -388,6 +397,14 @@ export default function HomePage() {
         onClose={closeAuthModal}
         initialRole={authModalInitialRole}
       />
+
+      {/* Real-World E-Commerce Drawers, Modals & Notifications */}
+      <CartDrawer />
+      <WishlistDrawer />
+      <CheckoutModal />
+      <OrderConfirmationModal />
+      <OrdersModal />
+      <Toast />
 
       {/* Scroll to top */}
       {showScrollTop && (
@@ -459,6 +476,22 @@ export default function HomePage() {
           >
             <Store className="w-4 h-4" />
             <span>Shops</span>
+          </button>
+
+          {/* Mobile Direct Cart / Shopping Bag Button */}
+          <button
+            onClick={openCart}
+            className="relative flex flex-col items-center gap-0.5 text-[10px] font-semibold text-neutral-400 hover:text-white transition-colors py-1 px-2 active:scale-95"
+          >
+            <div className="relative">
+              <ShoppingBag className="w-4 h-4 text-orange-400" />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-2 w-3.5 h-3.5 rounded-full bg-orange-500 text-white text-[9px] font-black flex items-center justify-center shadow-md">
+                  {cartCount}
+                </span>
+              )}
+            </div>
+            <span>Bag</span>
           </button>
 
           {/* Seller Mode / Portal Mobile Dock Quick Switch */}

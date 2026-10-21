@@ -103,7 +103,7 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
   };
 
   return (
-    <section className="relative pt-24 xs:pt-28 sm:pt-36 lg:pt-44 pb-8 sm:pb-14 px-3 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="relative pt-24 xs:pt-28 sm:pt-36 lg:pt-44 pb-8 sm:pb-14 px-3 sm:px-6 lg:px-8 xl:px-12 overflow-hidden">
       {/* Background ambient lighting effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[340px] xs:w-[500px] sm:w-[900px] h-[220px] sm:h-[360px] bg-gradient-to-b from-orange-500/20 via-red-600/10 to-transparent rounded-full blur-[70px] sm:blur-[110px]" />
@@ -119,13 +119,13 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
         />
       </div>
 
-      <div className="relative max-w-5xl mx-auto text-center">
+      <div className="relative max-w-[1600px] mx-auto text-center">
         {/* 1. NEXT-LEVEL LOCATION BADGE */}
         <div className="inline-flex items-center gap-1.5 sm:gap-2.5 bg-gradient-to-r from-orange-500/15 via-red-500/10 to-orange-500/15 border border-orange-500/30 backdrop-blur-xl rounded-full px-2.5 xs:px-3 sm:px-5 py-1 xs:py-1.5 sm:py-2 mb-3 sm:mb-6 shadow-lg shadow-orange-500/10 hover:border-orange-500/50 transition-all duration-300 group animate-fade-in-up">
           <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-orange-500/20 flex items-center justify-center border border-orange-500/40 text-orange-400 group-hover:scale-110 transition-transform flex-shrink-0">
             <Compass className="w-3 h-3 sm:w-3.5 sm:h-3.5 animate-spin" style={{ animationDuration: "12s" }} />
           </div>
-          <span className="text-[10px] sm:text-sm font-semibold tracking-wide text-neutral-200">
+          <span className="text-xs sm:text-base font-semibold tracking-wide text-neutral-200">
             <span className="hidden sm:inline">Colombo 11 <span className="text-orange-400">·</span> Main St, Cross St & Keyzer St Bazaar</span>
             <span className="sm:hidden">Colombo 11 <span className="text-orange-400">·</span> Pettah Bazaar</span>
           </span>
@@ -137,7 +137,7 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
 
         {/* 2. ULTRA-ATTRACTIVE MAIN HERO HEADING */}
         <h1
-          className="text-[28px] xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-[Sora] leading-[1.12] sm:leading-[1.08] tracking-tight mb-3 sm:mb-5 animate-fade-in-up"
+          className="text-[30px] xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-futura leading-[1.12] sm:leading-[1.08] tracking-tight mb-3 sm:mb-5 animate-fade-in-up"
           style={{ animationDelay: "80ms" }}
         >
           <span className="text-white drop-shadow-md">Find the Best </span>
@@ -155,7 +155,7 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
 
         {/* 3. CREATIVE & AESTHETIC NEXT-LEVEL BAZAAR HIGHLIGHTS BANNER */}
         <div
-          className="max-w-4xl mx-auto mb-6 sm:mb-8 animate-fade-in-up"
+          className="max-w-5xl mx-auto mb-6 sm:mb-8 animate-fade-in-up"
           style={{ animationDelay: "160ms" }}
         >
           {/* Frosted Glass Container with subtle gradient border */}
@@ -166,7 +166,7 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
 
             {/* Top lead tag */}
             <div className="flex items-center justify-center gap-2 mb-2 sm:mb-3">
-              <span className="text-[9px] xs:text-[10px] sm:text-[11px] uppercase tracking-wider sm:tracking-widest font-black text-orange-400 bg-orange-500/15 border border-orange-500/30 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">
+              <span className="text-xs sm:text-sm uppercase tracking-wider sm:tracking-widest font-black text-orange-400 bg-orange-500/15 border border-orange-500/30 px-3 sm:px-4 py-1 rounded-full">
                 ✦ Sri Lanka's Commercial Epicenter
               </span>
             </div>
@@ -299,7 +299,7 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
         {/* 5. PROMINENT LARGE SEARCH BAR WITH AUTO-SUGGESTIONS */}
         <div
           ref={containerRef}
-          className="relative max-w-2xl mx-auto mb-6 sm:mb-8 animate-fade-in-up z-30 px-1"
+          className="relative max-w-3xl mx-auto mb-6 sm:mb-8 animate-fade-in-up z-30 px-1"
           style={{ animationDelay: "240ms" }}
         >
           <form
@@ -319,7 +319,7 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
                 if (query.trim().length > 0) setShowDropdown(true);
               }}
               placeholder="Search clothes, spices, gadgets, stalls..."
-              className="w-full bg-transparent text-white placeholder-neutral-400 text-xs xs:text-sm sm:text-lg py-1.5 sm:py-2.5 px-1 focus:outline-none min-w-0"
+              className="w-full bg-transparent text-white placeholder-neutral-400 text-sm xs:text-base sm:text-xl py-2 sm:py-3 px-2 focus:outline-none min-w-0 font-medium"
               autoComplete="off"
             />
 
@@ -337,7 +337,7 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
             <button
               type="submit"
               id="hero-search-submit"
-              className="flex items-center gap-1 sm:gap-2 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold text-xs sm:text-base px-3 xs:px-4 sm:px-7 py-2 sm:py-3 rounded-lg sm:rounded-xl transition-all shadow-xl shadow-orange-500/30 flex-shrink-0 active:scale-95"
+              className="flex items-center gap-1.5 sm:gap-2.5 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-black text-sm sm:text-lg px-4 xs:px-5 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl transition-all shadow-xl shadow-orange-500/30 flex-shrink-0 active:scale-95"
             >
               <span>Search</span>
               <ArrowRight className="w-4 h-4 hidden sm:inline" />
@@ -402,25 +402,25 @@ export default function Hero({ onSearch, initialQuery = "" }: HeroProps) {
               key={label}
               className="flex flex-col items-center justify-center p-2.5 sm:p-0 rounded-xl sm:rounded-none bg-white/[0.03] sm:bg-transparent border border-white/5 sm:border-0 group"
             >
-              <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-400 mb-0.5 group-hover:scale-110 transition-transform" />
-              <span className="text-sm xs:text-base sm:text-xl font-black text-white">{value}</span>
-              <span className="text-[9px] xs:text-[10px] sm:text-xs text-neutral-400 text-center">{label}</span>
+              <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-orange-400 mb-1 group-hover:scale-110 transition-transform" />
+              <span className="text-base xs:text-lg sm:text-2xl font-black text-white">{value}</span>
+              <span className="text-xs sm:text-sm text-neutral-300 text-center font-medium">{label}</span>
             </div>
           ))}
         </div>
 
         {/* 7. QUICK TAGS */}
         <div
-          className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap animate-fade-in-up"
+          className="flex items-center justify-center gap-2 flex-wrap animate-fade-in-up"
           style={{ animationDelay: "320ms" }}
         >
-          <span className="text-[11px] sm:text-xs text-neutral-400 font-medium">Popular now:</span>
+          <span className="text-xs sm:text-sm text-neutral-300 font-semibold">Popular now:</span>
           {POPULAR_TAGS.map((term) => (
             <button
               key={term}
               id={`popular-${term.toLowerCase().replace(/\s+/g, "-")}`}
               onClick={() => handleSelectSuggestion(term)}
-              className="text-[10px] sm:text-xs bg-white/5 hover:bg-orange-500/15 border border-white/10 hover:border-orange-500/30 text-neutral-300 hover:text-orange-300 px-2 xs:px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full transition-all duration-200"
+              className="text-xs sm:text-sm font-semibold bg-white/5 hover:bg-orange-500/15 border border-white/10 hover:border-orange-500/30 text-neutral-200 hover:text-orange-300 px-3 py-1.5 rounded-full transition-all duration-200"
             >
               {term}
             </button>
