@@ -205,13 +205,16 @@ export default function HomePage() {
             </aside>
           )}
 
-          {/* Hero */}
-          <Hero onSearch={handleSearch} initialQuery={filters.query} />
-
-          {/* Interactive Highlights & Deals Carousel */}
-          <PromoCarousel
-            products={featuredProducts}
-            onProductClick={handleProductClick}
+          {/* Hero with Full-Width Carousel directly beneath heading */}
+          <Hero
+            onSearch={handleSearch}
+            initialQuery={filters.query}
+            carousel={
+              <PromoCarousel
+                products={featuredProducts}
+                onProductClick={handleProductClick}
+              />
+            }
           />
 
           {/* Main content */}

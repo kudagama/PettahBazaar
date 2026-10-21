@@ -67,7 +67,7 @@ export default function PromoCarousel({
   };
 
   return (
-    <section className="px-3 sm:px-6 lg:px-8 xl:px-12 max-w-[1720px] mx-auto w-full mb-8 sm:mb-10">
+    <div className="w-full text-left">
       {/* Title Header */}
       <div className="flex items-center justify-between mb-3.5">
         <div className="flex items-center gap-2">
@@ -115,6 +115,22 @@ export default function PromoCarousel({
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
+        {/* Left & Right Hover Arrow Controls */}
+        <button
+          onClick={prevSlide}
+          className="hidden md:flex absolute left-3.5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 lg:w-11 lg:h-11 rounded-full bg-black/60 hover:bg-orange-500 text-white border border-white/20 items-center justify-center transition-all duration-200 opacity-0 group-hover:opacity-100 shadow-xl backdrop-blur-md active:scale-90"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="hidden md:flex absolute right-3.5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 lg:w-11 lg:h-11 rounded-full bg-black/60 hover:bg-orange-500 text-white border border-white/20 items-center justify-center transition-all duration-200 opacity-0 group-hover:opacity-100 shadow-xl backdrop-blur-md active:scale-90"
+          aria-label="Next slide"
+        >
+          <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6" />
+        </button>
+
         {/* Animated Slide Track */}
         <div
           className="flex transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] w-full will-change-transform"
@@ -270,6 +286,6 @@ export default function PromoCarousel({
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }
