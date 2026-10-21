@@ -238,9 +238,9 @@ export default function Navbar({
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 shadow-[0_12px_40px_rgba(0,0,0,0.85)]">
       {/* 1. TOP LIVE TICKER UTILITY BAR */}
-      <div className="bg-[#070707] border-b border-white/5 py-1.5 px-3 sm:px-6 lg:px-8 text-xs sm:text-sm text-neutral-300">
+      <div className="bg-[#12141a] border-b border-orange-500/25 py-1.5 px-3 sm:px-6 lg:px-8 text-xs sm:text-sm text-neutral-300">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 flex items-center justify-between gap-2 sm:gap-4">
           {/* Left: Live Pettah District Status */}
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
@@ -291,8 +291,8 @@ export default function Navbar({
       <nav
         className={`transition-all duration-300 ${
           scrolled
-            ? "bg-[#0c0c0c]/95 backdrop-blur-2xl border-b border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.85)] py-2.5"
-            : "bg-black/60 backdrop-blur-xl border-b border-white/5 py-3.5"
+            ? "bg-[#181a24]/98 backdrop-blur-2xl border-b border-white/10 shadow-[0_16px_45px_rgba(0,0,0,0.95)] py-2.5"
+            : "bg-[#161822] backdrop-blur-xl border-b border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.7)] py-3 sm:py-3.5"
         }`}
       >
         <div className="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
@@ -451,7 +451,7 @@ export default function Navbar({
                   onFocus={() => query && setShowSuggestions(suggestions.length > 0)}
                   onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                   placeholder="Quick search products, stalls or streets..."
-                  className="w-full bg-white/[0.07] border border-white/15 text-white placeholder-neutral-400 rounded-2xl pl-10 pr-9 py-2 text-xs sm:text-sm transition-all duration-200 focus:outline-none focus:border-orange-500/80 focus:bg-white/[0.1] focus:ring-2 focus:ring-orange-500/20"
+                  className="w-full bg-[#0d0e14] border border-white/20 text-white placeholder-neutral-400 rounded-2xl pl-10 pr-9 py-2 text-xs sm:text-sm transition-all duration-200 focus:outline-none focus:border-orange-500/90 focus:bg-[#07080b] focus:ring-2 focus:ring-orange-500/25 font-medium"
                 />
                 {query && (
                   <button
@@ -660,7 +660,7 @@ export default function Navbar({
             />
 
             {/* Drawer Body */}
-            <div className="relative z-50 lg:hidden mt-2 px-3 sm:px-4 pt-3 pb-6 bg-[#121212] border-t border-white/10 space-y-4 animate-fade-in-up max-h-[calc(100vh-100px)] overflow-y-auto shadow-2xl">
+            <div className="relative z-50 lg:hidden mt-2 px-3 sm:px-4 pt-3 pb-6 bg-[#141622] border-t border-white/10 space-y-4 animate-fade-in-up max-h-[calc(100vh-100px)] overflow-y-auto shadow-2xl">
               {/* Mobile User Role & Portal Switching Box */}
               <div className="p-3 rounded-2xl bg-white/[0.04] border border-white/10 space-y-2.5">
                 <div className="flex items-center justify-between gap-2">
@@ -919,6 +919,9 @@ export default function Navbar({
           </>
         )}
       </nav>
+
+      {/* 3. PROMINENT HEADER BOTTOM SEPARATION ACCENT BORDER */}
+      <div className="h-[2.5px] w-full bg-gradient-to-r from-orange-500 via-amber-400 to-red-600 shadow-[0_0_12px_rgba(249,115,22,0.6)]" />
     </header>
   );
 }
